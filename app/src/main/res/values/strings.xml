@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Mareu</string>
+
+    <!-- item_meeting.xml -->
+    <string name="text_topic_hour_room">Meeting A - 15h00 - Mario</string>
+    <string name="text_participant_mail">perso@hotmail.fr</string>
+</resources>
