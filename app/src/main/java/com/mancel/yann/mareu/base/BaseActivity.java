@@ -41,23 +41,30 @@ public abstract class BaseActivity extends AppCompatActivity {
         this.configureDesign();
     }
 
-    // OTHER ***************************************************************************************
+    // TOOL BAR ************************************************************************************
 
     /**
-     * Configures a {@link android.support.v7.widget.Toolbar} in adding the Up button
+     * Configures the ToolBar field
      */
     protected void configureToolBar() {
         // If ToolBar exists
         if (this.getToolBar() != null) {
             setSupportActionBar(this.getToolBar());
         }
+    }
 
+    /**
+     * Adds the Up button of the {@link android.support.v7.widget.Toolbar}
+     */
+    protected void addUpButtonOfToolBar() {
         // Gets a Support ActionBar corresponding to this ToolBar
         ActionBar actionBar = getSupportActionBar();
 
         // Enables the Up Button
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
+
+    // MESSAGES ************************************************************************************
 
     /**
      * Shows a {@link Snackbar} with a message

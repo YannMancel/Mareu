@@ -4,4 +4,10 @@
     <!-- item_meeting.xml -->
     <string name="text_topic_hour_room">Meeting A - 15h00 - Mario</string>
     <string name="text_participant_mail">perso@hotmail.fr</string>
+
+    <!-- menu_activity_main.xml -->
+    <string name="filter">Filter</string>
+    <string name="filter_hour">Filter per date</string>
+    <string name="filter_room">Filter per room</string>
+
 </resources>

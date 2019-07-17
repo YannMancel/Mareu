@@ -1,7 +1,10 @@
 package com.mancel.yann.mareu.ui.activities;
 
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.base.BaseActivity;
@@ -21,6 +24,8 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
 
     // FIELDS --------------------------------------------------------------------------------------
 
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
     @BindView(R.id.activity_main_main_frame_layout)
     FrameLayout mMainFrameLayout;
 
@@ -35,13 +40,44 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
 
     @Override
     protected Toolbar getToolBar() {
-        return null;
+        return this.mToolbar;
     }
 
     @Override
     protected void configureDesign() {
+        // Configures the ToolBar
+        this.configureToolBar();
+
         // Configures and shows the main fragment
         this.configureAndShowMainFragment();
+    }
+
+    // ACTIVITY ************************************************************************************
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Creates a MenuInflater to add the menu xml file to this activity
+        getMenuInflater().inflate(R.menu.menu_activity_main, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Depending on the item Id
+        switch (item.getItemId()) {
+            case R.id.menu_activity_main_filter_date: {
+                Toast.makeText(this, getString(R.string.filter_hour), Toast.LENGTH_SHORT).show();
+                return true;
+            }
+            case R.id.menu_activity_main_filter_room: {
+                Toast.makeText(this, getString(R.string.filter_room), Toast.LENGTH_SHORT).show();
+                return true;
+            }
+            default: {
+                return super.onOptionsItemSelected(item);
+            }
+        }
     }
 
     // CALLBACKS OF FRAGMENT ***********************************************************************
