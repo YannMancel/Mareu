@@ -21,12 +21,11 @@ public abstract class BaseFragment extends Fragment {
     // INTERFACES ----------------------------------------------------------------------------------
 
     public interface FragmentListener {
-        void showSnackbarFromFragment(final String message);
+        void showMessageFromFragment(final String message);
     }
 
     // FIELDS --------------------------------------------------------------------------------------
 
-    protected Context mContext;
     protected FragmentListener mCallback;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
@@ -44,11 +43,8 @@ public abstract class BaseFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        // Retrieve the Context of the Fragment
-        this.mContext = context;
-
         // Configures the callback to the parent activity
-        this.configureCallbackToParentActivity();
+        this.configureCallbackToParentActivity(context);
     }
 
     @Override
@@ -66,15 +62,24 @@ public abstract class BaseFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        // To prevent memory leaks
+        this.mCallback = null;
+    }
+
     // CALLBACK OF ACTIVITY ************************************************************************
 
     /**
      * Configures {@link FragmentListener}(callbacks) to the parent activity
+     * @param context a {@link Context} which contains the {@link Fragment}
      */
-    private void configureCallbackToParentActivity() {
+    private void configureCallbackToParentActivity(Context context) {
         // Initializes the callback field
         try {
-            this.mCallback = (FragmentListener) getActivity();
+            this.mCallback = (FragmentListener) context;
         }
         catch (ClassCastException e){
             throw new ClassCastException(e.toString() + " must implement FragmentListener");

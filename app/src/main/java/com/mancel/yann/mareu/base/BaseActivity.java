@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import butterknife.ButterKnife;
 
@@ -63,7 +64,15 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param coordinatorLayout a {@link CoordinatorLayout} that contains the view
      * @param message a {@link String} that contains the message to display
      */
-    protected void showSnackbar(CoordinatorLayout coordinatorLayout, String message) {
+    protected void showMessageWithSnackbar(CoordinatorLayout coordinatorLayout, String message) {
         Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Shows a {@link Toast} with a message
+     * @param message a {@link String} that contains the message to display
+     */
+    protected void showMessageWithToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

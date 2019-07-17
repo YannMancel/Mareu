@@ -47,7 +47,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
     // CALLBACKS OF FRAGMENT ***********************************************************************
 
     @Override
-    public void showSnackbarFromFragment(String message) {
+    public void showMessageFromFragment(String message) {
 
     }
 
