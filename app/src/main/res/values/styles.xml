@@ -5,6 +5,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- To change the popup menu and app text color  -->
+        <item name="android:textColor">@android:color/white</item>
+
+        <!-- To change the background of options menu-->
+        <item name="android:itemBackground">@color/colorPrimary</item>
     </style>
 
 </resources>
