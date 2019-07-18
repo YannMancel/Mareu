@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.base.BaseActivity;
 import com.mancel.yann.mareu.base.BaseFragment;
+import com.mancel.yann.mareu.ui.fragments.CreatorOfMeetingFragment;
 import com.mancel.yann.mareu.ui.fragments.MeetingFragment;
 
 import butterknife.BindView;
@@ -30,6 +31,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
     FrameLayout mMainFrameLayout;
 
     private MeetingFragment mMeetingFragment;
+    private CreatorOfMeetingFragment mCreatorOfMeetingFragment;
 
     // METHODS -------------------------------------------------------------------------------------
 
@@ -50,6 +52,9 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
 
         // Configures and shows the main fragment
         this.configureAndShowMainFragment();
+
+        // Configures and shows the second fragment
+        this.configureAndShowSecondFragment();
     }
 
     // ACTIVITY ************************************************************************************
@@ -105,6 +110,25 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
             getSupportFragmentManager().beginTransaction()
                                        .add(R.id.activity_main_main_frame_layout, this.mMeetingFragment)
                                        .commit();
+        }
+    }
+
+    /**
+     * Configures and shows the second fragment (see {@link CreatorOfMeetingFragment}
+     */
+    private void configureAndShowSecondFragment() {
+        // Creates a Fragment [FragmentManager -> Fragment]
+        this.mCreatorOfMeetingFragment = (CreatorOfMeetingFragment) getSupportFragmentManager().findFragmentById(R.id.activity_main_second_frame_layout);
+
+        // If the fragment is not displayed and it exists
+        if (this.mCreatorOfMeetingFragment == null && findViewById(R.id.activity_main_second_frame_layout) != null) {
+            // Creates the second fragment
+            this.mCreatorOfMeetingFragment = CreatorOfMeetingFragment.newInstance();
+
+            // Adds the transaction to create the fragment [FragmentManager -> FragmentTransaction -> int]
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.activity_main_second_frame_layout, this.mCreatorOfMeetingFragment)
+                    .commit();
         }
     }
 }
