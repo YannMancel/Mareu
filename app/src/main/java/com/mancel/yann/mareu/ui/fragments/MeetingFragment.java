@@ -46,6 +46,7 @@ public class MeetingFragment extends BaseFragment {
 
     @OnClick(R.id.fragment_meeting_fab)
     public void onFABClicked() {
+        this.mCallback.onClickFAB();
     }
 
     // INSTANCES ***********************************************************************************

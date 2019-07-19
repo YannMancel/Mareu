@@ -4,7 +4,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.mancel.yann.mareu.R;
@@ -20,7 +19,7 @@ import butterknife.BindView;
  * Created by Yann MANCEL on 16/07/2019.
  * Name of the project: Mareu
  * Name of the package: com.mancel.yann.mareu.ui.activities
- * <p>
+ *
  * A {@link BaseActivity} subclass which implements {@link BaseFragment.FragmentListener}.
  */
 public class MainActivity extends BaseActivity implements BaseFragment.FragmentListener {
@@ -31,11 +30,11 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
     CoordinatorLayout mCoordinatorLayout;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.activity_main_main_frame_layout)
-    FrameLayout mMainFrameLayout;
 
     private MeetingFragment mMeetingFragment;
     private CreatorOfMeetingFragment mCreatorOfMeetingFragment;
+
+    public static final int REQUEST_CODE_SECOND_ACTIVITY = 100;
 
     // METHODS -------------------------------------------------------------------------------------
 
@@ -96,6 +95,11 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
         ShowMessage.showMessageWithSnackbar(this.mCoordinatorLayout, message);
     }
 
+    @Override
+    public void onClickFAB() {
+        this.startAnotherActivityForResult(this, SecondActivity.class, REQUEST_CODE_SECOND_ACTIVITY);
+    }
+
     // FRAGMENTS ***********************************************************************************
 
     /**
@@ -110,10 +114,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
             // Creates the main fragment
             this.mMeetingFragment = MeetingFragment.newInstance();
 
-            // Adds the transaction to create the fragment [FragmentManager -> FragmentTransaction -> int]
-            getSupportFragmentManager().beginTransaction()
-                                       .add(R.id.activity_main_main_frame_layout, this.mMeetingFragment)
-                                       .commit();
+            this.addFragment(R.id.activity_main_main_frame_layout, this.mMeetingFragment);
         }
     }
 
@@ -129,10 +130,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
             // Creates the second fragment
             this.mCreatorOfMeetingFragment = CreatorOfMeetingFragment.newInstance();
 
-            // Adds the transaction to create the fragment [FragmentManager -> FragmentTransaction -> int]
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.activity_main_second_frame_layout, this.mCreatorOfMeetingFragment)
-                    .commit();
+            this.addFragment(R.id.activity_main_second_frame_layout, this.mCreatorOfMeetingFragment);
         }
     }
 }

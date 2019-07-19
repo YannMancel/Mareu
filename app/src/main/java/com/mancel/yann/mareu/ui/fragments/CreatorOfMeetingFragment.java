@@ -7,7 +7,7 @@ import com.mancel.yann.mareu.base.BaseFragment;
  * Created by Yann MANCEL on 18/07/2019.
  * Name of the project: Mareu
  * Name of the package: com.mancel.yann.mareu.ui.fragments
- * <p>
+ *
  * A simple {@link BaseFragment} subclass.
  */
 public class CreatorOfMeetingFragment extends BaseFragment {
