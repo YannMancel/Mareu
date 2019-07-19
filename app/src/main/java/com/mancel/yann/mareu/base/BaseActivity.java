@@ -1,12 +1,9 @@
 package com.mancel.yann.mareu.base;
 
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
 
 import butterknife.ButterKnife;
 
@@ -62,24 +59,5 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         // Enables the Up Button
         actionBar.setDisplayHomeAsUpEnabled(true);
-    }
-
-    // MESSAGES ************************************************************************************
-
-    /**
-     * Shows a {@link Snackbar} with a message
-     * @param coordinatorLayout a {@link CoordinatorLayout} that contains the view
-     * @param message a {@link String} that contains the message to display
-     */
-    protected void showMessageWithSnackbar(CoordinatorLayout coordinatorLayout, String message) {
-        Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_SHORT).show();
-    }
-
-    /**
-     * Shows a {@link Toast} with a message
-     * @param message a {@link String} that contains the message to display
-     */
-    protected void showMessageWithToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

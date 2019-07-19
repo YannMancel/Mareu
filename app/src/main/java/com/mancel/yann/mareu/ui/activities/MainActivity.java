@@ -1,5 +1,6 @@
 package com.mancel.yann.mareu.ui.activities;
 
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +12,7 @@ import com.mancel.yann.mareu.base.BaseActivity;
 import com.mancel.yann.mareu.base.BaseFragment;
 import com.mancel.yann.mareu.ui.fragments.CreatorOfMeetingFragment;
 import com.mancel.yann.mareu.ui.fragments.MeetingFragment;
+import com.mancel.yann.mareu.utils.ShowMessage;
 
 import butterknife.BindView;
 
@@ -25,6 +27,8 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
 
     // FIELDS --------------------------------------------------------------------------------------
 
+    @BindView(R.id.activity_main_coordinator_layout)
+    CoordinatorLayout mCoordinatorLayout;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.activity_main_main_frame_layout)
@@ -89,7 +93,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
 
     @Override
     public void showMessageFromFragment(String message) {
-
+        ShowMessage.showMessageWithSnackbar(this.mCoordinatorLayout, message);
     }
 
     // FRAGMENTS ***********************************************************************************
