@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.base.BaseFragment;
+import com.mancel.yann.mareu.ui.adapters.MeetingAdapter;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -13,10 +14,10 @@ import butterknife.OnClick;
  * Created by Yann MANCEL on 16/07/2019.
  * Name of the project: Mareu
  * Name of the package: com.mancel.yann.mareu.ui.fragments
- * <p>
- * A simple {@link BaseFragment} subclass.
+ *
+ * A simple {@link BaseFragment} subclass which implements {@link MeetingAdapter.MeetingAdapterListener}.
  */
-public class MeetingFragment extends BaseFragment {
+public class MeetingFragment extends BaseFragment implements MeetingAdapter.MeetingAdapterListener {
 
     // FIELDS --------------------------------------------------------------------------------------
 
@@ -47,6 +48,13 @@ public class MeetingFragment extends BaseFragment {
     @OnClick(R.id.fragment_meeting_fab)
     public void onFABClicked() {
         this.mCallback.onClickFAB();
+    }
+
+    // CALLBACKS OF RECYCLER VIEW ******************************************************************
+
+    @Override
+    public void onClickDeleteButton(int position) {
+        this.mCallback.showMessageFromFragment("Position " + position);
     }
 
     // INSTANCES ***********************************************************************************
