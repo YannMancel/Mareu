@@ -2,5 +2,7 @@
 
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-
+    <dimen name="horizontal_margin">16dp</dimen>
+    <dimen name="vertical_big_margin">16dp</dimen>
+    <dimen name="vertical_margin_to_avoid_toolbar">56dp</dimen>
 </resources>

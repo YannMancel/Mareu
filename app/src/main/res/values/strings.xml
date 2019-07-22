@@ -10,4 +10,9 @@
     <string name="filter_hour">Filter per date</string>
     <string name="filter_room">Filter per room</string>
 
+    <!-- fragment_creator_of_meeting.xml -->
+    <string name="hour_of_meeting">Hour:</string>
+    <string name="room_of_meeting">Room:</string>
+    <string name="topic_of_meeting">Topic:</string>
+
 </resources>
