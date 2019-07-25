@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.mancel.yann.mareu.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,11 +36,10 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
 
     /**
      * Constructor
-     * @param meetings a {@link List} of {@link String} that fills the items of the {@link RecyclerView}
      * @param callback a {@link MeetingAdapterListener} interface for the callback
      */
-    public MeetingAdapter(List<String> meetings, MeetingAdapterListener callback) {
-        this.mMeetings = meetings;
+    public MeetingAdapter(MeetingAdapterListener callback) {
+        this.mMeetings = new ArrayList<>();
         this.mCallback = callback;
     }
 
@@ -76,7 +76,18 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
      * @param position a integer that corresponds to the i position of the {@link List}
      * @return a {@link String} at the i position of the {@link List}
      */
-    private String getMeeting(int position) {
+    private String getMeeting(final int position) {
         return this.mMeetings.get(position);
+    }
+
+    /**
+     * Updates the {@link List} of {@link String} and displays it
+     * @param newMeetings a {@link List} of {@link String} that corresponds to the new data
+     */
+    public void updateData(final List<String> newMeetings) {
+        this.mMeetings = newMeetings;
+
+        // Refreshes the RecyclerView
+        notifyDataSetChanged();
     }
 }
