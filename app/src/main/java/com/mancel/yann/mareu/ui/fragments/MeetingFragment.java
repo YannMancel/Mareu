@@ -1,6 +1,7 @@
 package com.mancel.yann.mareu.ui.fragments;
 
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.mancel.yann.mareu.R;
@@ -25,6 +26,8 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
     RecyclerView mRecyclerView;
     @BindView(R.id.fragment_meeting_fab)
     FloatingActionButton mFab;
+
+    private MeetingAdapter mMeetingAdapter;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
 
@@ -70,9 +73,14 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
     // UI ******************************************************************************************
 
     /**
-     * Configures {@link RecyclerView}
+     * Configures {@link RecyclerView} with its {@link MeetingAdapter}
      */
     private void configureRecyclerView() {
+        // Adapter
+        this.mMeetingAdapter = new MeetingAdapter(this);
 
+        // RecyclerView
+        this.mRecyclerView.setAdapter(this.mMeetingAdapter);
+        this.mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 }
