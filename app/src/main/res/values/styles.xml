@@ -7,12 +7,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme.toolBar">
-        <!-- To change the popup menu and app text color  -->
-        <item name="android:textColor">@android:color/white</item>
-
-        <!-- To change the background of options menu-->
-        <item name="android:itemBackground">@color/colorPrimary</item>
+    <!-- Base Popup theme of ToolBar. -->
+    <style name="ToolBar" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:colorBackground">@color/colorPrimary</item>
     </style>
+
 </resources>

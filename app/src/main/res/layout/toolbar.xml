@@ -10,6 +10,6 @@
     android:minHeight="?attr/actionBarSize"
     android:background="@color/colorPrimaryDark"
     app:titleTextColor="@android:color/white"
-    style="@style/AppTheme.toolBar">
+    app:popupTheme="@style/ToolBar">
 
 </android.support.v7.widget.Toolbar>
