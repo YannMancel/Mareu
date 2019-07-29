@@ -6,7 +6,12 @@ import android.support.v7.widget.RecyclerView;
 
 import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.base.BaseFragment;
+import com.mancel.yann.mareu.di.DI;
+import com.mancel.yann.mareu.model.Meeting;
+import com.mancel.yann.mareu.service.MeetingApiService;
 import com.mancel.yann.mareu.ui.adapters.MeetingAdapter;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -28,6 +33,7 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
     FloatingActionButton mFab;
 
     private MeetingAdapter mMeetingAdapter;
+    private MeetingApiService mService;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
 
@@ -42,8 +48,14 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
 
     @Override
     protected void configureDesign() {
+        // Configures the service
+        this.configureService();
+
         // Configures the RecyclerView
         this.configureRecyclerView();
+
+        // Updates the list of the RecyclerView
+        this.UpdateListOfRecyclerView();
     }
 
     // ACTIONS *************************************************************************************
@@ -70,6 +82,15 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
         return new MeetingFragment();
     }
 
+    // SERVICES ************************************************************************************
+
+    /**
+     * Configures the service
+     */
+    private void configureService() {
+        this.mService = DI.getMeetingApiService();
+    }
+
     // UI ******************************************************************************************
 
     /**
@@ -82,5 +103,15 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
         // RecyclerView
         this.mRecyclerView.setAdapter(this.mMeetingAdapter);
         this.mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+
+    // UPDATE OF ITEM IN THE RECYCLER VIEW *********************************************************
+
+    /**
+     * Updates the list of the {@link RecyclerView}
+     */
+    private void UpdateListOfRecyclerView() {
+        List<Meeting> meetings = this.mService.getMeetings();
+        this.mMeetingAdapter.updateData(meetings);
     }
 }

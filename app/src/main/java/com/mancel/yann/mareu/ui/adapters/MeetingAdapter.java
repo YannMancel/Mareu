@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mancel.yann.mareu.R;
+import com.mancel.yann.mareu.model.Meeting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
     // FIELDS --------------------------------------------------------------------------------------
 
     private MeetingAdapterListener mCallback;
-    private List<String> mMeetings;
+    private List<Meeting> mMeetings;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
 
@@ -74,17 +75,17 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
      * Returns the meeting at the i position
      *
      * @param position a integer that corresponds to the i position of the {@link List}
-     * @return a {@link String} at the i position of the {@link List}
+     * @return a {@link Meeting} at the i position of the {@link List}
      */
-    private String getMeeting(final int position) {
+    private Meeting getMeeting(final int position) {
         return this.mMeetings.get(position);
     }
 
     /**
-     * Updates the {@link List} of {@link String} and displays it
-     * @param newMeetings a {@link List} of {@link String} that corresponds to the new data
+     * Updates the {@link List} of {@link Meeting} and displays it
+     * @param newMeetings a {@link List} of {@link Meeting} that corresponds to the new data
      */
-    public void updateData(final List<String> newMeetings) {
+    public void updateData(final List<Meeting> newMeetings) {
         this.mMeetings = newMeetings;
 
         // Refreshes the RecyclerView

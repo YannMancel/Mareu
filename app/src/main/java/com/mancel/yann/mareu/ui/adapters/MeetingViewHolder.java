@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mancel.yann.mareu.R;
+import com.mancel.yann.mareu.model.Meeting;
 
 import java.lang.ref.WeakReference;
 
@@ -62,15 +63,21 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
 
     /**
      * Updates the {@link android.support.v7.widget.RecyclerView.ViewHolder}
-     * @param test a {@link String} that contains all of data to the update
+     * @param meeting a {@link Meeting} that contains all of data to the update
      * @param callback a {@link MeetingAdapter.MeetingAdapterListener} for the callback methods
      */
-    public void updateMeeting(String test, MeetingAdapter.MeetingAdapterListener callback) {
+    public void updateMeeting(Meeting meeting, MeetingAdapter.MeetingAdapterListener callback) {
         // IMAGE
         // TODO: 22/07/2019 update the ImageView
 
         // TEXT VIEW
-        // TODO: 22/07/2019 update the TextViews
+        final String topicHourRoom = meeting.getTopic() + " - " +
+                                     meeting.getHour()  + " - " +
+                                     meeting.getRoom();
+
+        this.mTopicHourRoom.setText(topicHourRoom);
+
+        this.mParticipants.setText(meeting.getMember());
 
         // LISTENER
         this.mListenerWeakReference = new WeakReference<>(callback);
