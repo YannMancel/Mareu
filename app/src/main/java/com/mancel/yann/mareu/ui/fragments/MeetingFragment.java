@@ -6,12 +6,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.base.BaseFragment;
-import com.mancel.yann.mareu.di.DI;
-import com.mancel.yann.mareu.model.Meeting;
-import com.mancel.yann.mareu.service.MeetingApiService;
+import com.mancel.yann.mareu.presenter.MeetingFragmentPresenter;
 import com.mancel.yann.mareu.ui.adapters.MeetingAdapter;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -21,9 +17,11 @@ import butterknife.OnClick;
  * Name of the project: Mareu
  * Name of the package: com.mancel.yann.mareu.ui.fragments
  *
- * A simple {@link BaseFragment} subclass which implements {@link MeetingAdapter.MeetingAdapterListener}.
+ * A simple {@link BaseFragment} subclass which implements
+ * {@link MeetingFragmentPresenter.FragmentView} and {@link MeetingAdapter.MeetingAdapterListener}.
  */
-public class MeetingFragment extends BaseFragment implements MeetingAdapter.MeetingAdapterListener {
+public class MeetingFragment extends BaseFragment implements MeetingFragmentPresenter.FragmentView,
+                                                             MeetingAdapter.MeetingAdapterListener {
 
     // FIELDS --------------------------------------------------------------------------------------
 
@@ -33,7 +31,7 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
     FloatingActionButton mFab;
 
     private MeetingAdapter mMeetingAdapter;
-    private MeetingApiService mService;
+    private MeetingFragmentPresenter mPresenter;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
 
@@ -48,21 +46,21 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
 
     @Override
     protected void configureDesign() {
-        // Configures the service
-        this.configureService();
+        // Configures the Presenter
+        this.configurePresenter();
 
         // Configures the RecyclerView
         this.configureRecyclerView();
 
         // Updates the list of the RecyclerView
-        this.UpdateListOfRecyclerView();
+        this.UpdateDataOfRecyclerView();
     }
 
-    // ACTIONS *************************************************************************************
+    // INTERFACE VIEW ******************************************************************************
 
-    @OnClick(R.id.fragment_meeting_fab)
-    public void onFABClicked() {
-        this.mCallback.onClickFAB();
+    @Override
+    public void UpdateDataOfRecyclerView() {
+        this.mMeetingAdapter.updateData(this.mPresenter.getMeetings());
     }
 
     // CALLBACKS OF RECYCLER VIEW ******************************************************************
@@ -70,6 +68,23 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
     @Override
     public void onClickDeleteButton(int position) {
         this.mCallback.showMessageFromFragment("Position " + position);
+    }
+
+    // FRAGMENT ************************************************************************************
+
+    @Override
+    public void onDetach() {
+        // To prevent memory leaks
+        this.mPresenter.onDetach();
+
+        super.onDetach();
+    }
+
+    // ACTIONS *************************************************************************************
+
+    @OnClick(R.id.fragment_meeting_fab)
+    public void onFABClicked() {
+        this.mCallback.onClickFAB();
     }
 
     // INSTANCES ***********************************************************************************
@@ -82,13 +97,13 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
         return new MeetingFragment();
     }
 
-    // SERVICES ************************************************************************************
+    // PRESENTER ***********************************************************************************
 
     /**
-     * Configures the service
+     * Configures the Presenter
      */
-    private void configureService() {
-        this.mService = DI.getMeetingApiService();
+    private void configurePresenter() {
+        this.mPresenter = new MeetingFragmentPresenter(this);
     }
 
     // UI ******************************************************************************************
@@ -103,15 +118,5 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
         // RecyclerView
         this.mRecyclerView.setAdapter(this.mMeetingAdapter);
         this.mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-    }
-
-    // UPDATE OF ITEM IN THE RECYCLER VIEW *********************************************************
-
-    /**
-     * Updates the list of the {@link RecyclerView}
-     */
-    private void UpdateListOfRecyclerView() {
-        List<Meeting> meetings = this.mService.getMeetings();
-        this.mMeetingAdapter.updateData(meetings);
     }
 }

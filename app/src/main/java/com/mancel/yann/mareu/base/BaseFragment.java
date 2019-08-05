@@ -65,10 +65,10 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onDetach() {
-        super.onDetach();
-
         // To prevent memory leaks
         this.mCallback = null;
+
+        super.onDetach();
     }
 
     // CALLBACK OF ACTIVITY ************************************************************************
