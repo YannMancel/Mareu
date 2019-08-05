@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.base.BaseFragment;
-import com.mancel.yann.mareu.presenter.MeetingFragmentPresenter;
+import com.mancel.yann.mareu.presenter.FragmentPresenter;
 import com.mancel.yann.mareu.ui.adapters.MeetingAdapter;
 
 import butterknife.BindView;
@@ -18,9 +18,9 @@ import butterknife.OnClick;
  * Name of the package: com.mancel.yann.mareu.ui.fragments
  *
  * A simple {@link BaseFragment} subclass which implements
- * {@link MeetingFragmentPresenter.FragmentView} and {@link MeetingAdapter.MeetingAdapterListener}.
+ * {@link FragmentPresenter.FragmentView} and {@link MeetingAdapter.MeetingAdapterListener}.
  */
-public class MeetingFragment extends BaseFragment implements MeetingFragmentPresenter.FragmentView,
+public class MeetingFragment extends BaseFragment implements FragmentPresenter.FragmentView,
                                                              MeetingAdapter.MeetingAdapterListener {
 
     // FIELDS --------------------------------------------------------------------------------------
@@ -31,7 +31,7 @@ public class MeetingFragment extends BaseFragment implements MeetingFragmentPres
     FloatingActionButton mFab;
 
     private MeetingAdapter mMeetingAdapter;
-    private MeetingFragmentPresenter mPresenter;
+    private FragmentPresenter mPresenter;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
 
@@ -67,7 +67,10 @@ public class MeetingFragment extends BaseFragment implements MeetingFragmentPres
 
     @Override
     public void onClickDeleteButton(int position) {
-        this.mCallback.showMessageFromFragment("Position " + position);
+        // Displays message
+        this.mCallback.showMessageFromFragment("Delete " + this.mMeetingAdapter.getMeeting(position).getTopic());
+
+        this.mPresenter.deleteMeeting(this.mMeetingAdapter.getMeeting(position));
     }
 
     // FRAGMENT ************************************************************************************
@@ -103,7 +106,7 @@ public class MeetingFragment extends BaseFragment implements MeetingFragmentPres
      * Configures the Presenter
      */
     private void configurePresenter() {
-        this.mPresenter = new MeetingFragmentPresenter(this);
+        this.mPresenter = new FragmentPresenter(this);
     }
 
     // UI ******************************************************************************************

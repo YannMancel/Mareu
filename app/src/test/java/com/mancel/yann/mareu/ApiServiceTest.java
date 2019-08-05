@@ -2,8 +2,9 @@ package com.mancel.yann.mareu;
 
 import com.mancel.yann.mareu.di.DI;
 import com.mancel.yann.mareu.model.Meeting;
-import com.mancel.yann.mareu.service.DummyMeetingGenerator;
-import com.mancel.yann.mareu.service.MeetingApiService;
+import com.mancel.yann.mareu.model.Room;
+import com.mancel.yann.mareu.service.DummyGenerator;
+import com.mancel.yann.mareu.service.ApiService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,14 +22,14 @@ import static org.junit.Assert.assertThat;
  * Name of the project: Mareu
  * Name of the package: com.mancel.yann.mareu
  *
- * Unit test on {@link MeetingApiService}
+ * Unit test on {@link ApiService}
  */
 @RunWith(JUnit4.class)
-public class MeetingApiServiceTest {
+public class ApiServiceTest {
 
     // FIELDS --------------------------------------------------------------------------------------
 
-    private MeetingApiService mService;
+    private ApiService mService;
 
     // METHODS -------------------------------------------------------------------------------------
 
@@ -38,9 +39,9 @@ public class MeetingApiServiceTest {
     }
 
     @Test
-    public void getMeetingWithSuccess() {
+    public void getMeetingsWithSuccess() {
         List<Meeting> actualMeetings = this.mService.getMeetings();
-        List<Meeting> expectedMeetings = DummyMeetingGenerator.generatorOfDummyMeetings();
+        List<Meeting> expectedMeetings = DummyGenerator.generatorOfDummyMeetings();
 
         assertThat(actualMeetings, containsInAnyOrder(expectedMeetings.toArray()));
     }
@@ -51,5 +52,13 @@ public class MeetingApiServiceTest {
         this.mService.deleteMeeting(meeting);
 
         assertFalse(this.mService.getMeetings().contains(meeting));
+    }
+
+    @Test
+    public void getRoomsWithSuccess() {
+        List<Room> actualRooms = this.mService.getRooms();
+        List<Room> expectedRooms = DummyGenerator.generatorOfDummyRooms();
+
+        assertThat(actualRooms, containsInAnyOrder(expectedRooms.toArray()));
     }
 }

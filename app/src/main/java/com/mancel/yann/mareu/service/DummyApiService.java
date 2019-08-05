@@ -1,6 +1,7 @@
 package com.mancel.yann.mareu.service;
 
 import com.mancel.yann.mareu.model.Meeting;
+import com.mancel.yann.mareu.model.Room;
 
 import java.util.List;
 
@@ -9,13 +10,14 @@ import java.util.List;
  * Name of the project: Mareu
  * Name of the package: com.mancel.yann.mareu.service
  *
- * A class which implements {@link MeetingApiService}.
+ * A class which implements {@link ApiService}.
  */
-public class DummyMeetingApiService implements MeetingApiService {
+public class DummyApiService implements ApiService {
 
     // FIELDS --------------------------------------------------------------------------------------
 
-    private List<Meeting> mMeetings = DummyMeetingGenerator.generatorOfDummyMeetings();
+    private List<Meeting> mMeetings = DummyGenerator.generatorOfDummyMeetings();
+    private List<Room> mRooms = DummyGenerator.generatorOfDummyRooms();
 
     // METHODS -------------------------------------------------------------------------------------
 
@@ -33,5 +35,13 @@ public class DummyMeetingApiService implements MeetingApiService {
     @Override
     public void deleteMeeting(Meeting meeting) {
         this.mMeetings.remove(meeting);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Room> getRooms() {
+        return this.mRooms;
     }
 }

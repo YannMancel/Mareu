@@ -1,6 +1,7 @@
 package com.mancel.yann.mareu.service;
 
 import com.mancel.yann.mareu.model.Meeting;
+import com.mancel.yann.mareu.model.Room;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Name of the project: Mareu
  * Name of the package: com.mancel.yann.mareu.service
  */
-public interface MeetingApiService {
+public interface ApiService {
 
     /**
      * Returns a {@link List} of {@link Meeting}
@@ -22,4 +23,10 @@ public interface MeetingApiService {
      * @param meeting a {@link Meeting}
      */
     void deleteMeeting(Meeting meeting);
+
+    /**
+     * Returns a {@link List} of {@link Room}
+     * @return a {@link List} of {@link Room}
+     */
+    List<Room> getRooms();
 }

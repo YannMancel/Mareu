@@ -2,8 +2,10 @@ package com.mancel.yann.mareu.presenter;
 
 import com.mancel.yann.mareu.di.DI;
 import com.mancel.yann.mareu.model.Meeting;
-import com.mancel.yann.mareu.service.MeetingApiService;
+import com.mancel.yann.mareu.model.Room;
+import com.mancel.yann.mareu.service.ApiService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,9 +13,9 @@ import java.util.List;
  * Name of the project: Mareu
  * Name of the package: com.mancel.yann.mareu.presenter
  *
- * A class which implements {@link Presenter.FragmentPresenter}.
+ * A class which implements {@link Presenter.FragmentPresenterInterface}.
  */
-public class MeetingFragmentPresenter implements Presenter.FragmentPresenter {
+public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
 
     // INTERFACES ----------------------------------------------------------------------------------
 
@@ -26,7 +28,7 @@ public class MeetingFragmentPresenter implements Presenter.FragmentPresenter {
 
     // FIELDS --------------------------------------------------------------------------------------
 
-    private MeetingApiService mService;
+    private ApiService mService;
     private FragmentView mView;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
@@ -35,8 +37,8 @@ public class MeetingFragmentPresenter implements Presenter.FragmentPresenter {
      * Constructor with an argument {@link FragmentView}
      * @param view a {@link FragmentView} interface that contains the View
      */
-    public MeetingFragmentPresenter(FragmentView view) {
-        this.mService = DI.getMeetingApiService();
+    public FragmentPresenter(FragmentView view) {
+        this.mService = DI.getApiService();
         this.mView = view;
     }
 
@@ -53,6 +55,22 @@ public class MeetingFragmentPresenter implements Presenter.FragmentPresenter {
 
         // Callback to the View
         this.mView.UpdateDataOfRecyclerView();
+    }
+
+    @Override
+    public List<Room> getRooms() {
+        return this.mService.getRooms();
+    }
+
+    @Override
+    public List<String> getRoomsName() {
+        List<String> nameOfRooms = new ArrayList<>();
+
+        for (Room room : this.mService.getRooms()) {
+            nameOfRooms.add(room.getName());
+        }
+
+        return nameOfRooms;
     }
 
     @Override

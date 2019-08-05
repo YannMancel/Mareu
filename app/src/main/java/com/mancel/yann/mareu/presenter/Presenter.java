@@ -1,6 +1,7 @@
 package com.mancel.yann.mareu.presenter;
 
 import com.mancel.yann.mareu.model.Meeting;
+import com.mancel.yann.mareu.model.Room;
 
 import java.util.List;
 
@@ -16,7 +17,8 @@ public interface Presenter {
     public interface ActivityPresenter {
     }
 
-    public interface FragmentPresenter {
+    public interface FragmentPresenterInterface {
+
         /**
          * Returns a {@link List} of {@link Meeting}
          * @return a {@link List} of {@link Meeting}
@@ -28,6 +30,18 @@ public interface Presenter {
          * @param meeting a {@link Meeting}
          */
         void deleteMeeting(Meeting meeting);
+
+        /**
+         * Returns a {@link List} of {@link Room}
+         * @return a {@link List} of {@link Room}
+         */
+        List<Room> getRooms();
+
+        /**
+         * Returns a {@link List} of {@link String}
+         * @return a {@link List} of {@link String}
+         */
+        List<String> getRoomsName();
 
         /**
          * Deletes the binding between the View and the Presenter

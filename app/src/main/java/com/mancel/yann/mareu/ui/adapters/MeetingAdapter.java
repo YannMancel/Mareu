@@ -77,7 +77,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
      * @param position a integer that corresponds to the i position of the {@link List}
      * @return a {@link Meeting} at the i position of the {@link List}
      */
-    private Meeting getMeeting(final int position) {
+    public Meeting getMeeting(final int position) {
         return this.mMeetings.get(position);
     }
 
