@@ -4,7 +4,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.base.BaseActivity;
@@ -75,11 +74,11 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
         // Depending on the item Id
         switch (item.getItemId()) {
             case R.id.menu_activity_main_filter_date: {
-                Toast.makeText(this, getString(R.string.filter_hour), Toast.LENGTH_SHORT).show();
+                this.mMeetingFragment.filterPerDate();
                 return true;
             }
             case R.id.menu_activity_main_filter_room: {
-                Toast.makeText(this, getString(R.string.filter_room), Toast.LENGTH_SHORT).show();
+                this.mMeetingFragment.filterPerRoom();
                 return true;
             }
             default: {
@@ -96,8 +95,11 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
     }
 
     @Override
-    public void onClickFAB() {
-        this.startAnotherActivityForResult(this, SecondActivity.class, REQUEST_CODE_SECOND_ACTIVITY);
+    public void onClickFromFragment() {
+        // Only one fragment is displayed
+        if (this.mCreatorOfMeetingFragment == null) {
+            this.startAnotherActivityForResult(this, SecondActivity.class, REQUEST_CODE_SECOND_ACTIVITY);
+        }
     }
 
     // FRAGMENTS ***********************************************************************************

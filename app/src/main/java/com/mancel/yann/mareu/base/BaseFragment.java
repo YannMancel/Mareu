@@ -22,7 +22,7 @@ public abstract class BaseFragment extends Fragment {
 
     public interface FragmentListener {
         void showMessageFromFragment(final String message);
-        void onClickFAB();
+        void onClickFromFragment();
     }
 
     // FIELDS --------------------------------------------------------------------------------------

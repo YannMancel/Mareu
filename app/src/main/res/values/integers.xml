@@ -10,4 +10,8 @@
     <integer name="value_1_percentage_horizontal_creator_of_meeting">30</integer>
     <integer name="value_2_percentage_horizontal_creator_of_meeting">70</integer>
 
+    <!-- dialog_filter_[...].xml -->
+    <integer name="value_1_percentage_horizontal_dialog_filter">50</integer>
+    <integer name="value_2_percentage_horizontal_dialog_filter">50</integer>
+
 </resources>

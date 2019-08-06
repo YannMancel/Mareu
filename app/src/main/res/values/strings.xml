@@ -15,4 +15,9 @@
     <string name="room_of_meeting">Room:</string>
     <string name="topic_of_meeting">Topic:</string>
 
+    <!-- dialog_filter_[...].xml -->
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="select_a_room_for_the_filter">Select a room for the filter</string>
+
 </resources>

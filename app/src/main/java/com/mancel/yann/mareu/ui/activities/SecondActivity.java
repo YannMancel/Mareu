@@ -61,7 +61,7 @@ public class SecondActivity extends BaseActivity implements BaseFragment.Fragmen
     }
 
     @Override
-    public void onClickFAB() {
+    public void onClickFromFragment() {
 
     }
 

@@ -1,6 +1,7 @@
 package com.mancel.yann.mareu.presenter;
 
 import com.mancel.yann.mareu.model.Meeting;
+import com.mancel.yann.mareu.model.Member;
 import com.mancel.yann.mareu.model.Room;
 
 import java.util.List;
@@ -42,6 +43,12 @@ public interface Presenter {
          * @return a {@link List} of {@link String}
          */
         List<String> getRoomsName();
+
+        /**
+         * Returns a {@link List} of {@link Member}
+         * @return a {@link List} of {@link Member}
+         */
+        List<Member> getMembers();
 
         /**
          * Deletes the binding between the View and the Presenter

@@ -3,11 +3,13 @@ package com.mancel.yann.mareu.ui.fragments;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.base.BaseFragment;
 import com.mancel.yann.mareu.presenter.FragmentPresenter;
 import com.mancel.yann.mareu.ui.adapters.MeetingAdapter;
+import com.mancel.yann.mareu.ui.dialogs.RoomFilterDialog;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -87,7 +89,7 @@ public class MeetingFragment extends BaseFragment implements FragmentPresenter.F
 
     @OnClick(R.id.fragment_meeting_fab)
     public void onFABClicked() {
-        this.mCallback.onClickFAB();
+        this.mCallback.onClickFromFragment();
     }
 
     // INSTANCES ***********************************************************************************
@@ -121,5 +123,33 @@ public class MeetingFragment extends BaseFragment implements FragmentPresenter.F
         // RecyclerView
         this.mRecyclerView.setAdapter(this.mMeetingAdapter);
         this.mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+
+    // FILTERS *************************************************************************************
+
+    /**
+     * Filter per date
+     */
+    public void filterPerDate() {
+
+    }
+
+    /**
+     * Filter per date
+     */
+    public void filterPerRoom() {
+        RoomFilterDialog filterDialog = new RoomFilterDialog(getContext(),
+                                                             R.style.Theme_AppCompat_DayNight,
+                                                             this.mPresenter.getRoomsName());
+
+        // Button NO: Closes dialog
+        filterDialog.getButtonNo().setOnClickListener((v) -> {filterDialog.dismiss();});
+
+        // Button Yes: Retrieves the current room into spinner and closes dialog
+        filterDialog.getButtonYes().setOnClickListener((v) -> {this.mCallback.showMessageFromFragment(filterDialog.getCurrentRoomOfSpinner());
+                                                               filterDialog.dismiss();});
+
+        // Creates and shows
+        filterDialog.show();
     }
 }

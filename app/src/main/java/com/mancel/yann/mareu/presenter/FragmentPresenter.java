@@ -2,6 +2,7 @@ package com.mancel.yann.mareu.presenter;
 
 import com.mancel.yann.mareu.di.DI;
 import com.mancel.yann.mareu.model.Meeting;
+import com.mancel.yann.mareu.model.Member;
 import com.mancel.yann.mareu.model.Room;
 import com.mancel.yann.mareu.service.ApiService;
 
@@ -71,6 +72,11 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
         }
 
         return nameOfRooms;
+    }
+
+    @Override
+    public List<Member> getMembers() {
+        return this.mService.getMembers();
     }
 
     @Override
