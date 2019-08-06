@@ -25,6 +25,12 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
          * Updates the data
          */
         void UpdateDataOfRecyclerView();
+
+        /**
+         * Configures and shows the Bottom Sheet
+         * @param meetings a {@link List} of {@link Meeting}
+         */
+        void configureAndShowBottomSheet(List<Meeting> meetings);
     }
 
     // FIELDS --------------------------------------------------------------------------------------
@@ -79,9 +85,29 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
         return this.mService.getMembers();
     }
 
+    // MEMORY LEAKS ****************************************************************************
+
     @Override
     public void onDetach() {
         // To prevent memory leaks
         this.mView = null;
+    }
+
+    // FILTERS *********************************************************************************
+
+    @Override
+    public List<Meeting> filterPerRoom(String roomName) {
+        List<Meeting> filteredMeetings = new ArrayList<>();
+
+        for (Meeting meeting : this.mService.getMeetings()) {
+            if (meeting.getRoom().equals(roomName)) {
+                filteredMeetings.add(meeting);
+            }
+        }
+
+        // Callback to the View
+        this.mView.configureAndShowBottomSheet(filteredMeetings);
+
+        return filteredMeetings;
     }
 }

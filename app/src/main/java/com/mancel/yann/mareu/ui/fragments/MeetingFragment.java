@@ -3,13 +3,16 @@ package com.mancel.yann.mareu.ui.fragments;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.base.BaseFragment;
+import com.mancel.yann.mareu.model.Meeting;
 import com.mancel.yann.mareu.presenter.FragmentPresenter;
 import com.mancel.yann.mareu.ui.adapters.MeetingAdapter;
+import com.mancel.yann.mareu.ui.dialogFragments.FilterModalFragment;
 import com.mancel.yann.mareu.ui.dialogs.RoomFilterDialog;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -63,6 +66,12 @@ public class MeetingFragment extends BaseFragment implements FragmentPresenter.F
     @Override
     public void UpdateDataOfRecyclerView() {
         this.mMeetingAdapter.updateData(this.mPresenter.getMeetings());
+    }
+
+    @Override
+    public void configureAndShowBottomSheet(List<Meeting> meetings) {
+        FilterModalFragment.newInstance(meetings)
+                           .show(getActivity().getSupportFragmentManager(), "MODAL");
     }
 
     // CALLBACKS OF RECYCLER VIEW ******************************************************************
@@ -146,7 +155,7 @@ public class MeetingFragment extends BaseFragment implements FragmentPresenter.F
         filterDialog.getButtonNo().setOnClickListener((v) -> {filterDialog.dismiss();});
 
         // Button Yes: Retrieves the current room into spinner and closes dialog
-        filterDialog.getButtonYes().setOnClickListener((v) -> {this.mCallback.showMessageFromFragment(filterDialog.getCurrentRoomOfSpinner());
+        filterDialog.getButtonYes().setOnClickListener((v) -> {this.mPresenter.filterPerRoom(filterDialog.getCurrentRoomOfSpinner());
                                                                filterDialog.dismiss();});
 
         // Creates and shows

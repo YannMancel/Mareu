@@ -1,5 +1,8 @@
 package com.mancel.yann.mareu.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Objects;
 
 /**
@@ -11,10 +14,20 @@ public class Meeting {
 
     // FIELDS --------------------------------------------------------------------------------------
 
+    @SerializedName("identifier")
+    @Expose
     private int mId;
+    @SerializedName("topic")
+    @Expose
     private String mTopic;
+    @SerializedName("hour")
+    @Expose
     private String mHour;
+    @SerializedName("room")
+    @Expose
     private String mRoom;
+    @SerializedName("member")
+    @Expose
     private String mMember;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------

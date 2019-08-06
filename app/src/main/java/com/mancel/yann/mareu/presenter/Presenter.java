@@ -50,9 +50,20 @@ public interface Presenter {
          */
         List<Member> getMembers();
 
+        // MEMORY LEAKS ****************************************************************************
+
         /**
          * Deletes the binding between the View and the Presenter
          */
         void onDetach();
+
+        // FILTERS *********************************************************************************
+
+        /**
+         * Returns a {@link List} of {@link Meeting} which is filtered by {@link Room}
+         * @param roomName a {@link String} that contains the name of the {@link Room}
+         * @return a {@link List} of {@link Meeting}
+         */
+        List<Meeting> filterPerRoom(String roomName);
     }
 }

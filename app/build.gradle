@@ -37,4 +37,7 @@ dependencies {
     // BUTTER KNIFE
     implementation 'com.jakewharton:butterknife:9.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0'
+
+    // GSON
+    implementation 'com.google.code.gson:gson:2.8.5'
 }

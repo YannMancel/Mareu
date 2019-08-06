@@ -7,7 +7,10 @@ import android.widget.Spinner;
 
 import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.base.BaseFragment;
+import com.mancel.yann.mareu.model.Meeting;
 import com.mancel.yann.mareu.presenter.FragmentPresenter;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -58,6 +61,9 @@ public class CreatorOfMeetingFragment extends BaseFragment implements FragmentPr
 
     @Override
     public void UpdateDataOfRecyclerView() {}
+
+    @Override
+    public void configureAndShowBottomSheet(List<Meeting> meetings) {}
 
     // FRAGMENT ************************************************************************************
 
