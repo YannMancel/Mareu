@@ -2,6 +2,7 @@ package com.mancel.yann.mareu;
 
 import com.mancel.yann.mareu.di.DI;
 import com.mancel.yann.mareu.model.Meeting;
+import com.mancel.yann.mareu.model.Member;
 import com.mancel.yann.mareu.model.Room;
 import com.mancel.yann.mareu.service.DummyGenerator;
 import com.mancel.yann.mareu.service.ApiService;
@@ -60,5 +61,13 @@ public class ApiServiceTest {
         List<Room> expectedRooms = DummyGenerator.generatorOfDummyRooms();
 
         assertThat(actualRooms, containsInAnyOrder(expectedRooms.toArray()));
+    }
+
+    @Test
+    public void getMembersWithSuccess() {
+        List<Member> actualMembers = this.mService.getMembers();
+        List<Member> expectedMembers = DummyGenerator.generatorOfDummyMembers();
+
+        assertThat(actualMembers, containsInAnyOrder(expectedMembers.toArray()));
     }
 }

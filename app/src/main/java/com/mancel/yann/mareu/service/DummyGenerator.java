@@ -1,6 +1,7 @@
 package com.mancel.yann.mareu.service;
 
 import com.mancel.yann.mareu.model.Meeting;
+import com.mancel.yann.mareu.model.Member;
 import com.mancel.yann.mareu.model.Room;
 
 import java.util.ArrayList;
@@ -28,6 +29,12 @@ public abstract class DummyGenerator {
             new Room(3, "Luigi")
     );
 
+    private static List<Member> dummyMembers = Arrays.asList(
+            new Member(1, "maxime", "Dupond", "maxime@lamzone.com"),
+            new Member(2, "paul", "Patru", "paul@lamzone.com"),
+            new Member(3, "amandine", "Delorme", "amandine@lamzone.com")
+    );
+
     // METHODS -------------------------------------------------------------------------------------
 
     /**
@@ -44,5 +51,13 @@ public abstract class DummyGenerator {
      */
     public static List<Room> generatorOfDummyRooms() {
         return new ArrayList<>(dummyRooms);
+    }
+
+    /**
+     * Generates the dummy members
+     * @return a {@link List} of {@link Member}
+     */
+    public static List<Member> generatorOfDummyMembers() {
+        return new ArrayList<>(dummyMembers);
     }
 }

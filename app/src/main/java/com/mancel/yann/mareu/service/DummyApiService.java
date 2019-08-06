@@ -1,6 +1,7 @@
 package com.mancel.yann.mareu.service;
 
 import com.mancel.yann.mareu.model.Meeting;
+import com.mancel.yann.mareu.model.Member;
 import com.mancel.yann.mareu.model.Room;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class DummyApiService implements ApiService {
 
     private List<Meeting> mMeetings = DummyGenerator.generatorOfDummyMeetings();
     private List<Room> mRooms = DummyGenerator.generatorOfDummyRooms();
+    private List<Member> mMembers = DummyGenerator.generatorOfDummyMembers();
 
     // METHODS -------------------------------------------------------------------------------------
 
@@ -43,5 +45,13 @@ public class DummyApiService implements ApiService {
     @Override
     public List<Room> getRooms() {
         return this.mRooms;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Member> getMembers() {
+        return this.mMembers;
     }
 }

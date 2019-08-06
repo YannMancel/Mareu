@@ -1,6 +1,7 @@
 package com.mancel.yann.mareu.service;
 
 import com.mancel.yann.mareu.model.Meeting;
+import com.mancel.yann.mareu.model.Member;
 import com.mancel.yann.mareu.model.Room;
 
 import java.util.List;
@@ -29,4 +30,10 @@ public interface ApiService {
      * @return a {@link List} of {@link Room}
      */
     List<Room> getRooms();
+
+    /**
+     * Returns a {@link List} of {@link Member}
+     * @return a {@link List} of {@link Member}
+     */
+    List<Member> getMembers();
 }
