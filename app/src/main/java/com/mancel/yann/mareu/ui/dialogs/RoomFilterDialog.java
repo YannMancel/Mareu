@@ -33,7 +33,12 @@ public class RoomFilterDialog extends Dialog {
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
 
-
+    /**
+     * Constructor
+     * @param context a {@link Context} of {@link RoomFilterDialog}
+     * @param themeResId a integer that corresponds to the used theme
+     * @param roomsName a {@link List} of {@link String}
+     */
     public RoomFilterDialog(Context context, int themeResId, List<String> roomsName) {
         super(context, themeResId);
         setContentView(R.layout.dialog_filter_room);

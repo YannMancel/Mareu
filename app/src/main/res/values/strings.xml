@@ -19,5 +19,6 @@
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="select_a_room_for_the_filter">Select a room for the filter</string>
+    <string name="select_a_minimal_hour">Select a minimal hour</string>
 
 </resources>

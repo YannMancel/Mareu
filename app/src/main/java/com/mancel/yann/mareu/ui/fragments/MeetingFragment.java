@@ -10,6 +10,7 @@ import com.mancel.yann.mareu.model.Meeting;
 import com.mancel.yann.mareu.presenter.FragmentPresenter;
 import com.mancel.yann.mareu.ui.adapters.MeetingAdapter;
 import com.mancel.yann.mareu.ui.dialogFragments.FilterModalFragment;
+import com.mancel.yann.mareu.ui.dialogs.DateFilterDialog;
 import com.mancel.yann.mareu.ui.dialogs.RoomFilterDialog;
 
 import java.util.List;
@@ -140,11 +141,22 @@ public class MeetingFragment extends BaseFragment implements FragmentPresenter.F
      * Filter per date
      */
     public void filterPerDate() {
+        DateFilterDialog filterDialog = new DateFilterDialog(getContext(),
+                                                             R.style.Theme_AppCompat_DayNight,
+                                                             this.mPresenter.getRoomsName());
 
+        // Button NO: Closes dialog
+        filterDialog.getButtonNo().setOnClickListener((v) -> {filterDialog.dismiss();});
+
+        // Button Yes: Retrieves the date range and closes dialog
+        filterDialog.getButtonYes().setOnClickListener((v) -> {filterDialog.dismiss();});
+
+        // Creates and shows
+        filterDialog.show();
     }
 
     /**
-     * Filter per date
+     * Filter per room
      */
     public void filterPerRoom() {
         RoomFilterDialog filterDialog = new RoomFilterDialog(getContext(),
@@ -154,7 +166,7 @@ public class MeetingFragment extends BaseFragment implements FragmentPresenter.F
         // Button NO: Closes dialog
         filterDialog.getButtonNo().setOnClickListener((v) -> {filterDialog.dismiss();});
 
-        // Button Yes: Retrieves the current room into spinner and closes dialog
+        // Button Yes: Retrieves the current room and closes dialog
         filterDialog.getButtonYes().setOnClickListener((v) -> {this.mPresenter.filterPerRoom(filterDialog.getCurrentRoomOfSpinner());
                                                                filterDialog.dismiss();});
 
