@@ -87,7 +87,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
         }
     }
 
-    // CALLBACKS OF FRAGMENT ***********************************************************************
+    // INTERFACE OF FRAGMENT LISTENER **************************************************************
 
     @Override
     public void showMessageFromFragment(String message) {

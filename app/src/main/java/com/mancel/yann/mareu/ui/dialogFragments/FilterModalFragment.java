@@ -68,6 +68,7 @@ public class FilterModalFragment extends BottomSheetDialogFragment {
 
     /**
      * Returns a {@link FilterModalFragment}
+     * @param meetings a {@link List} of {@link Meeting}
      * @return a {@link FilterModalFragment}
      */
     public static FilterModalFragment newInstance(List<Meeting> meetings) {

@@ -65,5 +65,13 @@ public interface Presenter {
          * @return a {@link List} of {@link Meeting}
          */
         List<Meeting> filterPerRoom(String roomName);
+
+        /**
+         * Returns a {@link List} of {@link Meeting} which is filtered by hours
+         * @param minDate a {@link String} that contains the minimal hour
+         * @param maxDate a {@link String} that contains the maximal hour
+         * @return a {@link List} of {@link Meeting}
+         */
+        List<Meeting> filterPerHours(String minDate, String maxDate);
     }
 }

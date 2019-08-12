@@ -75,6 +75,9 @@ public class MeetingFragment extends BaseFragment implements FragmentPresenter.F
                            .show(getActivity().getSupportFragmentManager(), "MODAL");
     }
 
+    @Override
+    public void updateHourOfTextView(String time) {}
+
     // CALLBACKS OF RECYCLER VIEW ******************************************************************
 
     @Override
@@ -149,7 +152,8 @@ public class MeetingFragment extends BaseFragment implements FragmentPresenter.F
         filterDialog.getButtonNo().setOnClickListener((v) -> {filterDialog.dismiss();});
 
         // Button Yes: Retrieves the date range and closes dialog
-        filterDialog.getButtonYes().setOnClickListener((v) -> {filterDialog.dismiss();});
+        filterDialog.getButtonYes().setOnClickListener((v) -> {this.mPresenter.filterPerHours("08:00", "09:30");
+                                                               filterDialog.dismiss();});
 
         // Creates and shows
         filterDialog.show();

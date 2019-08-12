@@ -1,13 +1,16 @@
 package com.mancel.yann.mareu.ui.activities;
 
+import android.app.TimePickerDialog;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
+import android.widget.TimePicker;
 
 import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.base.BaseActivity;
 import com.mancel.yann.mareu.base.BaseFragment;
 import com.mancel.yann.mareu.ui.fragments.CreatorOfMeetingFragment;
 import com.mancel.yann.mareu.utils.ShowMessage;
+import com.mancel.yann.mareu.utils.TimeTools;
 
 import butterknife.BindView;
 
@@ -15,10 +18,12 @@ import butterknife.BindView;
  * Created by Yann MANCEL on 16/07/2019.
  * Name of the project: Mareu
  * Name of the package: com.mancel.yann.mareu.ui.activities
- * <p>
- * A {@link BaseActivity} subclass which implements {@link BaseFragment.FragmentListener}.
+ *
+ * A {@link BaseActivity} subclass which implements
+ * {@link BaseFragment.FragmentListener} and {@link TimePickerDialog.OnTimeSetListener}.
  */
-public class SecondActivity extends BaseActivity implements BaseFragment.FragmentListener {
+public class SecondActivity extends BaseActivity implements BaseFragment.FragmentListener,
+                                                            TimePickerDialog.OnTimeSetListener {
 
     // FIELDS --------------------------------------------------------------------------------------
 
@@ -53,7 +58,7 @@ public class SecondActivity extends BaseActivity implements BaseFragment.Fragmen
         this.configureAndShowMainFragment();
     }
 
-    // CALLBACKS OF FRAGMENT ***********************************************************************
+    // INTERFACE OF FRAGMENT LISTENER **************************************************************
 
     @Override
     public void showMessageFromFragment(String message) {
@@ -61,8 +66,14 @@ public class SecondActivity extends BaseActivity implements BaseFragment.Fragmen
     }
 
     @Override
-    public void onClickFromFragment() {
+    public void onClickFromFragment() {}
 
+    // INTERFACE OF ON TIME SET LISTENER ***********************************************************
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        final String time = TimeTools.convertHourAndMinuteToString(hourOfDay, minute, ":");
+        this.mCreatorOfMeetingFragment.updateHourOfTextView(time);
     }
 
     // FRAGMENTS ***********************************************************************************

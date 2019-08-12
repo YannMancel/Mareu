@@ -1,12 +1,17 @@
 package com.mancel.yann.mareu.presenter;
 
+import android.util.Log;
+
 import com.mancel.yann.mareu.di.DI;
 import com.mancel.yann.mareu.model.Meeting;
 import com.mancel.yann.mareu.model.Member;
 import com.mancel.yann.mareu.model.Room;
 import com.mancel.yann.mareu.service.ApiService;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,6 +36,12 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
          * @param meetings a {@link List} of {@link Meeting}
          */
         void configureAndShowBottomSheet(List<Meeting> meetings);
+
+        /**
+         * Updates the hour in hh:mm format
+         * @param time a {@link String} that contains the hour in hh:mm format
+         */
+        void updateHourOfTextView(String time);
     }
 
     // FIELDS --------------------------------------------------------------------------------------
@@ -109,5 +120,27 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
         this.mView.configureAndShowBottomSheet(filteredMeetings);
 
         return filteredMeetings;
+    }
+
+    @Override
+    public List<Meeting> filterPerHours(String minDateInString, String maxDateInString) {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
+
+        Date minDate;
+        Date maxDate;
+
+        try {
+            minDate = dateFormat.parse(minDateInString);
+            maxDate = dateFormat.parse(maxDateInString);
+
+            Log.e("TAG", "filterPerHours: " + minDate.toString() + " " + maxDate.toString() );
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        return null;
     }
 }

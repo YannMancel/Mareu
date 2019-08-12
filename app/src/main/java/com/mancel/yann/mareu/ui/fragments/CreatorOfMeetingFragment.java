@@ -3,12 +3,15 @@ package com.mancel.yann.mareu.ui.fragments;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.base.BaseFragment;
 import com.mancel.yann.mareu.model.Meeting;
 import com.mancel.yann.mareu.presenter.FragmentPresenter;
+import com.mancel.yann.mareu.ui.dialogFragments.TimePickerFragment;
 
 import java.util.List;
 
@@ -20,7 +23,7 @@ import butterknife.OnClick;
  * Name of the project: Mareu
  * Name of the package: com.mancel.yann.mareu.ui.fragments
  *
- * A simple {@link BaseFragment} subclass which implements {@link FragmentPresenter.FragmentView}
+ * A simple {@link BaseFragment} subclass which implement {@link FragmentPresenter.FragmentView}
  */
 public class CreatorOfMeetingFragment extends BaseFragment implements FragmentPresenter.FragmentView {
 
@@ -28,8 +31,10 @@ public class CreatorOfMeetingFragment extends BaseFragment implements FragmentPr
 
     @BindView(R.id.fragment_creator_of_meeting_tiet_topic)
     TextInputEditText mTopic;
-    @BindView(R.id.fragment_creator_of_meeting_spinner_hour)
-    Spinner mHourSpinner;
+    @BindView(R.id.fragment_creator_of_meeting_tv_hour)
+    TextView mHour;
+    @BindView(R.id.fragment_creator_of_meeting_button_search_hour)
+    ImageButton mSearchHour;
     @BindView(R.id.fragment_creator_of_meeting_spinner_room)
     Spinner mRoomSpinner;
     @BindView(R.id.fragment_creator_of_meeting_fab)
@@ -65,6 +70,11 @@ public class CreatorOfMeetingFragment extends BaseFragment implements FragmentPr
     @Override
     public void configureAndShowBottomSheet(List<Meeting> meetings) {}
 
+    @Override
+    public void updateHourOfTextView(String time) {
+        this.mHour.setText(time);
+    }
+
     // FRAGMENT ************************************************************************************
 
     @Override
@@ -77,6 +87,12 @@ public class CreatorOfMeetingFragment extends BaseFragment implements FragmentPr
 
     // ACTIONS *************************************************************************************
 
+    @OnClick(R.id.fragment_creator_of_meeting_button_search_hour)
+    public void onHourButtonClicked() {
+        TimePickerFragment.newInstance()
+                .show(getActivity().getSupportFragmentManager(), "TIME PICKER");
+    }
+
     @OnClick(R.id.fragment_creator_of_meeting_fab)
     public void onFABClicked() {
     }
@@ -85,7 +101,6 @@ public class CreatorOfMeetingFragment extends BaseFragment implements FragmentPr
 
     /**
      * Returns a {@link CreatorOfMeetingFragment}
-     *
      * @return a {@link CreatorOfMeetingFragment}
      */
     public static CreatorOfMeetingFragment newInstance() {
