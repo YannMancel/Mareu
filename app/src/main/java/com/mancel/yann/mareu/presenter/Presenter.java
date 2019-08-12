@@ -33,6 +33,22 @@ public interface Presenter {
         void deleteMeeting(Meeting meeting);
 
         /**
+         * Adds a {@link Meeting} in argument
+         * @param meetingFromString a {@link String}
+         */
+        void addMeeting(String meetingFromString);
+
+        /**
+         * Creates a new {@link Meeting} and convert to {@link String}
+         * @param topic a{@link String} that contains the topic
+         * @param hour a{@link String} that contains the hour
+         * @param room a{@link String} that contains the room
+         * @param member a{@link String} that contains the members
+         * @return a {@link String} that contains the new {@link Meeting}
+         */
+        String createNewMeetingToString(String topic, String hour, String room, String member);
+
+        /**
          * Returns a {@link List} of {@link Room}
          * @return a {@link List} of {@link Room}
          */

@@ -7,32 +7,133 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- TEXT VIEW -->
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/dialog_filter_date_min_hour_spinner"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/horizontal_margin"
-        android:layout_marginEnd="@dimen/horizontal_margin"
-        android:layout_marginBottom="@dimen/vertical_big_margin"
-        android:text="@string/select_a_minimal_hour"
-        android:textSize="@dimen/text_size_dialog_filter"/>
-
-    <!-- SPINNER -->
-
-    <Spinner
-        android:id="@+id/dialog_filter_date_min_hour_spinner"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/horizontal_margin"
-        android:layout_marginEnd="@dimen/horizontal_margin" />
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- TEXT VIEW -->
+
+        <TextView
+            android:id="@+id/dialog_filter_date_tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:layout_marginBottom="@dimen/vertical_big_margin"
+            android:text="@string/select_a_range_of_hours"
+            android:textSize="@dimen/text_size_dialog_filter"/>
+
+        <!-- BLOC: MINIMAL HOUR **************************************************************** -->
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/dialog_filter_date_cl_min_hour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/dialog_filter_date_tv_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/vertical_big_margin"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:layout_marginEnd="@dimen/horizontal_margin">
+
+            <!-- TEXT VIEW -->
+
+            <TextView
+                android:id="@+id/dialog_filter_date_tv_hour_minimal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/dialog_filter_date_button_search_hour_minimal"
+                android:layout_marginStart="@dimen/horizontal_margin"
+                android:text="@string/initial_hour_of_text_view"
+                android:gravity="center_horizontal"/>
+
+            <!-- IMAGE BUTTON -->
+
+            <ImageButton
+                android:id="@+id/dialog_filter_date_button_search_hour_minimal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@null"
+                android:src="@drawable/ic_search_white_24dp"
+                android:tint="@color/colorAccent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <!-- TEXT VIEW -->
+
+        <TextView
+            android:id="@+id/dialog_filter_date_tv_title2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/dialog_filter_date_cl_min_hour"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:layout_marginTop="@dimen/vertical_big_margin"
+            android:layout_marginBottom="@dimen/vertical_big_margin"
+            android:text="@string/to"
+            android:textSize="@dimen/text_size_dialog_filter"/>
+
+        <!-- BLOC: MAXIMAL HOUR **************************************************************** -->
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/dialog_filter_date_cl_max_hour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/dialog_filter_date_tv_title2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/vertical_big_margin"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:layout_marginEnd="@dimen/horizontal_margin">
+
+            <!-- TEXT VIEW -->
+
+            <TextView
+                android:id="@+id/dialog_filter_date_tv_hour_maximal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/dialog_filter_date_button_search_hour_maximal"
+                android:layout_marginStart="@dimen/horizontal_margin"
+                android:text="@string/final_hour_of_text_view"
+                android:gravity="center_horizontal"/>
+
+            <!-- IMAGE BUTTON -->
+
+            <ImageButton
+                android:id="@+id/dialog_filter_date_button_search_hour_maximal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@null"
+                android:src="@drawable/ic_search_white_24dp"
+                android:tint="@color/colorAccent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <!-- BLOC: BUTTONS ************************************************************************* -->
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

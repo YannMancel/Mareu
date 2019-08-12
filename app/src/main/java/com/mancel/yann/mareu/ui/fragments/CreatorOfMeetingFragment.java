@@ -11,7 +11,9 @@ import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.base.BaseFragment;
 import com.mancel.yann.mareu.model.Meeting;
 import com.mancel.yann.mareu.presenter.FragmentPresenter;
+import com.mancel.yann.mareu.ui.View;
 import com.mancel.yann.mareu.ui.dialogFragments.TimePickerFragment;
+import com.mancel.yann.mareu.utils.JsonTools;
 
 import java.util.List;
 
@@ -23,9 +25,9 @@ import butterknife.OnClick;
  * Name of the project: Mareu
  * Name of the package: com.mancel.yann.mareu.ui.fragments
  *
- * A simple {@link BaseFragment} subclass which implement {@link FragmentPresenter.FragmentView}
+ * A simple {@link BaseFragment} subclass which implement {@link View.FragmentView}
  */
-public class CreatorOfMeetingFragment extends BaseFragment implements FragmentPresenter.FragmentView {
+public class CreatorOfMeetingFragment extends BaseFragment implements View.FragmentView {
 
     // FIELDS --------------------------------------------------------------------------------------
 
@@ -95,6 +97,12 @@ public class CreatorOfMeetingFragment extends BaseFragment implements FragmentPr
 
     @OnClick(R.id.fragment_creator_of_meeting_fab)
     public void onFABClicked() {
+        final String json = this.mPresenter.createNewMeetingToString(this.mTopic.getText().toString(),
+                                                                     this.mHour.getText().toString(),
+                                                                     (String) this.mRoomSpinner.getSelectedItem(),
+                                                                     "DummyParticipant");
+
+        this.mCallback.onClickFromFragment(json);
     }
 
     // INSTANCES ***********************************************************************************

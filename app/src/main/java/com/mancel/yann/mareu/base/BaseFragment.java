@@ -21,8 +21,8 @@ public abstract class BaseFragment extends Fragment {
     // INTERFACES ----------------------------------------------------------------------------------
 
     public interface FragmentListener {
-        void showMessageFromFragment(final String message);
-        void onClickFromFragment();
+        void showMessageFromFragment(String message);
+        void onClickFromFragment(String meetingFromString);
     }
 
     // FIELDS --------------------------------------------------------------------------------------

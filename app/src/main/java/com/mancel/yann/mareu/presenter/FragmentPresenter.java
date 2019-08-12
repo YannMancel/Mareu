@@ -7,6 +7,8 @@ import com.mancel.yann.mareu.model.Meeting;
 import com.mancel.yann.mareu.model.Member;
 import com.mancel.yann.mareu.model.Room;
 import com.mancel.yann.mareu.service.ApiService;
+import com.mancel.yann.mareu.ui.View;
+import com.mancel.yann.mareu.utils.JsonTools;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,39 +25,18 @@ import java.util.List;
  */
 public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
 
-    // INTERFACES ----------------------------------------------------------------------------------
-
-    public interface FragmentView {
-        /**
-         * Updates the data
-         */
-        void UpdateDataOfRecyclerView();
-
-        /**
-         * Configures and shows the Bottom Sheet
-         * @param meetings a {@link List} of {@link Meeting}
-         */
-        void configureAndShowBottomSheet(List<Meeting> meetings);
-
-        /**
-         * Updates the hour in hh:mm format
-         * @param time a {@link String} that contains the hour in hh:mm format
-         */
-        void updateHourOfTextView(String time);
-    }
-
     // FIELDS --------------------------------------------------------------------------------------
 
     private ApiService mService;
-    private FragmentView mView;
+    private View.FragmentView mView;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
 
     /**
-     * Constructor with an argument {@link FragmentView}
-     * @param view a {@link FragmentView} interface that contains the View
+     * Constructor with an argument {@link View.FragmentView}
+     * @param view a {@link View.FragmentView} interface that contains the View
      */
-    public FragmentPresenter(FragmentView view) {
+    public FragmentPresenter(View.FragmentView view) {
         this.mService = DI.getApiService();
         this.mView = view;
     }
@@ -73,6 +54,27 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
 
         // Callback to the View
         this.mView.UpdateDataOfRecyclerView();
+    }
+
+    @Override
+    public void addMeeting(String meetingFromString) {
+        Meeting meeting = JsonTools.convertJsonToJava(meetingFromString, Meeting.class);
+
+        this.mService.addMeeting(meeting);
+
+        // Callback to the View
+        this.mView.UpdateDataOfRecyclerView();
+    }
+
+    @Override
+    public String createNewMeetingToString(String topic, String hour, String room, String member) {
+        Meeting meeting = new Meeting(this.mService.getMeetings().size() + 1,
+                                       topic,
+                                       hour,
+                                       room,
+                                       member);
+
+        return JsonTools.convertJavaToJson(meeting);
     }
 
     @Override
@@ -96,7 +98,7 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
         return this.mService.getMembers();
     }
 
-    // MEMORY LEAKS ****************************************************************************
+    // MEMORY LEAKS ********************************************************************************
 
     @Override
     public void onDetach() {
@@ -104,7 +106,7 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
         this.mView = null;
     }
 
-    // FILTERS *********************************************************************************
+    // FILTERS *************************************************************************************
 
     @Override
     public List<Meeting> filterPerRoom(String roomName) {

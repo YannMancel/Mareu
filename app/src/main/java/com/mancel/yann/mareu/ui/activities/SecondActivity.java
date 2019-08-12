@@ -1,7 +1,9 @@
 package com.mancel.yann.mareu.ui.activities;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.widget.TimePicker;
 
@@ -33,6 +35,8 @@ public class SecondActivity extends BaseActivity implements BaseFragment.Fragmen
     CoordinatorLayout mCoordinatorLayout;
 
     private CreatorOfMeetingFragment mCreatorOfMeetingFragment;
+
+    public static final String BUNDLE_EXTRA_MEETING = "BUNDLE_EXTRA_MEETING";
 
     // METHODS -------------------------------------------------------------------------------------
 
@@ -66,7 +70,26 @@ public class SecondActivity extends BaseActivity implements BaseFragment.Fragmen
     }
 
     @Override
-    public void onClickFromFragment() {}
+    public void onClickFromFragment(String meetingFromString) {
+        // Creates Alert Dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // Modifies the title
+        builder.setTitle(getString(R.string.creation_of_meeting))
+               .setMessage(getString(R.string.question_for_creation_of_meeting))
+               .setPositiveButton(getString(R.string.yes),
+                                  (dialog, which) -> {Intent intent = new Intent();
+                                                      intent.putExtra(BUNDLE_EXTRA_MEETING, meetingFromString);
+
+                                                      // Good execution and closes the activity
+                                                      setResult(RESULT_OK, intent);
+                                                      finish();})
+               .setNegativeButton(getString(R.string.no),
+                                  (dialog, which) -> {finish();});
+
+        // Creates and shows the AlertDialog widget
+        builder.create().show();
+    }
 
     // INTERFACE OF ON TIME SET LISTENER ***********************************************************
 

@@ -21,6 +21,11 @@ public class TimePickerFragment extends DialogFragment {
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
 
+    /**
+     * Constructor
+     */
+    public TimePickerFragment() {}
+
     // METHODS -------------------------------------------------------------------------------------
 
     @NonNull

@@ -43,6 +43,14 @@ public class DummyApiService implements ApiService {
      * {@inheritDoc}
      */
     @Override
+    public void addMeeting(Meeting meeting) {
+        this.mMeetings.add(meeting);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<Room> getRooms() {
         return this.mRooms;
     }

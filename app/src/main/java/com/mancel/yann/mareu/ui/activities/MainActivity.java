@@ -1,5 +1,7 @@
 package com.mancel.yann.mareu.ui.activities;
 
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -87,6 +89,16 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_SECOND_ACTIVITY && resultCode == RESULT_OK) {
+            final String meetingFromString = data.getStringExtra(SecondActivity.BUNDLE_EXTRA_MEETING);
+            this.mMeetingFragment.addMeeting(meetingFromString);
+        }
+    }
+
     // INTERFACE OF FRAGMENT LISTENER **************************************************************
 
     @Override
@@ -95,7 +107,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
     }
 
     @Override
-    public void onClickFromFragment() {
+    public void onClickFromFragment(String meetingFromString) {
         // Only one fragment is displayed
         if (this.mCreatorOfMeetingFragment == null) {
             this.startAnotherActivityForResult(this, SecondActivity.class, REQUEST_CODE_SECOND_ACTIVITY);
@@ -133,6 +145,9 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
             this.mCreatorOfMeetingFragment = CreatorOfMeetingFragment.newInstance();
 
             this.addFragment(R.id.activity_main_second_frame_layout, this.mCreatorOfMeetingFragment);
+
+            // Hides the FAB
+//            this.mMeetingFragment.setVisibilityOfFAB(false);
         }
     }
 }

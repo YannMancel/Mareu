@@ -1,5 +1,6 @@
 package com.mancel.yann.mareu.ui.fragments;
 
+import android.annotation.SuppressLint;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,7 @@ import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.base.BaseFragment;
 import com.mancel.yann.mareu.model.Meeting;
 import com.mancel.yann.mareu.presenter.FragmentPresenter;
+import com.mancel.yann.mareu.ui.View;
 import com.mancel.yann.mareu.ui.adapters.MeetingAdapter;
 import com.mancel.yann.mareu.ui.dialogFragments.FilterModalFragment;
 import com.mancel.yann.mareu.ui.dialogs.DateFilterDialog;
@@ -18,15 +20,18 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 /**
  * Created by Yann MANCEL on 16/07/2019.
  * Name of the project: Mareu
  * Name of the package: com.mancel.yann.mareu.ui.fragments
  *
  * A simple {@link BaseFragment} subclass which implements
- * {@link FragmentPresenter.FragmentView} and {@link MeetingAdapter.MeetingAdapterListener}.
+ * {@link View.FragmentView} and {@link MeetingAdapter.MeetingAdapterListener}.
  */
-public class MeetingFragment extends BaseFragment implements FragmentPresenter.FragmentView,
+public class MeetingFragment extends BaseFragment implements View.FragmentView,
                                                              MeetingAdapter.MeetingAdapterListener {
 
     // FIELDS --------------------------------------------------------------------------------------
@@ -102,7 +107,7 @@ public class MeetingFragment extends BaseFragment implements FragmentPresenter.F
 
     @OnClick(R.id.fragment_meeting_fab)
     public void onFABClicked() {
-        this.mCallback.onClickFromFragment();
+        this.mCallback.onClickFromFragment(null);
     }
 
     // INSTANCES ***********************************************************************************
@@ -145,8 +150,7 @@ public class MeetingFragment extends BaseFragment implements FragmentPresenter.F
      */
     public void filterPerDate() {
         DateFilterDialog filterDialog = new DateFilterDialog(getContext(),
-                                                             R.style.Theme_AppCompat_DayNight,
-                                                             this.mPresenter.getRoomsName());
+                                                             R.style.Theme_AppCompat_DayNight);
 
         // Button NO: Closes dialog
         filterDialog.getButtonNo().setOnClickListener((v) -> {filterDialog.dismiss();});
@@ -176,5 +180,23 @@ public class MeetingFragment extends BaseFragment implements FragmentPresenter.F
 
         // Creates and shows
         filterDialog.show();
+    }
+
+    // NEW MEETINGS ********************************************************************************
+
+    /**
+     * Adds a new {@link Meeting}
+     * @param meetingFromString a {@link String} that contains the {@link Meeting}
+     */
+    public void addMeeting(String meetingFromString) {
+        this.mPresenter.addMeeting(meetingFromString);
+    }
+
+    // FLOATING ACTION BUTTON **********************************************************************
+
+    @SuppressLint("RestrictedApi")
+    public void setVisibilityOfFAB(boolean isVisible) {
+        this.mFab.setVisibility(isVisible ? VISIBLE :
+                                            GONE);
     }
 }

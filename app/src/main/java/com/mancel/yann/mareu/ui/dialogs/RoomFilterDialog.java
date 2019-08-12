@@ -17,6 +17,8 @@ import butterknife.ButterKnife;
  * Created by Yann MANCEL on 06/08/2019.
  * Name of the project: Mareu
  * Name of the package: com.mancel.yann.mareu.ui.dialogs
+ *
+ * A simple {@link Dialog} subclass
  */
 public class RoomFilterDialog extends Dialog {
 

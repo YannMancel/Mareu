@@ -41,6 +41,9 @@ public class FilterModalFragment extends BottomSheetDialogFragment {
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
 
+    /**
+     * Constructor
+     */
     public FilterModalFragment() {}
 
     // METHODS -------------------------------------------------------------------------------------

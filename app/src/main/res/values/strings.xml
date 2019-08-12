@@ -19,7 +19,13 @@
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="select_a_room_for_the_filter">Select a room for the filter</string>
-    <string name="select_a_minimal_hour">Select a minimal hour</string>
+    <string name="select_a_range_of_hours">Select a range of hours</string>
     <string name="initial_hour_of_text_view">08:00</string>
+    <string name="final_hour_of_text_view">20:00</string>
+    <string name="to">To</string>
+
+    <!-- SecondActivity.java -->
+    <string name="creation_of_meeting">Creation of meeting</string>
+    <string name="question_for_creation_of_meeting">Are you sure to create this meeting?</string>
 
 </resources>

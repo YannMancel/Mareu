@@ -26,6 +26,12 @@ public interface ApiService {
     void deleteMeeting(Meeting meeting);
 
     /**
+     * Adds the {@link Meeting} in argument
+     * @param meeting a {@link Meeting}
+     */
+    void addMeeting(Meeting meeting);
+
+    /**
      * Returns a {@link List} of {@link Room}
      * @return a {@link List} of {@link Room}
      */
