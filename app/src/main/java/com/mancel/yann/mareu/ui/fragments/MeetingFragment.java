@@ -194,9 +194,15 @@ public class MeetingFragment extends BaseFragment implements View.FragmentView,
 
     // FLOATING ACTION BUTTON **********************************************************************
 
-    @SuppressLint("RestrictedApi")
+    /**
+     * Sets the visibility of {@link FloatingActionButton} thanks to the boolean in argument
+     * @param isVisible a boolean
+     */
     public void setVisibilityOfFAB(boolean isVisible) {
-        this.mFab.setVisibility(isVisible ? VISIBLE :
-                                            GONE);
+        if (isVisible) {
+            this.mFab.show();
+        } else {
+            this.mFab.hide();
+        }
     }
 }

@@ -99,6 +99,16 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Hides the FAB into Fragment if there are 2 fragments displayed
+        if (this.mCreatorOfMeetingFragment != null) {
+            this.mMeetingFragment.setVisibilityOfFAB(false);
+        }
+    }
+
     // INTERFACE OF FRAGMENT LISTENER **************************************************************
 
     @Override
@@ -145,9 +155,6 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
             this.mCreatorOfMeetingFragment = CreatorOfMeetingFragment.newInstance();
 
             this.addFragment(R.id.activity_main_second_frame_layout, this.mCreatorOfMeetingFragment);
-
-            // Hides the FAB
-//            this.mMeetingFragment.setVisibilityOfFAB(false);
         }
     }
 }
