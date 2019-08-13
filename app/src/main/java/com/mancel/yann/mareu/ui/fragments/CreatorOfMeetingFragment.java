@@ -13,7 +13,6 @@ import com.mancel.yann.mareu.model.Meeting;
 import com.mancel.yann.mareu.presenter.FragmentPresenter;
 import com.mancel.yann.mareu.ui.View;
 import com.mancel.yann.mareu.ui.dialogFragments.TimePickerFragment;
-import com.mancel.yann.mareu.utils.JsonTools;
 
 import java.util.List;
 

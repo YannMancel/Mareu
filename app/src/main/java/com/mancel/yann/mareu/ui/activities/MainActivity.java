@@ -3,6 +3,7 @@ package com.mancel.yann.mareu.ui.activities;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -104,9 +105,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
         super.onResume();
 
         // Hides the FAB into Fragment if there are 2 fragments displayed
-        if (this.mCreatorOfMeetingFragment != null) {
-            this.mMeetingFragment.setVisibilityOfFAB(false);
-        }
+        this.mMeetingFragment.setVisibilityOfFAB(this.mCreatorOfMeetingFragment == null);
     }
 
     // INTERFACE OF FRAGMENT LISTENER **************************************************************
@@ -121,6 +120,21 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
         // Only one fragment is displayed
         if (this.mCreatorOfMeetingFragment == null) {
             this.startAnotherActivityForResult(this, SecondActivity.class, REQUEST_CODE_SECOND_ACTIVITY);
+        }
+        else {
+            // Creates Alert Dialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            // Modifies the title
+            builder.setTitle(getString(R.string.creation_of_meeting))
+                    .setMessage(getString(R.string.question_for_creation_of_meeting))
+                    .setPositiveButton(getString(R.string.yes),
+                                       (dialog, which) -> {this.mMeetingFragment.addMeeting(meetingFromString);})
+                    .setNegativeButton(getString(R.string.no),
+                                       (dialog, which) -> {});
+
+            // Creates and shows the AlertDialog widget
+            builder.create().show();
         }
     }
 
