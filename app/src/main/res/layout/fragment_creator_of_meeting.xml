@@ -86,7 +86,8 @@
             app:layout_constraintEnd_toStartOf="@id/fragment_creator_of_meeting_button_search_hour"
             app:layout_constraintHorizontal_weight="@integer/value_2_percentage_horizontal_creator_of_meeting"
             android:layout_marginStart="@dimen/horizontal_margin"
-            android:text="@string/initial_hour_of_text_view"/>
+            android:text="@string/initial_hour_of_text_view"
+            android:gravity="center_horizontal"/>
 
         <!-- IMAGE BUTTON -->
 
@@ -139,7 +140,9 @@
             app:layout_constraintStart_toEndOf="@id/fragment_creator_of_meeting_tv_room"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="@integer/value_2_percentage_horizontal_creator_of_meeting"
-            android:layout_marginStart="@dimen/horizontal_margin" />
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:textAlignment="center"
+            android:backgroundTint="@color/colorAccent" />
 
     </android.support.constraint.ConstraintLayout>
 

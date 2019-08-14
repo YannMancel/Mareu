@@ -1,5 +1,6 @@
 package com.mancel.yann.mareu.ui.activities;
 
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -7,13 +8,16 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TimePicker;
 
 import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.base.BaseActivity;
 import com.mancel.yann.mareu.base.BaseFragment;
+import com.mancel.yann.mareu.ui.dialogFragments.FilterFragmentListener;
 import com.mancel.yann.mareu.ui.fragments.CreatorOfMeetingFragment;
 import com.mancel.yann.mareu.ui.fragments.MeetingFragment;
 import com.mancel.yann.mareu.utils.ShowMessage;
+import com.mancel.yann.mareu.utils.TimeTools;
 
 import butterknife.BindView;
 
@@ -22,9 +26,12 @@ import butterknife.BindView;
  * Name of the project: Mareu
  * Name of the package: com.mancel.yann.mareu.ui.activities
  *
- * A {@link BaseActivity} subclass which implements {@link BaseFragment.FragmentListener}.
+ * A {@link BaseActivity} subclass which implements {@link BaseFragment.FragmentListener}
+ * {@link FilterFragmentListener} and {@link TimePickerDialog.OnTimeSetListener}.
  */
-public class MainActivity extends BaseActivity implements BaseFragment.FragmentListener {
+public class MainActivity extends BaseActivity implements BaseFragment.FragmentListener,
+                                                          FilterFragmentListener,
+                                                          TimePickerDialog.OnTimeSetListener {
 
     // FIELDS --------------------------------------------------------------------------------------
 
@@ -77,11 +84,11 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
         // Depending on the item Id
         switch (item.getItemId()) {
             case R.id.menu_activity_main_filter_date: {
-                this.mMeetingFragment.filterPerDate();
+                this.mMeetingFragment.startHourFilterDialogFragment();
                 return true;
             }
             case R.id.menu_activity_main_filter_room: {
-                this.mMeetingFragment.filterPerRoom();
+                this.mMeetingFragment.startRoomFilterDialogFragment();
                 return true;
             }
             default: {
@@ -136,6 +143,26 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
             // Creates and shows the AlertDialog widget
             builder.create().show();
         }
+    }
+
+    // INTERFACE OF FILTER FRAGMENT LISTENER *******************************************************
+
+    @Override
+    public void selectRoomForFilter(String roomFilter) {
+        this.mMeetingFragment.filterPerRoom(roomFilter);
+    }
+
+    @Override
+    public void selectHoursForFilter(String minDate, String maxDate) {
+        this.mMeetingFragment.filterPerHours(minDate, maxDate);
+    }
+
+    // INTERFACE OF ON TIME SET LISTENER ***********************************************************
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        final String time = TimeTools.convertHourAndMinuteToString(hourOfDay, minute, ":");
+        this.mCreatorOfMeetingFragment.updateHourOfTextView(time);
     }
 
     // FRAGMENTS ***********************************************************************************

@@ -7,7 +7,7 @@
 
     <!-- menu_activity_main.xml -->
     <string name="filter">Filter</string>
-    <string name="filter_hour">Filter per date</string>
+    <string name="filter_hour">Filter per hour</string>
     <string name="filter_room">Filter per room</string>
 
     <!-- fragment_creator_of_meeting.xml -->

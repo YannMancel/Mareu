@@ -15,28 +15,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- TEXT VIEW -->
-
-        <TextView
-            android:id="@+id/dialog_filter_date_tv_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="@dimen/horizontal_margin"
-            android:layout_marginEnd="@dimen/horizontal_margin"
-            android:layout_marginBottom="@dimen/vertical_big_margin"
-            android:text="@string/select_a_range_of_hours"
-            android:textSize="@dimen/text_size_dialog_filter"/>
-
         <!-- BLOC: MINIMAL HOUR **************************************************************** -->
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/dialog_filter_date_cl_min_hour"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/dialog_filter_date_tv_title"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="@dimen/vertical_big_margin"
@@ -86,7 +71,8 @@
             android:layout_marginTop="@dimen/vertical_big_margin"
             android:layout_marginBottom="@dimen/vertical_big_margin"
             android:text="@string/to"
-            android:textSize="@dimen/text_size_dialog_filter"/>
+            android:textSize="@dimen/text_size_dialog_filter"
+            android:gravity="center_horizontal"/>
 
         <!-- BLOC: MAXIMAL HOUR **************************************************************** -->
 
@@ -130,48 +116,6 @@
                 android:tint="@color/colorAccent" />
 
         </android.support.constraint.ConstraintLayout>
-
-    </android.support.constraint.ConstraintLayout>
-
-    <!-- BLOC: BUTTONS ************************************************************************* -->
-
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/horizontal_margin"
-        android:layout_marginEnd="@dimen/horizontal_margin"
-        android:layout_marginBottom="@dimen/vertical_big_margin">
-
-        <!-- BUTTON NO -->
-
-        <Button
-            android:id="@+id/dialog_filter_date_button_no"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/dialog_filter_date_button_yes"
-            app:layout_constraintHorizontal_weight="@integer/value_1_percentage_horizontal_dialog_filter"
-            android:layout_marginEnd="@dimen/horizontal_little_margin"
-            android:background="@color/colorAccent"
-            android:text="@string/no" />
-
-        <!-- BUTTON YES -->
-
-        <Button
-            android:id="@+id/dialog_filter_date_button_yes"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/dialog_filter_date_button_no"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="@integer/value_2_percentage_horizontal_dialog_filter"
-            android:layout_marginStart="@dimen/horizontal_little_margin"
-            android:background="@color/colorAccent"
-            android:text="@string/yes" />
 
     </android.support.constraint.ConstraintLayout>
 

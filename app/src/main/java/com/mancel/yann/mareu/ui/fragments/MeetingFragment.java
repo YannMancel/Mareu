@@ -1,6 +1,5 @@
 package com.mancel.yann.mareu.ui.fragments;
 
-import android.annotation.SuppressLint;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,16 +11,13 @@ import com.mancel.yann.mareu.presenter.FragmentPresenter;
 import com.mancel.yann.mareu.ui.View;
 import com.mancel.yann.mareu.ui.adapters.MeetingAdapter;
 import com.mancel.yann.mareu.ui.dialogFragments.FilterModalFragment;
-import com.mancel.yann.mareu.ui.dialogs.DateFilterDialog;
-import com.mancel.yann.mareu.ui.dialogs.RoomFilterDialog;
+import com.mancel.yann.mareu.ui.dialogFragments.HoursFilterFragment;
+import com.mancel.yann.mareu.ui.dialogFragments.RoomFilterFragment;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 
 /**
  * Created by Yann MANCEL on 16/07/2019.
@@ -146,40 +142,36 @@ public class MeetingFragment extends BaseFragment implements View.FragmentView,
     // FILTERS *************************************************************************************
 
     /**
-     * Filter per date
+     * Starts the {@link HoursFilterFragment}
      */
-    public void filterPerDate() {
-        DateFilterDialog filterDialog = new DateFilterDialog(getContext(),
-                                                             R.style.Theme_AppCompat_DayNight);
+    public void startHourFilterDialogFragment() {
+        HoursFilterFragment.newInstance()
+                           .show(getActivity().getSupportFragmentManager(), "HOURS FILTER FRAGMENT");
+    }
 
-        // Button NO: Closes dialog
-        filterDialog.getButtonNo().setOnClickListener((v) -> {filterDialog.dismiss();});
+    /**
+     * Filter per hours
+     * @param minDate a {@link String} that contains the minimal hour
+     * @param maxDate a {@link String} that contains the maximal hour
+     */
+    public void filterPerHours(String minDate, String maxDate) {
+        this.mPresenter.filterPerHours(minDate, maxDate);
+    }
 
-        // Button Yes: Retrieves the date range and closes dialog
-        filterDialog.getButtonYes().setOnClickListener((v) -> {this.mPresenter.filterPerHours("08:00", "09:30");
-                                                               filterDialog.dismiss();});
-
-        // Creates and shows
-        filterDialog.show();
+    /**
+     * Starts the {@link RoomFilterFragment}
+     */
+    public void startRoomFilterDialogFragment() {
+        RoomFilterFragment.newInstance(this.mPresenter.getRoomsName())
+                          .show(getActivity().getSupportFragmentManager(), "ROOM FILTER FRAGMENT");
     }
 
     /**
      * Filter per room
+     * @param roomName a {@link String} tht corresponds to the room filter
      */
-    public void filterPerRoom() {
-        RoomFilterDialog filterDialog = new RoomFilterDialog(getContext(),
-                                                             R.style.Theme_AppCompat_DayNight,
-                                                             this.mPresenter.getRoomsName());
-
-        // Button NO: Closes dialog
-        filterDialog.getButtonNo().setOnClickListener((v) -> {filterDialog.dismiss();});
-
-        // Button Yes: Retrieves the current room and closes dialog
-        filterDialog.getButtonYes().setOnClickListener((v) -> {this.mPresenter.filterPerRoom(filterDialog.getCurrentRoomOfSpinner());
-                                                               filterDialog.dismiss();});
-
-        // Creates and shows
-        filterDialog.show();
+    public void filterPerRoom(String roomName) {
+        this.mPresenter.filterPerRoom(roomName);
     }
 
     // NEW MEETINGS ********************************************************************************

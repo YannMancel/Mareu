@@ -38,10 +38,6 @@ public class DateFilterDialog extends Dialog implements TimePickerDialog.OnTimeS
     TextView mMaxHour;
     @BindView(R.id.dialog_filter_date_button_search_hour_maximal)
     ImageButton mButtonMaxHour;
-    @BindView(R.id.dialog_filter_date_button_no)
-    Button mButtonNo;
-    @BindView(R.id.dialog_filter_date_button_yes)
-    Button mButtonYes;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
 
@@ -59,13 +55,6 @@ public class DateFilterDialog extends Dialog implements TimePickerDialog.OnTimeS
     }
 
     // METHODS -------------------------------------------------------------------------------------
-
-    public Button getButtonNo() {
-        return this.mButtonNo;
-    }
-    public Button getButtonYes() {
-        return this.mButtonYes;
-    }
 
     // ACTIONS *************************************************************************************
 

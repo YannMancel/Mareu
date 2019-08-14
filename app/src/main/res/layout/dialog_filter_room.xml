@@ -5,21 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <!-- TEXT VIEW -->
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/dialog_filter_room_spinner"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/horizontal_margin"
-        android:layout_marginEnd="@dimen/horizontal_margin"
-        android:layout_marginBottom="@dimen/vertical_big_margin"
-        android:text="@string/select_a_room_for_the_filter"
-        android:textSize="@dimen/text_size_dialog_filter"/>
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/horizontal_margin">
 
     <!-- SPINNER -->
 
@@ -31,47 +18,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/horizontal_margin"
-        android:layout_marginEnd="@dimen/horizontal_margin" />
-
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/horizontal_margin"
-        android:layout_marginEnd="@dimen/horizontal_margin"
-        android:layout_marginBottom="@dimen/vertical_big_margin">
-
-        <!-- BUTTON NO -->
-
-        <Button
-            android:id="@+id/dialog_filter_room_button_no"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/dialog_filter_room_button_yes"
-            app:layout_constraintHorizontal_weight="@integer/value_1_percentage_horizontal_dialog_filter"
-            android:layout_marginEnd="@dimen/horizontal_little_margin"
-            android:background="@color/colorAccent"
-            android:text="@string/no" />
-
-        <!-- BUTTON YES -->
-
-        <Button
-            android:id="@+id/dialog_filter_room_button_yes"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/dialog_filter_room_button_no"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="@integer/value_2_percentage_horizontal_dialog_filter"
-            android:layout_marginStart="@dimen/horizontal_little_margin"
-            android:background="@color/colorAccent"
-            android:text="@string/yes" />
-
-    </android.support.constraint.ConstraintLayout>
+        android:textAlignment="center"
+        android:backgroundTint="@color/colorAccent"/>
 
 </android.support.constraint.ConstraintLayout>
