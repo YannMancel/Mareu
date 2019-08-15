@@ -119,7 +119,9 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
         }
 
         // Callback to the View
-        this.mView.configureAndShowBottomSheet(filteredMeetings);
+        if (filteredMeetings.size() != 0) {
+            this.mView.configureAndShowBottomSheet(filteredMeetings);
+        }
 
         return filteredMeetings;
     }
@@ -152,7 +154,9 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
         }
 
         // Callback to the View
-        this.mView.configureAndShowBottomSheet(filteredMeetings);
+        if (filteredMeetings.size() != 0) {
+            this.mView.configureAndShowBottomSheet(filteredMeetings);
+        }
 
         return filteredMeetings;
     }
