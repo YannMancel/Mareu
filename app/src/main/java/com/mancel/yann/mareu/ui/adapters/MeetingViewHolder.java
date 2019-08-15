@@ -1,6 +1,8 @@
 package com.mancel.yann.mareu.ui.adapters;
 
+import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
@@ -37,6 +39,9 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
     ImageButton mDeleteButton;
 
     private WeakReference<MeetingAdapter.MeetingAdapterListener> mListenerWeakReference;
+    private int mColorPeach;
+    private int mColorMario;
+    private int mColorLuigi;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
 
@@ -45,6 +50,9 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
 
         // Using the ButterKnife library
         ButterKnife.bind(this, itemView);
+
+        // Retrieves the colors for the ImageView
+        this.retrieveColors();
     }
 
     // METHODS -------------------------------------------------------------------------------------
@@ -59,6 +67,17 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
+    // COLORS **************************************************************************************
+
+    /**
+     * Retrieves the colors for the {@link ImageView}
+     */
+    private void retrieveColors() {
+        this.mColorPeach = ContextCompat.getColor(itemView.getContext(), R.color.colorPeach);
+        this.mColorMario = ContextCompat.getColor(itemView.getContext(), R.color.colorMario);
+        this.mColorLuigi = ContextCompat.getColor(itemView.getContext(), R.color.colorLuigi);
+    }
+
     // UI ******************************************************************************************
 
     /**
@@ -68,7 +87,20 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
      */
     public void updateMeeting(Meeting meeting, MeetingAdapter.MeetingAdapterListener callback) {
         // IMAGE
-        // TODO: 22/07/2019 update the ImageView
+        switch (meeting.getRoom()) {
+            case "Peach": {
+                ((GradientDrawable) this.mImage.getBackground()).setColor(this.mColorPeach);
+                break;
+            }
+            case "Mario": {
+                ((GradientDrawable) this.mImage.getBackground()).setColor(this.mColorMario);
+                break;
+            }
+            case "Luigi": {
+                ((GradientDrawable) this.mImage.getBackground()).setColor(this.mColorLuigi);
+                break;
+            }
+        }
 
         // TEXT VIEW
         final String topicHourRoom = meeting.getTopic() + " - " +

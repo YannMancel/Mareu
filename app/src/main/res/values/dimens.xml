@@ -8,6 +8,7 @@
     <dimen name="vertical_margin_to_avoid_toolbar">56dp</dimen>
 
     <dimen name="elevation_tool_bar">4dp</dimen>
+    <dimen name="elevation_fab">9dp</dimen>
 
     <dimen name="text_size_dialog_filter">20sp</dimen>
     <dimen name="text_size_item">18sp</dimen>
