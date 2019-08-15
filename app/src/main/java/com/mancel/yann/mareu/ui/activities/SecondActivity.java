@@ -95,7 +95,7 @@ public class SecondActivity extends BaseActivity implements BaseFragment.Fragmen
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        final String time = TimeTools.convertHourAndMinuteToString(hourOfDay, minute, ":");
+        final String time = TimeTools.convertHourAndMinuteToString(hourOfDay, minute);
         this.mCreatorOfMeetingFragment.updateHourOfTextView(time);
     }
 

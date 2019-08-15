@@ -1,7 +1,5 @@
 package com.mancel.yann.mareu.presenter;
 
-import android.util.Log;
-
 import com.mancel.yann.mareu.di.DI;
 import com.mancel.yann.mareu.model.Meeting;
 import com.mancel.yann.mareu.model.Member;
@@ -9,7 +7,9 @@ import com.mancel.yann.mareu.model.Room;
 import com.mancel.yann.mareu.service.ApiService;
 import com.mancel.yann.mareu.ui.View;
 import com.mancel.yann.mareu.utils.JsonTools;
+import com.mancel.yann.mareu.utils.TimeTools;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -126,23 +126,34 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
 
     @Override
     public List<Meeting> filterPerHours(String minDateInString, String maxDateInString) {
+        List<Meeting> filteredMeetings = new ArrayList<>();
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
+        DateFormat dateFormat = new SimpleDateFormat(TimeTools.PATTERN_FORMAT);
 
-        Date minDate;
-        Date maxDate;
+        Date minDate, maxDate, meetingDate;
 
         try {
             minDate = dateFormat.parse(minDateInString);
             maxDate = dateFormat.parse(maxDateInString);
 
-            Log.e("TAG", "filterPerHours: " + minDate.toString() + " " + maxDate.toString() );
+            // Error between the dates (inverse order)
+            if (minDate.after(maxDate)) return null;
 
+            for (Meeting meeting : this.mService.getMeetings()) {
+                // Retrieves the hour of meeting
+                meetingDate = dateFormat.parse(meeting.getHour());
+
+                if (meetingDate.after(minDate) && meetingDate.before(maxDate)) {
+                    filteredMeetings.add(meeting);
+                }
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
+        // Callback to the View
+        this.mView.configureAndShowBottomSheet(filteredMeetings);
 
-        return null;
+        return filteredMeetings;
     }
 }

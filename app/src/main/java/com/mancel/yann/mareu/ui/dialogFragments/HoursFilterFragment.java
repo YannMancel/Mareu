@@ -65,8 +65,10 @@ public class HoursFilterFragment extends BaseDialogFragment {
                .setTitle(getString(R.string.filter_hour))
                .setPositiveButton(getString(R.string.yes),
                         (dialog, which) -> {
-                            this.mCallback.selectHoursForFilter(TimeTools.convertHourAndMinuteToString(this.mMinHour.getValue(), this.mMinMinute.getValue(), ":"),
-                                                                TimeTools.convertHourAndMinuteToString(this.mMaxHour.getValue(), this.mMaxMinute.getValue(), ":"));
+                            this.mCallback.selectHoursForFilter(TimeTools.convertHourAndMinuteToString(this.mMinHour.getValue(),
+                                                                                                       this.mMinMinute.getValue()),
+                                                                TimeTools.convertHourAndMinuteToString(this.mMaxHour.getValue(),
+                                                                                                       this.mMaxMinute.getValue()));
                         })
                .setNegativeButton(getString(R.string.no),
                         (dialog, which) -> {});
