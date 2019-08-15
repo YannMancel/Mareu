@@ -12,4 +12,9 @@
         <item name="android:colorBackground">@color/colorPrimary</item>
     </style>
 
+    <!-- base NumberPicker theme. -->
+    <style name="AppTheme.NumberPicker">
+        <item name="android:textColorPrimary">@color/colorAccent</item>
+    </style>
+
 </resources>
