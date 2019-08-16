@@ -35,4 +35,19 @@
         android:tint="@android:color/white"
         android:elevation="@dimen/elevation_fab"/>
 
+    <!-- TEXT VIEW -->
+
+    <TextView
+        android:id="@+id/fragment_meeting_tv_no_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/no_data_with_this_filter"
+        android:textSize="@dimen/text_size_item"
+        android:gravity="center_horizontal"
+        android:visibility="gone"/>
+
 </android.support.constraint.ConstraintLayout>

@@ -1,6 +1,5 @@
 package com.mancel.yann.mareu.ui.activities;
 
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -14,6 +13,7 @@ import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.base.BaseActivity;
 import com.mancel.yann.mareu.base.BaseFragment;
 import com.mancel.yann.mareu.ui.dialogFragments.FilterFragmentListener;
+import com.mancel.yann.mareu.ui.dialogFragments.TimePickerFragmentListener;
 import com.mancel.yann.mareu.ui.fragments.CreatorOfMeetingFragment;
 import com.mancel.yann.mareu.ui.fragments.MeetingFragment;
 import com.mancel.yann.mareu.utils.ShowMessage;
@@ -26,12 +26,12 @@ import butterknife.BindView;
  * Name of the project: Mareu
  * Name of the package: com.mancel.yann.mareu.ui.activities
  *
- * A {@link BaseActivity} subclass which implements {@link BaseFragment.FragmentListener}
- * {@link FilterFragmentListener} and {@link TimePickerDialog.OnTimeSetListener}.
+ * A {@link BaseActivity} subclass which implements {@link BaseFragment.FragmentListener},
+ * {@link FilterFragmentListener} and {@link TimePickerFragmentListener}.
  */
 public class MainActivity extends BaseActivity implements BaseFragment.FragmentListener,
                                                           FilterFragmentListener,
-                                                          TimePickerDialog.OnTimeSetListener {
+                                                          TimePickerFragmentListener {
 
     // FIELDS --------------------------------------------------------------------------------------
 
@@ -44,6 +44,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
     private CreatorOfMeetingFragment mCreatorOfMeetingFragment;
 
     public static final int REQUEST_CODE_SECOND_ACTIVITY = 100;
+    public static final int REQUEST_CODE_FILTER_ACTIVITY = 200;
 
     // METHODS -------------------------------------------------------------------------------------
 
@@ -83,10 +84,12 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
     public boolean onOptionsItemSelected(MenuItem item) {
         // Depending on the item Id
         switch (item.getItemId()) {
+            // HOURS FILTER
             case R.id.menu_activity_main_filter_date: {
-                this.mMeetingFragment.startHourFilterDialogFragment();
+                this.startAnotherActivityForResult(this, FilterActivity.class, REQUEST_CODE_FILTER_ACTIVITY);
                 return true;
             }
+            // ROOM FILTER
             case R.id.menu_activity_main_filter_room: {
                 this.mMeetingFragment.startRoomFilterDialogFragment();
                 return true;
@@ -101,9 +104,15 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        // SECOND ACTIVITY
         if (requestCode == REQUEST_CODE_SECOND_ACTIVITY && resultCode == RESULT_OK) {
             final String meetingFromString = data.getStringExtra(SecondActivity.BUNDLE_EXTRA_MEETING);
             this.mMeetingFragment.addMeeting(meetingFromString);
+        }
+
+        // FILTER ACTIVITY
+        if (requestCode == REQUEST_CODE_FILTER_ACTIVITY && resultCode == RESULT_OK) {
+            // TODO: 16/08/2019 Finish the filter system
         }
     }
 
@@ -123,7 +132,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
     }
 
     @Override
-    public void onClickFromFragment(String meetingFromString) {
+    public void onClickFromFragment(String message) {
         // Only one fragment is displayed
         if (this.mCreatorOfMeetingFragment == null) {
             this.startAnotherActivityForResult(this, SecondActivity.class, REQUEST_CODE_SECOND_ACTIVITY);
@@ -136,7 +145,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
             builder.setTitle(getString(R.string.creation_of_meeting))
                     .setMessage(getString(R.string.question_for_creation_of_meeting))
                     .setPositiveButton(getString(R.string.yes),
-                                       (dialog, which) -> {this.mMeetingFragment.addMeeting(meetingFromString);})
+                                       (dialog, which) -> {this.mMeetingFragment.addMeeting(message);})
                     .setNegativeButton(getString(R.string.no),
                                        (dialog, which) -> {});
 
@@ -144,6 +153,9 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
             builder.create().show();
         }
     }
+
+    @Override
+    public void onClickFromFragment(String messageA, String messageB) {}
 
     // INTERFACE OF FILTER FRAGMENT LISTENER *******************************************************
 
@@ -157,12 +169,12 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
         this.mMeetingFragment.filterPerHours(minDate, maxDate);
     }
 
-    // INTERFACE OF ON TIME SET LISTENER ***********************************************************
+    // INTERFACE OF ON TIME PICKER FRAGMENT LISTENER ***********************************************
 
     @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+    public void onTimeSet(int id, TimePicker view, int hourOfDay, int minute) {
         final String time = TimeTools.convertHourAndMinuteToString(hourOfDay, minute);
-        this.mCreatorOfMeetingFragment.updateHourOfTextView(time);
+        this.mCreatorOfMeetingFragment.setTextViewById(id, time);
     }
 
     // FRAGMENTS ***********************************************************************************

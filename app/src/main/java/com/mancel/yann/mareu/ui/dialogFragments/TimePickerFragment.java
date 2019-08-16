@@ -5,8 +5,10 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
+import android.widget.TimePicker;
+
+import com.mancel.yann.mareu.base.BaseDialogFragment;
 
 import java.util.Calendar;
 
@@ -15,9 +17,15 @@ import java.util.Calendar;
  * Name of the project: Mareu
  * Name of the package: com.mancel.yann.mareu.ui.dialogFragments
  *
- * A simple {@link DialogFragment} subclass
+ * A simple {@link BaseDialogFragment} subclass which implements {@link TimePickerDialog.OnTimeSetListener}.
  */
-public class TimePickerFragment extends DialogFragment {
+public class TimePickerFragment extends BaseDialogFragment implements TimePickerDialog.OnTimeSetListener {
+
+    // FIELDS --------------------------------------------------------------------------------------
+
+    private int mId;
+
+    private static final String BUNDLE_KEY_ID = "BUNDLE_KEY_ID";
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
 
@@ -31,6 +39,8 @@ public class TimePickerFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        // Retrieves the argument
+        this.retrieveArgument();
 
         Calendar calendar = Calendar.getInstance();
 
@@ -38,19 +48,44 @@ public class TimePickerFragment extends DialogFragment {
         final int minute = calendar.get(Calendar.MINUTE);
 
         return new TimePickerDialog(getContext(),
-                                    (TimePickerDialog.OnTimeSetListener) getActivity(),
+                                    this,
                                     hourOfDay,
                                     minute,
                                     DateFormat.is24HourFormat(getContext()));
+    }
+
+    // INTERFACE OF ON TIME SET LISTENER ***********************************************************
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        this.mListener.onTimeSet(this.mId, view, hourOfDay, minute);
     }
 
     // INSTANCES ***********************************************************************************
 
     /**
      * Returns a {@link TimePickerFragment}
+     * @param id an integer that contains the id
      * @return a {@link TimePickerFragment}
      */
-    public static TimePickerFragment newInstance() {
-        return new TimePickerFragment();
+    public static TimePickerFragment newInstance(int id) {
+        TimePickerFragment fragment = new TimePickerFragment();
+
+        // Bundle
+        Bundle bundle = new Bundle();
+        bundle.putInt(BUNDLE_KEY_ID, id);
+
+        fragment.setArguments(bundle);
+
+        return fragment;
+    }
+
+    // ARGUMENTS ***********************************************************************************
+
+    /**
+     * Retrieves the argument
+     */
+    private void retrieveArgument() {
+        this.mId = getArguments().getInt(BUNDLE_KEY_ID, 0);
     }
 }

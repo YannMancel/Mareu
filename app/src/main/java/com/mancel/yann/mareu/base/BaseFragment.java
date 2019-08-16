@@ -21,8 +21,24 @@ public abstract class BaseFragment extends Fragment {
     // INTERFACES ----------------------------------------------------------------------------------
 
     public interface FragmentListener {
+        /**
+         * Shows a message thanks to a {@link String} in argument
+         * @param message a {@link String} that contains the message
+         */
         void showMessageFromFragment(String message);
-        void onClickFromFragment(String meetingFromString);
+
+        /**
+         * Retrieve a {@link String} in argument
+         * @param message a {@link String} that contains the message
+         */
+        void onClickFromFragment(String message);
+
+        /**
+         * Retrieve several messages in argument
+         * @param messageA a {@link String} that contains the message A
+         * @param messageB a {@link String} that contains the message B
+         */
+        void onClickFromFragment(String messageA, String messageB);
     }
 
     // FIELDS --------------------------------------------------------------------------------------

@@ -68,7 +68,8 @@ public class RoomFilterFragment extends BaseDialogFragment {
         builder.setView(view)
                .setTitle(getString(R.string.filter_room))
                .setPositiveButton(getString(R.string.yes),
-                        (dialog, which) -> {this.mCallback.selectRoomForFilter(getCurrentRoomOfSpinner());})
+                        (dialog, which) -> {//this.mCallback.selectRoomForFilter(getCurrentRoomOfSpinner());
+                                           })
                .setNegativeButton(getString(R.string.no),
                         (dialog, which) -> {});
 

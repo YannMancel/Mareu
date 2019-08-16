@@ -43,6 +43,8 @@ public class CreatorOfMeetingFragment extends BaseFragment implements View.Fragm
 
     private FragmentPresenter mPresenter;
 
+    public final int ID_SEARCH_HOUR = 1;
+
     // CONSTRUCTORS --------------------------------------------------------------------------------
 
     public CreatorOfMeetingFragment() {}
@@ -72,8 +74,10 @@ public class CreatorOfMeetingFragment extends BaseFragment implements View.Fragm
     public void configureAndShowBottomSheet(List<Meeting> meetings) {}
 
     @Override
-    public void updateHourOfTextView(String time) {
-        this.mHour.setText(time);
+    public void setTextViewById(int id, String time) {
+        if (id == ID_SEARCH_HOUR) {
+            this.mHour.setText(time);
+        }
     }
 
     // FRAGMENT ************************************************************************************
@@ -90,8 +94,8 @@ public class CreatorOfMeetingFragment extends BaseFragment implements View.Fragm
 
     @OnClick(R.id.fragment_creator_of_meeting_button_search_hour)
     public void onHourButtonClicked() {
-        TimePickerFragment.newInstance()
-                .show(getActivity().getSupportFragmentManager(), "TIME PICKER");
+        TimePickerFragment.newInstance(ID_SEARCH_HOUR)
+                          .show(getActivity().getSupportFragmentManager(), "TIME PICKER");
     }
 
     @OnClick(R.id.fragment_creator_of_meeting_fab)

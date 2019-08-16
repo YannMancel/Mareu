@@ -29,9 +29,10 @@ public interface View {
         void configureAndShowBottomSheet(List<Meeting> meetings);
 
         /**
-         * Updates the hour in hh:mm format
+         * Updates the hour in hh:mm format by id
+         * @param id an integer that contains the id value
          * @param time a {@link String} that contains the hour in hh:mm format
          */
-        void updateHourOfTextView(String time);
+        void setTextViewById(int id, String time);
     }
 }

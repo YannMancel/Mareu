@@ -3,6 +3,7 @@ package com.mancel.yann.mareu.ui.fragments;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.base.BaseFragment;
@@ -11,7 +12,6 @@ import com.mancel.yann.mareu.presenter.FragmentPresenter;
 import com.mancel.yann.mareu.ui.View;
 import com.mancel.yann.mareu.ui.adapters.MeetingAdapter;
 import com.mancel.yann.mareu.ui.dialogFragments.FilterModalFragment;
-import com.mancel.yann.mareu.ui.dialogFragments.HoursFilterFragment;
 import com.mancel.yann.mareu.ui.dialogFragments.RoomFilterFragment;
 
 import java.util.List;
@@ -36,6 +36,8 @@ public class MeetingFragment extends BaseFragment implements View.FragmentView,
     RecyclerView mRecyclerView;
     @BindView(R.id.fragment_meeting_fab)
     FloatingActionButton mFab;
+    @BindView(R.id.fragment_meeting_tv_no_data)
+    TextView mTextForNoData;
 
     private MeetingAdapter mMeetingAdapter;
     private FragmentPresenter mPresenter;
@@ -77,7 +79,7 @@ public class MeetingFragment extends BaseFragment implements View.FragmentView,
     }
 
     @Override
-    public void updateHourOfTextView(String time) {}
+    public void setTextViewById(int id, String time) {}
 
     // CALLBACKS OF RECYCLER VIEW ******************************************************************
 
@@ -140,14 +142,6 @@ public class MeetingFragment extends BaseFragment implements View.FragmentView,
     }
 
     // FILTERS *************************************************************************************
-
-    /**
-     * Starts the {@link HoursFilterFragment}
-     */
-    public void startHourFilterDialogFragment() {
-        HoursFilterFragment.newInstance()
-                           .show(getActivity().getSupportFragmentManager(), "HOURS FILTER FRAGMENT");
-    }
 
     /**
      * Filter per hours
