@@ -15,9 +15,6 @@ public interface Presenter {
 
     // INTERFACES ----------------------------------------------------------------------------------
 
-    public interface ActivityPresenter {
-    }
-
     public interface FragmentPresenterInterface {
 
         /**

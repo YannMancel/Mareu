@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
     <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryLight">#757DE8</color>
     <color name="colorPrimaryDark">#002984</color>
     <color name="colorAccent">#D50000</color>
+    <color name="colorAccentLight">#FF5131</color>
+    <color name="colorAccentDark">#9B0000</color>
 
     <color name="colorPeach">#B092C0</color>
     <color name="colorMario">#7BA39D</color>

@@ -9,7 +9,7 @@
 
     <!-- Base Popup theme of ToolBar. -->
     <style name="ToolBar" parent="ThemeOverlay.AppCompat.Dark">
-        <item name="android:colorBackground">@color/colorPrimary</item>
+        <item name="android:colorBackground">@color/colorPrimaryLight</item>
     </style>
 
     <!-- base NumberPicker theme. -->
