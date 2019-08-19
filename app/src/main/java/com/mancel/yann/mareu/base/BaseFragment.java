@@ -7,6 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mancel.yann.mareu.model.Meeting;
+import com.mancel.yann.mareu.presenter.FragmentPresenter;
+import com.mancel.yann.mareu.ui.View.FragmentView;
+
+import java.util.List;
+
 import butterknife.ButterKnife;
 
 /**
@@ -14,9 +20,9 @@ import butterknife.ButterKnife;
  * Name of the project: Mareu
  * Name of the package: com.mancel.yann.mareu.base
  *
- * A {@link Fragment} subclass.
+ * A {@link Fragment} subclass which implements {@link FragmentView}.
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements FragmentView {
 
     // INTERFACES ----------------------------------------------------------------------------------
 
@@ -44,6 +50,7 @@ public abstract class BaseFragment extends Fragment {
     // FIELDS --------------------------------------------------------------------------------------
 
     protected FragmentListener mCallback;
+    protected FragmentPresenter mFragmentPresenter;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
 
@@ -73,6 +80,9 @@ public abstract class BaseFragment extends Fragment {
         // Using the ButterKnife library
         ButterKnife.bind(this, view);
 
+        // Configures the Presenter
+        this.configurePresenter();
+
         // Configures the design
         this.configureDesign();
 
@@ -83,9 +93,18 @@ public abstract class BaseFragment extends Fragment {
     public void onDetach() {
         // To prevent memory leaks
         this.mCallback = null;
+        this.mFragmentPresenter.onDetach();
 
         super.onDetach();
     }
+
+    // INTERFACE FRAGMENT VIEW *********************************************************************
+
+    @Override
+    public void UpdateDataOfRecyclerView(List<Meeting> meetings) {}
+
+    @Override
+    public void setTextViewById(int id, String time) {}
 
     // CALLBACK OF ACTIVITY ************************************************************************
 
@@ -101,5 +120,14 @@ public abstract class BaseFragment extends Fragment {
         catch (ClassCastException e){
             throw new ClassCastException(e.toString() + " must implement FragmentListener");
         }
+    }
+
+    // PRESENTER ***********************************************************************************
+
+    /**
+     * Configures the Presenter
+     */
+    private void configurePresenter() {
+        this.mFragmentPresenter = new FragmentPresenter(this);
     }
 }

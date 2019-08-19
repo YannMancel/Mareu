@@ -19,14 +19,9 @@ public interface View {
     public interface FragmentView {
         /**
          * Updates the data
-         */
-        void UpdateDataOfRecyclerView();
-
-        /**
-         * Configures and shows the Bottom Sheet
          * @param meetings a {@link List} of {@link Meeting}
          */
-        void configureAndShowBottomSheet(List<Meeting> meetings);
+        void UpdateDataOfRecyclerView(List<Meeting> meetings);
 
         /**
          * Updates the hour in hh:mm format by id

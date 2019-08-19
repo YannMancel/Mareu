@@ -7,11 +7,7 @@ import android.widget.TextView;
 
 import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.base.BaseFragment;
-import com.mancel.yann.mareu.model.Meeting;
 import com.mancel.yann.mareu.ui.dialogFragments.TimePickerFragment;
-import com.mancel.yann.mareu.ui.View.FragmentView;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -21,9 +17,9 @@ import butterknife.OnClick;
  * Name of the project: Mareu
  * Name of the package: com.mancel.yann.mareu.ui.fragments
  *
- * A simple {@link BaseFragment} subclass which implements {@link FragmentView}
+ * A simple {@link BaseFragment} subclass.
  */
-public class HoursFilterFragment extends BaseFragment implements FragmentView {
+public class HoursFilterFragment extends BaseFragment {
 
     // FIELDS --------------------------------------------------------------------------------------
 
@@ -58,13 +54,7 @@ public class HoursFilterFragment extends BaseFragment implements FragmentView {
     @Override
     protected void configureDesign() {}
 
-    // INTERFACE VIEW ******************************************************************************
-
-    @Override
-    public void UpdateDataOfRecyclerView() {}
-
-    @Override
-    public void configureAndShowBottomSheet(List<Meeting> meetings) {}
+    // INTERFACE FRAGMENT VIEW *********************************************************************
 
     @Override
     public void setTextViewById(int id, String time) {

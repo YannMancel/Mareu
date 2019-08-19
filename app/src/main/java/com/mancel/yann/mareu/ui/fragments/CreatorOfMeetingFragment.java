@@ -9,12 +9,7 @@ import android.widget.TextView;
 
 import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.base.BaseFragment;
-import com.mancel.yann.mareu.model.Meeting;
-import com.mancel.yann.mareu.presenter.FragmentPresenter;
-import com.mancel.yann.mareu.ui.View;
 import com.mancel.yann.mareu.ui.dialogFragments.TimePickerFragment;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -24,9 +19,9 @@ import butterknife.OnClick;
  * Name of the project: Mareu
  * Name of the package: com.mancel.yann.mareu.ui.fragments
  *
- * A simple {@link BaseFragment} subclass which implement {@link View.FragmentView}
+ * A simple {@link BaseFragment} subclass.
  */
-public class CreatorOfMeetingFragment extends BaseFragment implements View.FragmentView {
+public class CreatorOfMeetingFragment extends BaseFragment {
 
     // FIELDS --------------------------------------------------------------------------------------
 
@@ -40,8 +35,6 @@ public class CreatorOfMeetingFragment extends BaseFragment implements View.Fragm
     Spinner mRoomSpinner;
     @BindView(R.id.fragment_creator_of_meeting_fab)
     FloatingActionButton mFab;
-
-    private FragmentPresenter mPresenter;
 
     public final int ID_SEARCH_HOUR = 1;
 
@@ -58,36 +51,17 @@ public class CreatorOfMeetingFragment extends BaseFragment implements View.Fragm
 
     @Override
     protected void configureDesign() {
-        // Configures the Presenter
-        this.configurePresenter();
-
         // Configures the room spinner
         this.configureRoomSpinner();
     }
 
-    // INTERFACE VIEW ******************************************************************************
-
-    @Override
-    public void UpdateDataOfRecyclerView() {}
-
-    @Override
-    public void configureAndShowBottomSheet(List<Meeting> meetings) {}
+    // INTERFACE FRAGMENT VIEW *********************************************************************
 
     @Override
     public void setTextViewById(int id, String time) {
         if (id == ID_SEARCH_HOUR) {
             this.mHour.setText(time);
         }
-    }
-
-    // FRAGMENT ************************************************************************************
-
-    @Override
-    public void onDetach() {
-        // To prevent memory leaks
-        this.mPresenter.onDetach();
-
-        super.onDetach();
     }
 
     // ACTIONS *************************************************************************************
@@ -100,10 +74,10 @@ public class CreatorOfMeetingFragment extends BaseFragment implements View.Fragm
 
     @OnClick(R.id.fragment_creator_of_meeting_fab)
     public void onFABClicked() {
-        final String json = this.mPresenter.createNewMeetingToString(this.mTopic.getText().toString(),
-                                                                     this.mHour.getText().toString(),
-                                                                     (String) this.mRoomSpinner.getSelectedItem(),
-                                                                     "DummyParticipant");
+        final String json = this.mFragmentPresenter.createNewMeetingToString(this.mTopic.getText().toString(),
+                                                                             this.mHour.getText().toString(),
+                                                                             (String) this.mRoomSpinner.getSelectedItem(),
+                                                                             "DummyParticipant");
 
         this.mCallback.onClickFromFragment(json);
     }
@@ -118,15 +92,6 @@ public class CreatorOfMeetingFragment extends BaseFragment implements View.Fragm
         return new CreatorOfMeetingFragment();
     }
 
-    // PRESENTER ***********************************************************************************
-
-    /**
-     * Configures the Presenter
-     */
-    private void configurePresenter() {
-        this.mPresenter = new FragmentPresenter(this);
-    }
-
     // SPINNERS ************************************************************************************
 
     /**
@@ -136,7 +101,7 @@ public class CreatorOfMeetingFragment extends BaseFragment implements View.Fragm
         // Adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                                                           android.R.layout.simple_spinner_item,
-                                                          this.mPresenter.getRoomsName());
+                                                          this.mFragmentPresenter.getRoomsName());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Spinner

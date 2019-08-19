@@ -94,4 +94,20 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         startActivityForResult(intent, requestCode);
     }
+
+    /**
+     * Starts the another Activity with its request code
+     * @param context a {@link Context} that sends the {@link Intent}
+     * @param cls a {@link Class} that correspond to the launched {@link Activity}
+     * @param args a {@link Bundle} that contains the saved data to send
+     * @param requestCode an integer that corresponds to the request code
+     * @param <T> a type parameter section
+     */
+    protected <T extends Activity> void startAnotherActivityForResult(Context context, Class<T> cls, Bundle args, int requestCode) {
+        Intent intent = new Intent(context, cls);
+
+        intent.putExtras(args);
+
+        startActivityForResult(intent, requestCode);
+    }
 }

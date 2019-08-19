@@ -1,41 +1,58 @@
 <resources>
     <string name="app_name">Mareu</string>
 
-    <!-- item_meeting.xml -->
-    <string name="text_topic_hour_room">Meeting A - 15h00 - Mario</string>
-    <string name="text_participant_mail">perso@hotmail.fr</string>
+    <!-- XML file -->
 
-    <!-- menu_activity_main.xml -->
-    <string name="filter">Filter</string>
-    <string name="filter_hour">Filter per hour</string>
-    <string name="filter_room">Filter per room</string>
+        <!-- item_meeting.xml -->
+        <string name="text_topic_hour_room">Meeting A - 15h00 - Mario</string>
+        <string name="text_participant_mail">perso@hotmail.fr</string>
 
-    <!-- fragment_creator_of_meeting.xml -->
-    <string name="hour_of_meeting">Hour:</string>
-    <string name="room_of_meeting">Room:</string>
-    <string name="topic_of_meeting">Topic:</string>
+        <!-- menu_activity_main.xml -->
+        <string name="filter">Filter</string>
+        <string name="filter_hour">Filter per hour</string>
+        <string name="filter_room">Filter per room</string>
 
-    <!-- fragment_meeting.xml -->
-    <string name="no_data_with_this_filter">No data with this filter</string>
+        <!-- fragment_creator_of_meeting.xml -->
+        <string name="hour_of_meeting">Hour:</string>
+        <string name="room_of_meeting">Room:</string>
+        <string name="topic_of_meeting">Topic:</string>
 
-    <!-- fragment_filter_hours.xml -->
-    <string name="filter_by_hours">Filter by hours</string>
+        <!-- fragment_meeting.xml -->
+        <string name="no_data_with_this_filter">No data with this filter</string>
+
+        <!-- fragment_filter_hours.xml -->
+        <string name="filter_by_hours">Filter by hours</string>
+        <string name="initial_hour_of_text_view">08:00</string>
+        <string name="to">To</string>
+        <string name="final_hour_of_text_view">20:00</string>
+
+        <!-- fragment_filter_room.xml -->
+        <string name="filter_by_room">Filter by room</string>
+
+    <!-- JAVA file -->
+
+        <string name="no">No</string>
+        <string name="yes">Yes</string>
+
+        <!-- MainActivity.java -->
+        <string name="none_of_choice_validated">None of choice validated</string>
+
+        <!-- SecondActivity.java -->
+        <string name="creation_of_meeting">Creation of meeting</string>
+        <string name="question_for_creation_of_meeting">Are you sure to create this meeting?</string>
+
+        <!-- FilterActivity.java -->
+        <string name="creation_of_hours_filter">Creation of hours filter</string>
+        <string name="question_for_creation_of_hours_filter">Are you sure to create this filter?\n(From %s to %s)</string>
+        <string name="creation_of_room_filter">Creation of room filter</string>
+        <string name="question_for_creation_of_room_filter">Are you sure to create this filter?\n(%s)</string>
+
+
+
+
+
 
     <!-- dialog_filter_[...].xml -->
-    <string name="no">No</string>
-    <string name="yes">Yes</string>
     <string name="select_a_room_for_the_filter">Select a room for the filter</string>
     <string name="select_a_range_of_hours">Select a range of hours</string>
-    <string name="initial_hour_of_text_view">08:00</string>
-    <string name="final_hour_of_text_view">20:00</string>
-    <string name="to">To</string>
-
-    <!-- SecondActivity.java -->
-    <string name="creation_of_meeting">Creation of meeting</string>
-    <string name="question_for_creation_of_meeting">Are you sure to create this meeting?</string>
-
-    <!-- FilterActivity.java -->
-    <string name="creation_of_hours_filter">Creation of hours filter</string>
-    <string name="question_for_creation_of_hours_filter">Are you sure to create this filter?\n(From %s to %s)</string>
-
 </resources>

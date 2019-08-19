@@ -1,6 +1,7 @@
 package com.mancel.yann.mareu.ui.activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AlertDialog;
@@ -12,7 +13,6 @@ import android.widget.TimePicker;
 import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.base.BaseActivity;
 import com.mancel.yann.mareu.base.BaseFragment;
-import com.mancel.yann.mareu.ui.dialogFragments.FilterFragmentListener;
 import com.mancel.yann.mareu.ui.dialogFragments.TimePickerFragmentListener;
 import com.mancel.yann.mareu.ui.fragments.CreatorOfMeetingFragment;
 import com.mancel.yann.mareu.ui.fragments.MeetingFragment;
@@ -26,11 +26,10 @@ import butterknife.BindView;
  * Name of the project: Mareu
  * Name of the package: com.mancel.yann.mareu.ui.activities
  *
- * A {@link BaseActivity} subclass which implements {@link BaseFragment.FragmentListener},
- * {@link FilterFragmentListener} and {@link TimePickerFragmentListener}.
+ * A {@link BaseActivity} subclass which implements
+ * {@link BaseFragment.FragmentListener} and {@link TimePickerFragmentListener}.
  */
 public class MainActivity extends BaseActivity implements BaseFragment.FragmentListener,
-                                                          FilterFragmentListener,
                                                           TimePickerFragmentListener {
 
     // FIELDS --------------------------------------------------------------------------------------
@@ -84,14 +83,20 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
     public boolean onOptionsItemSelected(MenuItem item) {
         // Depending on the item Id
         switch (item.getItemId()) {
-            // HOURS FILTER
             case R.id.menu_activity_main_filter_date: {
-                this.startAnotherActivityForResult(this, FilterActivity.class, REQUEST_CODE_FILTER_ACTIVITY);
+                // Bundle
+                Bundle args = new Bundle();
+                args.putInt(FilterActivity.BUNDLE_EXTRA_FILTER_TYPE, FilterActivity.HOUR_FILTER);
+
+                this.startAnotherActivityForResult(this, FilterActivity.class, args, REQUEST_CODE_FILTER_ACTIVITY);
                 return true;
             }
-            // ROOM FILTER
             case R.id.menu_activity_main_filter_room: {
-                this.mMeetingFragment.startRoomFilterDialogFragment();
+                // Bundle
+                Bundle args = new Bundle();
+                args.putInt(FilterActivity.BUNDLE_EXTRA_FILTER_TYPE, FilterActivity.ROOM_FILTER);
+
+                this.startAnotherActivityForResult(this, FilterActivity.class, args, REQUEST_CODE_FILTER_ACTIVITY);
                 return true;
             }
             default: {
@@ -112,7 +117,22 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
 
         // FILTER ACTIVITY
         if (requestCode == REQUEST_CODE_FILTER_ACTIVITY && resultCode == RESULT_OK) {
-            // TODO: 16/08/2019 Finish the filter system
+
+            final int filterType = data.getIntExtra(FilterActivity.BUNDLE_EXTRA_FILTER_TYPE, 0);
+
+            switch (filterType) {
+                case FilterActivity.HOUR_FILTER: {
+                    final String minHour = data.getStringExtra(FilterActivity.BUNDLE_EXTRA_MINIMAL_HOUR);
+                    final String maxHour = data.getStringExtra(FilterActivity.BUNDLE_EXTRA_MAXIMAL_HOUR);
+                    this.mMeetingFragment.filterPerHours(minHour, maxHour);
+                    break;
+                }
+                case FilterActivity.ROOM_FILTER: {
+                    final String room = data.getStringExtra(FilterActivity.BUNDLE_EXTRA_ROOM);
+                    this.mMeetingFragment.filterPerRoom(room);
+                    break;
+                }
+            }
         }
     }
 
@@ -156,18 +176,6 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
 
     @Override
     public void onClickFromFragment(String messageA, String messageB) {}
-
-    // INTERFACE OF FILTER FRAGMENT LISTENER *******************************************************
-
-    @Override
-    public void selectRoomForFilter(String roomFilter) {
-        this.mMeetingFragment.filterPerRoom(roomFilter);
-    }
-
-    @Override
-    public void selectHoursForFilter(String minDate, String maxDate) {
-        this.mMeetingFragment.filterPerHours(minDate, maxDate);
-    }
 
     // INTERFACE OF ON TIME PICKER FRAGMENT LISTENER ***********************************************
 

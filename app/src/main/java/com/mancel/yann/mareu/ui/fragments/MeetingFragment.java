@@ -8,11 +8,7 @@ import android.widget.TextView;
 import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.base.BaseFragment;
 import com.mancel.yann.mareu.model.Meeting;
-import com.mancel.yann.mareu.presenter.FragmentPresenter;
-import com.mancel.yann.mareu.ui.View;
 import com.mancel.yann.mareu.ui.adapters.MeetingAdapter;
-import com.mancel.yann.mareu.ui.dialogFragments.FilterModalFragment;
-import com.mancel.yann.mareu.ui.dialogFragments.RoomFilterFragment;
 
 import java.util.List;
 
@@ -24,11 +20,9 @@ import butterknife.OnClick;
  * Name of the project: Mareu
  * Name of the package: com.mancel.yann.mareu.ui.fragments
  *
- * A simple {@link BaseFragment} subclass which implements
- * {@link View.FragmentView} and {@link MeetingAdapter.MeetingAdapterListener}.
+ * A simple {@link BaseFragment} subclass which implements {@link MeetingAdapter.MeetingAdapterListener}.
  */
-public class MeetingFragment extends BaseFragment implements View.FragmentView,
-                                                             MeetingAdapter.MeetingAdapterListener {
+public class MeetingFragment extends BaseFragment implements MeetingAdapter.MeetingAdapterListener {
 
     // FIELDS --------------------------------------------------------------------------------------
 
@@ -40,7 +34,6 @@ public class MeetingFragment extends BaseFragment implements View.FragmentView,
     TextView mTextForNoData;
 
     private MeetingAdapter mMeetingAdapter;
-    private FragmentPresenter mPresenter;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
 
@@ -55,31 +48,19 @@ public class MeetingFragment extends BaseFragment implements View.FragmentView,
 
     @Override
     protected void configureDesign() {
-        // Configures the Presenter
-        this.configurePresenter();
-
         // Configures the RecyclerView
         this.configureRecyclerView();
 
         // Updates the list of the RecyclerView
-        this.UpdateDataOfRecyclerView();
+        this.UpdateDataOfRecyclerView(this.mFragmentPresenter.getMeetings());
     }
 
-    // INTERFACE VIEW ******************************************************************************
+    // INTERFACE FRAGMENT VIEW *********************************************************************
 
     @Override
-    public void UpdateDataOfRecyclerView() {
-        this.mMeetingAdapter.updateData(this.mPresenter.getMeetings());
+    public void UpdateDataOfRecyclerView(List<Meeting> meetings) {
+        this.mMeetingAdapter.updateData(meetings);
     }
-
-    @Override
-    public void configureAndShowBottomSheet(List<Meeting> meetings) {
-        FilterModalFragment.newInstance(meetings)
-                           .show(getActivity().getSupportFragmentManager(), "MODAL");
-    }
-
-    @Override
-    public void setTextViewById(int id, String time) {}
 
     // CALLBACKS OF RECYCLER VIEW ******************************************************************
 
@@ -88,17 +69,7 @@ public class MeetingFragment extends BaseFragment implements View.FragmentView,
         // Displays message
         this.mCallback.showMessageFromFragment("Delete " + this.mMeetingAdapter.getMeeting(position).getTopic());
 
-        this.mPresenter.deleteMeeting(this.mMeetingAdapter.getMeeting(position));
-    }
-
-    // FRAGMENT ************************************************************************************
-
-    @Override
-    public void onDetach() {
-        // To prevent memory leaks
-        this.mPresenter.onDetach();
-
-        super.onDetach();
+        this.mFragmentPresenter.deleteMeeting(this.mMeetingAdapter.getMeeting(position));
     }
 
     // ACTIONS *************************************************************************************
@@ -116,15 +87,6 @@ public class MeetingFragment extends BaseFragment implements View.FragmentView,
      */
     public static MeetingFragment newInstance() {
         return new MeetingFragment();
-    }
-
-    // PRESENTER ***********************************************************************************
-
-    /**
-     * Configures the Presenter
-     */
-    private void configurePresenter() {
-        this.mPresenter = new FragmentPresenter(this);
     }
 
     // UI ******************************************************************************************
@@ -145,19 +107,11 @@ public class MeetingFragment extends BaseFragment implements View.FragmentView,
 
     /**
      * Filter per hours
-     * @param minDate a {@link String} that contains the minimal hour
-     * @param maxDate a {@link String} that contains the maximal hour
+     * @param minHour a {@link String} that contains the minimal hour
+     * @param maxHour a {@link String} that contains the maximal hour
      */
-    public void filterPerHours(String minDate, String maxDate) {
-        this.mPresenter.filterPerHours(minDate, maxDate);
-    }
-
-    /**
-     * Starts the {@link RoomFilterFragment}
-     */
-    public void startRoomFilterDialogFragment() {
-        RoomFilterFragment.newInstance(this.mPresenter.getRoomsName())
-                          .show(getActivity().getSupportFragmentManager(), "ROOM FILTER FRAGMENT");
+    public void filterPerHours(String minHour, String maxHour) {
+        this.mFragmentPresenter.filterPerHours(minHour, maxHour);
     }
 
     /**
@@ -165,7 +119,7 @@ public class MeetingFragment extends BaseFragment implements View.FragmentView,
      * @param roomName a {@link String} tht corresponds to the room filter
      */
     public void filterPerRoom(String roomName) {
-        this.mPresenter.filterPerRoom(roomName);
+        this.mFragmentPresenter.filterPerRoom(roomName);
     }
 
     // NEW MEETINGS ********************************************************************************
@@ -175,7 +129,7 @@ public class MeetingFragment extends BaseFragment implements View.FragmentView,
      * @param meetingFromString a {@link String} that contains the {@link Meeting}
      */
     public void addMeeting(String meetingFromString) {
-        this.mPresenter.addMeeting(meetingFromString);
+        this.mFragmentPresenter.addMeeting(meetingFromString);
     }
 
     // FLOATING ACTION BUTTON **********************************************************************

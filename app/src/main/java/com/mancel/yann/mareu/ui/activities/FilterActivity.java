@@ -10,6 +10,7 @@ import com.mancel.yann.mareu.base.BaseActivity;
 import com.mancel.yann.mareu.base.BaseFragment;
 import com.mancel.yann.mareu.ui.dialogFragments.TimePickerFragmentListener;
 import com.mancel.yann.mareu.ui.fragments.HoursFilterFragment;
+import com.mancel.yann.mareu.ui.fragments.RoomFilterFragment;
 import com.mancel.yann.mareu.utils.TimeTools;
 
 import butterknife.BindView;
@@ -30,8 +31,15 @@ public class FilterActivity extends BaseActivity implements BaseFragment.Fragmen
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
+    private int mFilterType;
     private HoursFilterFragment mHoursFilterFragment;
+    private RoomFilterFragment mRoomFilterFragment;
 
+    public static final int HOUR_FILTER = 1;
+    public static final int ROOM_FILTER = 2;
+
+    public static final String BUNDLE_EXTRA_FILTER_TYPE = "BUNDLE_EXTRA_FILTER_TYPE";
+    public static final String BUNDLE_EXTRA_ROOM = "BUNDLE_EXTRA_ROOM";
     public static final String BUNDLE_EXTRA_MINIMAL_HOUR = "BUNDLE_EXTRA_MINIMAL_HOUR";
     public static final String BUNDLE_EXTRA_MAXIMAL_HOUR = "BUNDLE_EXTRA_MAXIMAL_HOUR";
 
@@ -55,8 +63,11 @@ public class FilterActivity extends BaseActivity implements BaseFragment.Fragmen
         // Add Up button of ToolBar
         this.addUpButtonOfToolBar();
 
-        // Configures and shows the main fragment
-        this.configureAndShowMainFragment();
+        // Retrieves the filter type sent by another
+        this.retrieveValueFromIntent();
+
+        // Selects the good filter
+        this.selectFragmentToDisplay(this.mFilterType);
     }
 
     // INTERFACE OF FRAGMENT LISTENER **************************************************************
@@ -65,7 +76,28 @@ public class FilterActivity extends BaseActivity implements BaseFragment.Fragmen
     public void showMessageFromFragment(String message) {}
 
     @Override
-    public void onClickFromFragment(String message) {}
+    public void onClickFromFragment(String message) {
+        // Creates Alert Dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // Modifies the title
+        builder.setTitle(getString(R.string.creation_of_room_filter))
+                .setMessage(getString(R.string.question_for_creation_of_room_filter, message))
+                .setPositiveButton(getString(R.string.yes),
+                        (dialog, which) -> {
+                            Intent intent = new Intent();
+                            intent.putExtra(BUNDLE_EXTRA_FILTER_TYPE, ROOM_FILTER);
+                            intent.putExtra(BUNDLE_EXTRA_ROOM, message);
+
+                            // Good execution and closes the activity
+                            setResult(RESULT_OK, intent);
+                            finish();})
+                .setNegativeButton(getString(R.string.no),
+                        (dialog, which) -> {finish();});
+
+        // Creates and shows the AlertDialog widget
+        builder.create().show();
+    }
 
     @Override
     public void onClickFromFragment(String messageA, String messageB) {
@@ -78,6 +110,7 @@ public class FilterActivity extends BaseActivity implements BaseFragment.Fragmen
                .setPositiveButton(getString(R.string.yes),
                         (dialog, which) -> {
                             Intent intent = new Intent();
+                            intent.putExtra(BUNDLE_EXTRA_FILTER_TYPE, HOUR_FILTER);
                             intent.putExtra(BUNDLE_EXTRA_MINIMAL_HOUR, messageA);
                             intent.putExtra(BUNDLE_EXTRA_MAXIMAL_HOUR, messageB);
 
@@ -99,12 +132,38 @@ public class FilterActivity extends BaseActivity implements BaseFragment.Fragmen
         this.mHoursFilterFragment.setTextViewById(id, time);
     }
 
+    // INTENT **************************************************************************************
+
+    /**
+     * Retrieves the filter type sent by another {@link android.app.Activity}
+     */
+    private void retrieveValueFromIntent() {
+        this.mFilterType = getIntent().getIntExtra(BUNDLE_EXTRA_FILTER_TYPE, 0);
+    }
+
     // FRAGMENTS ***********************************************************************************
 
     /**
-     * Configures and shows the main fragment (see {@link HoursFilterFragment}
+     * Selects the good filter thanks to the value in argument
+     * @param choice an integer that contains the choice
      */
-    private void configureAndShowMainFragment() {
+    private void selectFragmentToDisplay(final int choice) {
+        switch (choice) {
+            case HOUR_FILTER: {
+                this.configureAndShowHoursFilterFragment();
+                break;
+            }
+            case ROOM_FILTER: {
+                this.configureAndShowRoomFilterFragment();
+                break;
+            }
+        }
+    }
+
+    /**
+     * Configures and shows the hours filter fragment (see {@link HoursFilterFragment}
+     */
+    private void configureAndShowHoursFilterFragment() {
         // Creates a Fragment [FragmentManager -> Fragment]
         this.mHoursFilterFragment = (HoursFilterFragment) getSupportFragmentManager().findFragmentById(R.id.activity_filter_main_frame_layout);
 
@@ -114,6 +173,22 @@ public class FilterActivity extends BaseActivity implements BaseFragment.Fragmen
             this.mHoursFilterFragment = HoursFilterFragment.newInstance();
 
             this.addFragment(R.id.activity_filter_main_frame_layout, this.mHoursFilterFragment);
+        }
+    }
+
+    /**
+     * Configures and shows the room filter fragment (see {@link RoomFilterFragment}
+     */
+    private void configureAndShowRoomFilterFragment() {
+        // Creates a Fragment [FragmentManager -> Fragment]
+        this.mRoomFilterFragment = (RoomFilterFragment) getSupportFragmentManager().findFragmentById(R.id.activity_filter_main_frame_layout);
+
+        // If the fragment is not displayed
+        if (this.mRoomFilterFragment == null) {
+            // Creates the main fragment
+            this.mRoomFilterFragment = RoomFilterFragment.newInstance();
+
+            this.addFragment(R.id.activity_filter_main_frame_layout, this.mRoomFilterFragment);
         }
     }
 }
