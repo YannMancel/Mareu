@@ -6,8 +6,8 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TimePicker;
 
 import com.mancel.yann.mareu.R;
-import com.mancel.yann.mareu.base.BaseActivity;
-import com.mancel.yann.mareu.base.BaseFragment;
+import com.mancel.yann.mareu.ui.base.BaseActivity;
+import com.mancel.yann.mareu.ui.base.BaseFragment;
 import com.mancel.yann.mareu.ui.dialogFragments.TimePickerFragmentListener;
 import com.mancel.yann.mareu.ui.fragments.HoursFilterFragment;
 import com.mancel.yann.mareu.ui.fragments.RoomFilterFragment;
@@ -150,11 +150,11 @@ public class FilterActivity extends BaseActivity implements BaseFragment.Fragmen
     private void selectFragmentToDisplay(final int choice) {
         switch (choice) {
             case HOUR_FILTER: {
-                this.configureAndShowHoursFilterFragment();
+                this.configureAndShowHoursFilterFragment(R.id.activity_filter_main_frame_layout);
                 break;
             }
             case ROOM_FILTER: {
-                this.configureAndShowRoomFilterFragment();
+                this.configureAndShowRoomFilterFragment(R.id.activity_filter_main_frame_layout);
                 break;
             }
         }
@@ -162,33 +162,35 @@ public class FilterActivity extends BaseActivity implements BaseFragment.Fragmen
 
     /**
      * Configures and shows the hours filter fragment (see {@link HoursFilterFragment}
+     * @param idOfFrameLayout an integer that contains the id value
      */
-    private void configureAndShowHoursFilterFragment() {
+    private void configureAndShowHoursFilterFragment(final int idOfFrameLayout) {
         // Creates a Fragment [FragmentManager -> Fragment]
-        this.mHoursFilterFragment = (HoursFilterFragment) getSupportFragmentManager().findFragmentById(R.id.activity_filter_main_frame_layout);
+        this.mHoursFilterFragment = (HoursFilterFragment) getSupportFragmentManager().findFragmentById(idOfFrameLayout);
 
         // If the fragment is not displayed
         if (this.mHoursFilterFragment == null) {
             // Creates the main fragment
             this.mHoursFilterFragment = HoursFilterFragment.newInstance();
 
-            this.addFragment(R.id.activity_filter_main_frame_layout, this.mHoursFilterFragment);
+            this.addFragment(idOfFrameLayout, this.mHoursFilterFragment);
         }
     }
 
     /**
      * Configures and shows the room filter fragment (see {@link RoomFilterFragment}
+     * @param idOfFrameLayout an integer that contains the id value
      */
-    private void configureAndShowRoomFilterFragment() {
+    private void configureAndShowRoomFilterFragment(final int idOfFrameLayout) {
         // Creates a Fragment [FragmentManager -> Fragment]
-        this.mRoomFilterFragment = (RoomFilterFragment) getSupportFragmentManager().findFragmentById(R.id.activity_filter_main_frame_layout);
+        this.mRoomFilterFragment = (RoomFilterFragment) getSupportFragmentManager().findFragmentById(idOfFrameLayout);
 
         // If the fragment is not displayed
         if (this.mRoomFilterFragment == null) {
             // Creates the main fragment
             this.mRoomFilterFragment = RoomFilterFragment.newInstance();
 
-            this.addFragment(R.id.activity_filter_main_frame_layout, this.mRoomFilterFragment);
+            this.addFragment(idOfFrameLayout, this.mRoomFilterFragment);
         }
     }
 }

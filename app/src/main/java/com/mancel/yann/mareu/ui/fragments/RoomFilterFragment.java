@@ -6,7 +6,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.mancel.yann.mareu.R;
-import com.mancel.yann.mareu.base.BaseFragment;
+import com.mancel.yann.mareu.ui.base.BaseFragment;
 
 import butterknife.BindView;
 import butterknife.OnClick;

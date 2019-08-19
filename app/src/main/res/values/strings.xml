@@ -18,7 +18,7 @@
         <string name="topic_of_meeting">Topic:</string>
 
         <!-- fragment_meeting.xml -->
-        <string name="no_data_with_this_filter">No data with this filter</string>
+        <string name="no_data">No data</string>
 
         <!-- fragment_filter_hours.xml -->
         <string name="filter_by_hours">Filter by hours</string>
@@ -37,7 +37,7 @@
         <!-- MainActivity.java -->
         <string name="none_of_choice_validated">None of choice validated</string>
 
-        <!-- SecondActivity.java -->
+        <!-- CreationActivity.java -->
         <string name="creation_of_meeting">Creation of meeting</string>
         <string name="question_for_creation_of_meeting">Are you sure to create this meeting?</string>
 

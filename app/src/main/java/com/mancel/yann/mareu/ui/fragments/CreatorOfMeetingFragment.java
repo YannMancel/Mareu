@@ -8,7 +8,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.mancel.yann.mareu.R;
-import com.mancel.yann.mareu.base.BaseFragment;
+import com.mancel.yann.mareu.ui.base.BaseFragment;
 import com.mancel.yann.mareu.ui.dialogFragments.TimePickerFragment;
 
 import butterknife.BindView;

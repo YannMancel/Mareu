@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 import android.text.format.DateFormat;
 import android.widget.TimePicker;
 
-import com.mancel.yann.mareu.base.BaseDialogFragment;
+import com.mancel.yann.mareu.ui.base.BaseDialogFragment;
 
 import java.util.Calendar;
 

@@ -17,6 +17,7 @@ import java.util.List;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Yann MANCEL on 29/07/2019.
@@ -53,6 +54,17 @@ public class ApiServiceTest {
         this.mService.deleteMeeting(meeting);
 
         assertFalse(this.mService.getMeetings().contains(meeting));
+    }
+
+    @Test
+    public void addMeetingWithSuccess() {
+        Meeting meeting = new Meeting(5, "Meeting E", "09:30", "Mario", "yann@lamzone.com");
+
+        assertFalse(this.mService.getMeetings().contains(meeting));
+
+        this.mService.addMeeting(meeting);
+
+        assertTrue(this.mService.getMeetings().contains(meeting));
     }
 
     @Test

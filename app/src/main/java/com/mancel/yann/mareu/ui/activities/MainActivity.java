@@ -11,8 +11,8 @@ import android.view.MenuItem;
 import android.widget.TimePicker;
 
 import com.mancel.yann.mareu.R;
-import com.mancel.yann.mareu.base.BaseActivity;
-import com.mancel.yann.mareu.base.BaseFragment;
+import com.mancel.yann.mareu.ui.base.BaseActivity;
+import com.mancel.yann.mareu.ui.base.BaseFragment;
 import com.mancel.yann.mareu.ui.dialogFragments.TimePickerFragmentListener;
 import com.mancel.yann.mareu.ui.fragments.CreatorOfMeetingFragment;
 import com.mancel.yann.mareu.ui.fragments.MeetingFragment;
@@ -63,10 +63,10 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
         this.configureToolBar();
 
         // Configures and shows the main fragment
-        this.configureAndShowMainFragment();
+        this.configureAndShowMainFragment(R.id.activity_main_main_frame_layout);
 
         // Configures and shows the second fragment
-        this.configureAndShowSecondFragment();
+        this.configureAndShowSecondFragment(R.id.activity_main_second_frame_layout);
     }
 
     // ACTIVITY ************************************************************************************
@@ -111,7 +111,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
 
         // SECOND ACTIVITY
         if (requestCode == REQUEST_CODE_SECOND_ACTIVITY && resultCode == RESULT_OK) {
-            final String meetingFromString = data.getStringExtra(SecondActivity.BUNDLE_EXTRA_MEETING);
+            final String meetingFromString = data.getStringExtra(CreationActivity.BUNDLE_EXTRA_MEETING);
             this.mMeetingFragment.addMeeting(meetingFromString);
         }
 
@@ -155,7 +155,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
     public void onClickFromFragment(String message) {
         // Only one fragment is displayed
         if (this.mCreatorOfMeetingFragment == null) {
-            this.startAnotherActivityForResult(this, SecondActivity.class, REQUEST_CODE_SECOND_ACTIVITY);
+            this.startAnotherActivityForResult(this, CreationActivity.class, REQUEST_CODE_SECOND_ACTIVITY);
         }
         else {
             // Creates Alert Dialog
@@ -189,33 +189,35 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
 
     /**
      * Configures and shows the main fragment (see {@link MeetingFragment}
+     * @param idOfFrameLayout an integer that contains the id value
      */
-    private void configureAndShowMainFragment() {
+    private void configureAndShowMainFragment(final int idOfFrameLayout) {
         // Creates a Fragment [FragmentManager -> Fragment]
-        this.mMeetingFragment = (MeetingFragment) getSupportFragmentManager().findFragmentById(R.id.activity_main_main_frame_layout);
+        this.mMeetingFragment = (MeetingFragment) getSupportFragmentManager().findFragmentById(idOfFrameLayout);
 
         // If the fragment is not displayed
         if (this.mMeetingFragment == null) {
             // Creates the main fragment
             this.mMeetingFragment = MeetingFragment.newInstance();
 
-            this.addFragment(R.id.activity_main_main_frame_layout, this.mMeetingFragment);
+            this.addFragment(idOfFrameLayout, this.mMeetingFragment);
         }
     }
 
     /**
      * Configures and shows the second fragment (see {@link CreatorOfMeetingFragment}
+     * @param idOfFrameLayout an integer that contains the id value
      */
-    private void configureAndShowSecondFragment() {
+    private void configureAndShowSecondFragment(final int idOfFrameLayout) {
         // Creates a Fragment [FragmentManager -> Fragment]
-        this.mCreatorOfMeetingFragment = (CreatorOfMeetingFragment) getSupportFragmentManager().findFragmentById(R.id.activity_main_second_frame_layout);
+        this.mCreatorOfMeetingFragment = (CreatorOfMeetingFragment) getSupportFragmentManager().findFragmentById(idOfFrameLayout);
 
         // If the fragment is not displayed and it exists
         if (this.mCreatorOfMeetingFragment == null && findViewById(R.id.activity_main_second_frame_layout) != null) {
             // Creates the second fragment
             this.mCreatorOfMeetingFragment = CreatorOfMeetingFragment.newInstance();
 
-            this.addFragment(R.id.activity_main_second_frame_layout, this.mCreatorOfMeetingFragment);
+            this.addFragment(idOfFrameLayout, this.mCreatorOfMeetingFragment);
         }
     }
 }

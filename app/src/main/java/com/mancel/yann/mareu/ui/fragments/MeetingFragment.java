@@ -3,10 +3,11 @@ package com.mancel.yann.mareu.ui.fragments;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.mancel.yann.mareu.R;
-import com.mancel.yann.mareu.base.BaseFragment;
+import com.mancel.yann.mareu.ui.base.BaseFragment;
 import com.mancel.yann.mareu.model.Meeting;
 import com.mancel.yann.mareu.ui.adapters.MeetingAdapter;
 
@@ -70,6 +71,11 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
         this.mCallback.showMessageFromFragment("Delete " + this.mMeetingAdapter.getMeeting(position).getTopic());
 
         this.mFragmentPresenter.deleteMeeting(this.mMeetingAdapter.getMeeting(position));
+    }
+
+    @Override
+    public void EmptyList(boolean isEmpty) {
+        this.mTextForNoData.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
     }
 
     // ACTIONS *************************************************************************************

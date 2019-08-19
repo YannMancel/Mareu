@@ -25,7 +25,17 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
     // INTERFACE -----------------------------------------------------------------------------------
 
     public interface MeetingAdapterListener {
+        /**
+         * Retrieves the position of the {@link List}
+         * @param position an integer that contains the position value
+         */
         void onClickDeleteButton(int position);
+
+        /**
+         * Displays something when the {@link List} is empty
+         * @param isEmpty a boolean
+         */
+        void EmptyList(boolean isEmpty);
     }
 
     // FIELDS --------------------------------------------------------------------------------------
@@ -90,5 +100,8 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
 
         // Refreshes the RecyclerView
         notifyDataSetChanged();
+
+        // Checks if the List of Meeting is empty (callback method)
+        this.mCallback.EmptyList(this.mMeetings.isEmpty());
     }
 }

@@ -7,7 +7,7 @@
     android:id="@+id/activity_second_coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.SecondActivity">
+    tools:context=".ui.activities.CreationActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
         <!-- MAIN FRAGMENT -->
 
         <FrameLayout
-            android:id="@+id/activity_second_frame_layout"
+            android:id="@+id/activity_creation_frame_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

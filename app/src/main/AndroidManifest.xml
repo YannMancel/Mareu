@@ -24,7 +24,7 @@
         </activity>
 
         <activity
-            android:name=".ui.activities.SecondActivity"
+            android:name=".ui.activities.CreationActivity"
             android:parentActivityName=".ui.activities.MainActivity"></activity>
 
         <activity

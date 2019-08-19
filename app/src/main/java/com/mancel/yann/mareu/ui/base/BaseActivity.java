@@ -1,4 +1,4 @@
-package com.mancel.yann.mareu.base;
+package com.mancel.yann.mareu.ui.base;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Yann MANCEL on 16/07/2019.
  * Name of the project: Mareu
- * Name of the package: com.mancel.yann.mareu.base
+ * Name of the package: com.mancel.yann.mareu.ui.base
  *
  * A {@link AppCompatActivity} subclass.
  */

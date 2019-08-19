@@ -1,4 +1,4 @@
-package com.mancel.yann.mareu.base;
+package com.mancel.yann.mareu.ui.base;
 
 import android.content.Context;
 import android.support.v4.app.DialogFragment;
@@ -8,7 +8,7 @@ import com.mancel.yann.mareu.ui.dialogFragments.TimePickerFragmentListener;
 /**
  * Created by Yann MANCEL on 14/08/2019.
  * Name of the project: Mareu
- * Name of the package: com.mancel.yann.mareu.base
+ * Name of the package: com.mancel.yann.mareu.ui.base
  *
  * A simple {@link DialogFragment} subclass
  */

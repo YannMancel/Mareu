@@ -7,8 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TimePicker;
 
 import com.mancel.yann.mareu.R;
-import com.mancel.yann.mareu.base.BaseActivity;
-import com.mancel.yann.mareu.base.BaseFragment;
+import com.mancel.yann.mareu.ui.base.BaseActivity;
+import com.mancel.yann.mareu.ui.base.BaseFragment;
 import com.mancel.yann.mareu.ui.dialogFragments.TimePickerFragmentListener;
 import com.mancel.yann.mareu.ui.fragments.CreatorOfMeetingFragment;
 import com.mancel.yann.mareu.utils.ShowMessage;
@@ -24,8 +24,8 @@ import butterknife.BindView;
  * A {@link BaseActivity} subclass which implements
  * {@link BaseFragment.FragmentListener} and {@link TimePickerFragmentListener}.
  */
-public class SecondActivity extends BaseActivity implements BaseFragment.FragmentListener,
-                                                            TimePickerFragmentListener {
+public class CreationActivity extends BaseActivity implements BaseFragment.FragmentListener,
+                                                              TimePickerFragmentListener {
 
     // FIELDS --------------------------------------------------------------------------------------
 
@@ -42,7 +42,7 @@ public class SecondActivity extends BaseActivity implements BaseFragment.Fragmen
 
     @Override
     protected int getActivityLayout() {
-        return R.layout.activity_second;
+        return R.layout.activity_creation;
     }
 
     @Override
@@ -59,7 +59,7 @@ public class SecondActivity extends BaseActivity implements BaseFragment.Fragmen
         this.addUpButtonOfToolBar();
 
         // Configures and shows the main fragment
-        this.configureAndShowMainFragment();
+        this.configureAndShowMainFragment(R.id.activity_creation_frame_layout);
     }
 
     // INTERFACE OF FRAGMENT LISTENER **************************************************************
@@ -106,17 +106,18 @@ public class SecondActivity extends BaseActivity implements BaseFragment.Fragmen
 
     /**
      * Configures and shows the main fragment (see {@link CreatorOfMeetingFragment}
+     * @param idOfFrameLayout an integer that contains the id value
      */
-    private void configureAndShowMainFragment() {
+    private void configureAndShowMainFragment(final int idOfFrameLayout) {
         // Creates a Fragment [FragmentManager -> Fragment]
-        this.mCreatorOfMeetingFragment = (CreatorOfMeetingFragment) getSupportFragmentManager().findFragmentById(R.id.activity_second_frame_layout);
+        this.mCreatorOfMeetingFragment = (CreatorOfMeetingFragment) getSupportFragmentManager().findFragmentById(idOfFrameLayout);
 
         // If the fragment is not displayed
         if (this.mCreatorOfMeetingFragment == null) {
             // Creates the main fragment
             this.mCreatorOfMeetingFragment = CreatorOfMeetingFragment.newInstance();
 
-            this.addFragment(R.id.activity_second_frame_layout, this.mCreatorOfMeetingFragment);
+            this.addFragment(idOfFrameLayout, this.mCreatorOfMeetingFragment);
         }
     }
 }
