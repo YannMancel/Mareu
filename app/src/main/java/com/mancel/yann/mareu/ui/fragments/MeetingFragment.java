@@ -38,7 +38,8 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
 
-    public MeetingFragment() {}
+    public MeetingFragment() {
+    }
 
     // METHODS -------------------------------------------------------------------------------------
 
@@ -61,6 +62,8 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
     @Override
     public void UpdateDataOfRecyclerView(List<Meeting> meetings) {
         this.mMeetingAdapter.updateData(meetings);
+
+        // TODO: 19/08/2019 add a boolean in argument to separate normal and filter mode 
     }
 
     // CALLBACKS OF RECYCLER VIEW ******************************************************************
@@ -83,12 +86,17 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
     @OnClick(R.id.fragment_meeting_fab)
     public void onFABClicked() {
         this.mCallback.onClickFromFragment(null);
+
+        // TODO: 19/08/2019 after filter: return mode
+        // this.UpdateDataOfRecyclerView(this.mFragmentPresenter.getMeetings());
+        // this.setVisibilityOfFAB(true);
     }
 
     // INSTANCES ***********************************************************************************
 
     /**
      * Returns a {@link MeetingFragment}
+     *
      * @return a {@link MeetingFragment}
      */
     public static MeetingFragment newInstance() {
@@ -113,6 +121,7 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
 
     /**
      * Filter per hours
+     *
      * @param minHour a {@link String} that contains the minimal hour
      * @param maxHour a {@link String} that contains the maximal hour
      */
@@ -122,6 +131,7 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
 
     /**
      * Filter per room
+     *
      * @param roomName a {@link String} tht corresponds to the room filter
      */
     public void filterPerRoom(String roomName) {
@@ -132,6 +142,7 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
 
     /**
      * Adds a new {@link Meeting}
+     *
      * @param meetingFromString a {@link String} that contains the {@link Meeting}
      */
     public void addMeeting(String meetingFromString) {
@@ -151,4 +162,14 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
             this.mFab.hide();
         }
     }
+
+    /**
+     * Changes the icon of the {@link FloatingActionButton} thanks to the boolean in argument
+     * @param isFilter a boolean
+     */
+    private void changeIconOfFAB(boolean isFilter) {
+        this.mFab.setImageDrawable(isFilter ? getResources().getDrawable(R.drawable.ic_reply_white_24dp, getContext().getTheme()) :
+                                              getResources().getDrawable(R.drawable.ic_add_white_24dp, getContext().getTheme()));
+    }
 }
+

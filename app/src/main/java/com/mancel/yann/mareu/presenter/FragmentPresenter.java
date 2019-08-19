@@ -119,9 +119,7 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
         }
 
         // Callback to the View
-        if (filteredMeetings.size() != 0) {
-            this.mView.UpdateDataOfRecyclerView(filteredMeetings);
-        }
+        this.mView.UpdateDataOfRecyclerView(filteredMeetings);
 
         return filteredMeetings;
     }
@@ -154,9 +152,7 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
         }
 
         // Callback to the View
-        if (filteredMeetings.size() != 0) {
-            this.mView.UpdateDataOfRecyclerView(filteredMeetings);
-        }
+        this.mView.UpdateDataOfRecyclerView(filteredMeetings);
 
         return filteredMeetings;
     }
