@@ -29,6 +29,7 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
 
     private ApiService mService;
     private View.FragmentView mView;
+    private List<Member> mSelectedMembers;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
 
@@ -39,6 +40,7 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
     public FragmentPresenter(View.FragmentView view) {
         this.mService = DI.getApiService();
         this.mView = view;
+        this.mSelectedMembers = new ArrayList<>();
     }
 
     // METHODS -------------------------------------------------------------------------------------
@@ -78,11 +80,6 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
     }
 
     @Override
-    public List<Room> getRooms() {
-        return this.mService.getRooms();
-    }
-
-    @Override
     public List<String> getRoomsName() {
         List<String> nameOfRooms = new ArrayList<>();
 
@@ -96,6 +93,33 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
     @Override
     public List<Member> getMembers() {
         return this.mService.getMembers();
+    }
+
+    @Override
+    public void AddOrDeleteMember(Member member) {
+        if (this.mSelectedMembers.contains(member)) {
+            this.mSelectedMembers.remove(member);
+        }
+        else {
+            this.mSelectedMembers.add(member);
+        }
+    }
+
+    @Override
+    public String getSelectedMembers() {
+        StringBuilder sb = new StringBuilder();
+
+        int i = 0;
+
+        for (Member member : this.mSelectedMembers) {
+            sb.append(member.getEmail());
+
+            if (++i != this.mSelectedMembers.size()) {
+                sb.append(", ");
+            }
+        }
+
+        return sb.toString();
     }
 
     // MEMORY LEAKS ********************************************************************************

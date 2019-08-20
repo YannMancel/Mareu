@@ -46,12 +46,6 @@ public interface Presenter {
         String createNewMeetingToString(String topic, String hour, String room, String member);
 
         /**
-         * Returns a {@link List} of {@link Room}
-         * @return a {@link List} of {@link Room}
-         */
-        List<Room> getRooms();
-
-        /**
          * Returns a {@link List} of {@link String}
          * @return a {@link List} of {@link String}
          */
@@ -62,6 +56,18 @@ public interface Presenter {
          * @return a {@link List} of {@link Member}
          */
         List<Member> getMembers();
+
+        /**
+         * Adds or deletes the {@link Member} according to the boolean in argument
+         * @param member a {@link Member} to analyse
+         */
+        void AddOrDeleteMember(Member member);
+
+        /**
+         * Returns a {@link String} that contains all the selected {@link Member}
+         * @return a {@link String} that contains all the selected {@link Member}
+         */
+        String getSelectedMembers();
 
         // MEMORY LEAKS ****************************************************************************
 

@@ -2,12 +2,15 @@ package com.mancel.yann.mareu.ui.fragments;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.mancel.yann.mareu.R;
+import com.mancel.yann.mareu.ui.adapters.MemberAdapter;
 import com.mancel.yann.mareu.ui.base.BaseFragment;
 import com.mancel.yann.mareu.ui.dialogFragments.TimePickerFragment;
 
@@ -21,7 +24,7 @@ import butterknife.OnClick;
  *
  * A simple {@link BaseFragment} subclass.
  */
-public class CreatorOfMeetingFragment extends BaseFragment {
+public class CreatorOfMeetingFragment extends BaseFragment implements MemberAdapter.MemberAdapterListener {
 
     // FIELDS --------------------------------------------------------------------------------------
 
@@ -33,8 +36,12 @@ public class CreatorOfMeetingFragment extends BaseFragment {
     ImageButton mSearchHour;
     @BindView(R.id.fragment_creator_of_meeting_spinner_room)
     Spinner mRoomSpinner;
+    @BindView(R.id.fragment_creator_recycler_view)
+    RecyclerView mRecyclerView;
     @BindView(R.id.fragment_creator_of_meeting_fab)
     FloatingActionButton mFab;
+
+    private MemberAdapter mAdapter;
 
     public final int ID_SEARCH_HOUR = 1;
 
@@ -53,6 +60,9 @@ public class CreatorOfMeetingFragment extends BaseFragment {
     protected void configureDesign() {
         // Configures the room spinner
         this.configureRoomSpinner();
+
+        // Configures the RecyclerView
+        this.configureRecyclerView();
     }
 
     // INTERFACE FRAGMENT VIEW *********************************************************************
@@ -64,12 +74,19 @@ public class CreatorOfMeetingFragment extends BaseFragment {
         }
     }
 
+    // INTERFACE MEMBER ADAPTER LISTENER (CALLBACKS OF RECYCLER VIEW) ******************************
+
+    @Override
+    public void onClickCheckBox(int position) {
+        this.mFragmentPresenter.AddOrDeleteMember(this.mAdapter.getMember(position));
+    }
+
     // ACTIONS *************************************************************************************
 
     @OnClick(R.id.fragment_creator_of_meeting_button_search_hour)
     public void onHourButtonClicked() {
         TimePickerFragment.newInstance(ID_SEARCH_HOUR)
-                          .show(getActivity().getSupportFragmentManager(), "TIME PICKER");
+                .show(getActivity().getSupportFragmentManager(), "TIME PICKER");
     }
 
     @OnClick(R.id.fragment_creator_of_meeting_fab)
@@ -77,7 +94,7 @@ public class CreatorOfMeetingFragment extends BaseFragment {
         final String json = this.mFragmentPresenter.createNewMeetingToString(this.mTopic.getText().toString(),
                                                                              this.mHour.getText().toString(),
                                                                              (String) this.mRoomSpinner.getSelectedItem(),
-                                                                             "DummyParticipant");
+                                                                             this.mFragmentPresenter.getSelectedMembers());
 
         this.mCallback.onClickFromFragment(json);
     }
@@ -106,5 +123,22 @@ public class CreatorOfMeetingFragment extends BaseFragment {
 
         // Spinner
         this.mRoomSpinner.setAdapter(adapter);
+    }
+
+    // RECYCLER VIEW *******************************************************************************
+
+    /**
+     * Configures {@link RecyclerView} with its {@link MemberAdapter}
+     */
+    private void configureRecyclerView() {
+        // Adapter
+        this.mAdapter = new MemberAdapter(this);
+
+        // RecyclerView
+        this.mRecyclerView.setAdapter(this.mAdapter);
+        this.mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Initializes the RecyclerView
+        this.mAdapter.updateData(this.mFragmentPresenter.getMembers());
     }
 }

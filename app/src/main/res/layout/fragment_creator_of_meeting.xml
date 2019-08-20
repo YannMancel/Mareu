@@ -144,6 +144,43 @@
 
     </android.support.constraint.ConstraintLayout>
 
+    <!-- BLOC: MEMBERS ************************************************************************* -->
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/fragment_creator_of_meeting_cl_member"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/fragment_creator_of_meeting_cl_room"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/vertical_big_margin">
+
+        <!-- TEXT VIEW -->
+
+        <TextView
+            android:id="@+id/fragment_creator_of_meeting_tv_member"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/member" />
+
+        <!-- RECYCLER VIEW -->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fragment_creator_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/fragment_creator_of_meeting_tv_member"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:listitem="@layout/item_member"/>
+
+    </android.support.constraint.ConstraintLayout>
+
     <!-- FAB -->
 
     <android.support.design.widget.FloatingActionButton
@@ -156,6 +193,6 @@
         android:layout_marginEnd="@dimen/fab_margin"
         android:src="@drawable/ic_add_white_24dp"
         android:tint="@android:color/white"
-        android:elevation="@dimen/elevation_fab"/>
+        android:elevation="@dimen/elevation_fab" />
 
 </android.support.constraint.ConstraintLayout>

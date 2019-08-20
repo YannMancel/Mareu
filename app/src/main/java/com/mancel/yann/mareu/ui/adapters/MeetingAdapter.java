@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.model.Meeting;
 
 import java.util.ArrayList;
@@ -64,7 +63,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
 
         // Creates the View thanks to the inflater
-        View view = layoutInflater.inflate(R.layout.item_meeting, viewGroup, false);
+        View view = layoutInflater.inflate(MeetingViewHolder.getLayout(), viewGroup, false);
 
         return new MeetingViewHolder(view);
     }
@@ -90,6 +89,8 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
     public Meeting getMeeting(final int position) {
         return this.mMeetings.get(position);
     }
+
+    // DATA ****************************************************************************************
 
     /**
      * Updates the {@link List} of {@link Meeting} and displays it

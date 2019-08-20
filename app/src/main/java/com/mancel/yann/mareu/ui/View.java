@@ -13,9 +13,6 @@ public interface View {
 
     // INTERFACES ----------------------------------------------------------------------------------
 
-    public interface ActivityView {
-    }
-
     public interface FragmentView {
         /**
          * Updates the data

@@ -57,6 +57,16 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
 
     // METHODS -------------------------------------------------------------------------------------
 
+    /**
+     * Returns the layout value
+     * @return an integer that contains the layout value
+     */
+    public static int getLayout() {
+        return R.layout.item_meeting;
+    }
+
+    // ACTIONS *************************************************************************************
+
     @OnClick(R.id.item_meeting_iv_delete)
     public void onDeleteButtonClicked() {
         // Calls the related Listener method (callback)

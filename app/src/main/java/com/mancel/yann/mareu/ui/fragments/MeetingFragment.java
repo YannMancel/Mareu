@@ -36,7 +36,7 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
     @BindView(R.id.fragment_meeting_tv_no_data)
     TextView mTextForNoData;
 
-    private MeetingAdapter mMeetingAdapter;
+    private MeetingAdapter mAdapter;
     private boolean mIsFilter;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
@@ -64,7 +64,7 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
     @Override
     public void updateDataOfRecyclerView(List<Meeting> meetings, boolean isFilter) {
         // RECYCLER VIEW
-        this.mMeetingAdapter.updateData(meetings);
+        this.mAdapter.updateData(meetings);
 
         // FILTER FAB
         this.setVisibilityOfFilterFAB(isFilter);
@@ -73,14 +73,14 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
         this.mIsFilter = isFilter;
     }
 
-    // CALLBACKS OF RECYCLER VIEW ******************************************************************
+    // INTERFACE MEETING ADAPTER LISTENER (CALLBACKS OF RECYCLER VIEW) *****************************
 
     @Override
     public void onClickDeleteButton(int position) {
         // Displays message
-        this.mCallback.showMessageFromFragment("Delete " + this.mMeetingAdapter.getMeeting(position).getTopic());
+        this.mCallback.showMessageFromFragment("Delete " + this.mAdapter.getMeeting(position).getTopic());
 
-        this.mFragmentPresenter.deleteMeeting(this.mMeetingAdapter.getMeeting(position));
+        this.mFragmentPresenter.deleteMeeting(this.mAdapter.getMeeting(position));
     }
 
     @Override
@@ -129,10 +129,10 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
      */
     private void configureRecyclerView() {
         // Adapter
-        this.mMeetingAdapter = new MeetingAdapter(this);
+        this.mAdapter = new MeetingAdapter(this);
 
         // RecyclerView
-        this.mRecyclerView.setAdapter(this.mMeetingAdapter);
+        this.mRecyclerView.setAdapter(this.mAdapter);
         this.mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 

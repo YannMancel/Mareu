@@ -10,6 +10,18 @@
     android:padding="@dimen/horizontal_margin"
     tools:context=".ui.fragments.HoursFilterFragment">
 
+    <!-- TEXT VIEW -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/dialog_filter_date_cl_min_hour"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/select_a_range_of_hours"
+        android:textSize="@dimen/text_size_dialog_filter"
+        android:layout_marginBottom="@dimen/vertical_big_margin" />
+
     <!-- BLOC: MINIMAL HOUR ******************************************************************** -->
 
     <android.support.constraint.ConstraintLayout

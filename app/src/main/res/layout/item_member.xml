@@ -10,7 +10,7 @@
     <!-- IMAGE VIEW -->
 
     <ImageView
-        android:id="@+id/item_meeting_iv_image"
+        android:id="@+id/item_member_iv_image"
         android:layout_width="@dimen/size_image_view"
         android:layout_height="@dimen/size_image_view"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,57 +20,55 @@
         android:layout_margin="@dimen/horizontal_margin"/>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/item_meeting_cl_text"
+        android:id="@+id/item_member_cl_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/item_meeting_iv_image"
-        app:layout_constraintEnd_toStartOf="@id/item_meeting_iv_delete"
+        app:layout_constraintStart_toEndOf="@id/item_member_iv_image"
+        app:layout_constraintEnd_toStartOf="@id/item_member_cb_check"
         android:layout_marginStart="@dimen/horizontal_margin">
 
-        <!-- TEXT VIEW: TOPIC, HOUR AND ROOM -->
+        <!-- TEXT VIEW: First and Last names -->
 
         <TextView
-            android:id="@+id/item_meeting_tv_topic_hour_room"
+            android:id="@+id/item_member_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="@string/text_topic_hour_room"
+            android:text="@string/first_and_last_names"
             android:textStyle="bold"
             android:textSize="@dimen/text_size_item"
-            android:singleLine="true"/>
+            android:singleLine="true" />
 
-        <!-- TEXT VIEW: PARTICIPANTS -->
+        <!-- TEXT VIEW: Email -->
 
         <TextView
-            android:id="@+id/item_meeting_tv_participants"
+            android:id="@+id/item_member_tv_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/item_meeting_tv_topic_hour_room"
+            app:layout_constraintTop_toBottomOf="@id/item_member_name"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/text_participant_mail"
             android:textSize="@dimen/sub_text_size_item"
-            android:singleLine="true"/>
+            android:singleLine="true" />
 
     </android.support.constraint.ConstraintLayout>
 
-    <!-- IMAGE BUTTON -->
+    <!-- CHECK BOX -->
 
-    <ImageButton
-        android:id="@+id/item_meeting_iv_delete"
+    <CheckBox
+        android:id="@+id/item_member_cb_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/item_meeting_cl_text"
+        app:layout_constraintStart_toEndOf="@id/item_member_cl_text"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="@dimen/horizontal_margin"
-        android:background="@null"
-        android:src="@drawable/ic_delete_black_24dp" />
+        android:layout_margin="@dimen/horizontal_margin" />
 
 </android.support.constraint.ConstraintLayout>

@@ -10,6 +10,17 @@
     android:padding="@dimen/horizontal_margin"
     tools:context=".ui.fragments.RoomFilterFragment">
 
+    <!-- TEXT VIEW -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/fragment_filter_room_spinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/select_a_room_for_the_filter"
+        android:textSize="@dimen/text_size_dialog_filter"/>
+
     <!-- SPINNER -->
 
     <Spinner

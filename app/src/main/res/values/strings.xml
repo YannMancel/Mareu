@@ -3,9 +3,10 @@
 
     <!-- XML file -->
 
-        <!-- item_meeting.xml -->
+        <!-- item_[...].xml -->
         <string name="text_topic_hour_room">Meeting A - 15h00 - Mario</string>
         <string name="text_participant_mail">perso@hotmail.fr</string>
+        <string name="first_and_last_names">Yann Mancel</string>
 
         <!-- menu_activity_main.xml -->
         <string name="filter">Filter</string>
@@ -16,17 +17,20 @@
         <string name="hour_of_meeting">Hour:</string>
         <string name="room_of_meeting">Room:</string>
         <string name="topic_of_meeting">Topic:</string>
+        <string name="member">Member:</string>
 
         <!-- fragment_meeting.xml -->
         <string name="no_data">No data</string>
 
         <!-- fragment_filter_hours.xml -->
+        <string name="select_a_range_of_hours">Select a range of hours:</string>
         <string name="filter_by_hours">Filter by hours</string>
         <string name="initial_hour_of_text_view">08:00</string>
         <string name="to">To</string>
         <string name="final_hour_of_text_view">20:00</string>
 
         <!-- fragment_filter_room.xml -->
+        <string name="select_a_room_for_the_filter">Select a room for the filter:</string>
         <string name="filter_by_room">Filter by room</string>
 
     <!-- JAVA file -->
@@ -47,12 +51,4 @@
         <string name="creation_of_room_filter">Creation of room filter</string>
         <string name="question_for_creation_of_room_filter">Are you sure to create this filter?\n(%s)</string>
 
-
-
-
-
-
-    <!-- dialog_filter_[...].xml -->
-    <string name="select_a_room_for_the_filter">Select a room for the filter</string>
-    <string name="select_a_range_of_hours">Select a range of hours</string>
 </resources>

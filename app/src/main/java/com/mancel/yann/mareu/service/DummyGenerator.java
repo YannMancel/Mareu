@@ -31,9 +31,15 @@ public abstract class DummyGenerator {
     );
 
     private static List<Member> dummyMembers = Arrays.asList(
-            new Member(1, "maxime", "Dupond", "maxime@lamzone.com"),
-            new Member(2, "paul", "Patru", "paul@lamzone.com"),
-            new Member(3, "amandine", "Delorme", "amandine@lamzone.com")
+            new Member(1, "Maxime", "Dupond", "maxime@lamzone.com"),
+            new Member(2, "Paul", "Patru", "paul@lamzone.com"),
+            new Member(3, "Amandine", "Delorme", "amandine@lamzone.com"),
+            new Member(4, "Thomas", "Sola", "thomas@lamzone.com"),
+            new Member(5, "Melina", "Zurita", "melina@lamzone.com"),
+            new Member(6, "Kevin", "Morre", "kevin@lamzone.com"),
+            new Member(7, "Cyril", "Marcas", "cyril@lamzone.com"),
+            new Member(8, "Gor", "Zirc", "gor@lamzone.com"),
+            new Member(9, "Pavel", "Mancel", "pavel@lamzone.com")
     );
 
     // METHODS -------------------------------------------------------------------------------------
