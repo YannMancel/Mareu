@@ -20,8 +20,9 @@ public interface View {
         /**
          * Updates the data
          * @param meetings a {@link List} of {@link Meeting}
+         * @param isFilter a boolean
          */
-        void UpdateDataOfRecyclerView(List<Meeting> meetings);
+        void updateDataOfRecyclerView(List<Meeting> meetings, boolean isFilter);
 
         /**
          * Updates the hour in hh:mm format by id

@@ -53,7 +53,7 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
         this.mService.deleteMeeting(meeting);
 
         // Callback to the View
-        this.mView.UpdateDataOfRecyclerView(this.getMeetings());
+        this.mView.updateDataOfRecyclerView(this.getMeetings(), false);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
         this.mService.addMeeting(meeting);
 
         // Callback to the View
-        this.mView.UpdateDataOfRecyclerView(this.getMeetings());
+        this.mView.updateDataOfRecyclerView(this.getMeetings(), false);
     }
 
     @Override
@@ -119,7 +119,7 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
         }
 
         // Callback to the View
-        this.mView.UpdateDataOfRecyclerView(filteredMeetings);
+        this.mView.updateDataOfRecyclerView(filteredMeetings, true);
 
         return filteredMeetings;
     }
@@ -152,7 +152,7 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
         }
 
         // Callback to the View
-        this.mView.UpdateDataOfRecyclerView(filteredMeetings);
+        this.mView.updateDataOfRecyclerView(filteredMeetings, true);
 
         return filteredMeetings;
     }

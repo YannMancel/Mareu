@@ -140,8 +140,8 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
     protected void onResume() {
         super.onResume();
 
-        // Hides the FAB into Fragment if there are 2 fragments displayed
-        this.mMeetingFragment.setVisibilityOfFAB(this.mCreatorOfMeetingFragment == null);
+        // TABLET MODE: Hides the FAB into Fragment if there are 2 fragments displayed
+        this.mMeetingFragment.setVisibilityOfAddFAB(this.mCreatorOfMeetingFragment == null);
     }
 
     // INTERFACE OF FRAGMENT LISTENER **************************************************************

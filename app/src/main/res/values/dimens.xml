@@ -15,4 +15,7 @@
     <dimen name="sub_text_size_item">14sp</dimen>
 
     <dimen name="size_image_view">50dp</dimen>
+
+    <dimen name="width_separator">2dp</dimen>
+
 </resources>

@@ -101,7 +101,7 @@ public abstract class BaseFragment extends Fragment implements FragmentView {
     // INTERFACE FRAGMENT VIEW *********************************************************************
 
     @Override
-    public void UpdateDataOfRecyclerView(List<Meeting> meetings) {}
+    public void updateDataOfRecyclerView(List<Meeting> meetings, boolean isFilter) {}
 
     @Override
     public void setTextViewById(int id, String time) {}

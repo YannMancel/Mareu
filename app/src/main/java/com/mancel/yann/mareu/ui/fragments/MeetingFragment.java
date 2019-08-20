@@ -29,17 +29,19 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
 
     @BindView(R.id.fragment_meeting_recycler_view)
     RecyclerView mRecyclerView;
-    @BindView(R.id.fragment_meeting_fab)
-    FloatingActionButton mFab;
+    @BindView(R.id.fragment_meeting_fab_add)
+    FloatingActionButton mAddFab;
+    @BindView(R.id.fragment_meeting_fab_filter)
+    FloatingActionButton mFilterFab;
     @BindView(R.id.fragment_meeting_tv_no_data)
     TextView mTextForNoData;
 
     private MeetingAdapter mMeetingAdapter;
+    private boolean mIsFilter;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
 
-    public MeetingFragment() {
-    }
+    public MeetingFragment() {}
 
     // METHODS -------------------------------------------------------------------------------------
 
@@ -54,16 +56,21 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
         this.configureRecyclerView();
 
         // Updates the list of the RecyclerView
-        this.UpdateDataOfRecyclerView(this.mFragmentPresenter.getMeetings());
+        this.updateDataOfRecyclerView(this.mFragmentPresenter.getMeetings(), false);
     }
 
     // INTERFACE FRAGMENT VIEW *********************************************************************
 
     @Override
-    public void UpdateDataOfRecyclerView(List<Meeting> meetings) {
+    public void updateDataOfRecyclerView(List<Meeting> meetings, boolean isFilter) {
+        // RECYCLER VIEW
         this.mMeetingAdapter.updateData(meetings);
 
-        // TODO: 19/08/2019 add a boolean in argument to separate normal and filter mode 
+        // FILTER FAB
+        this.setVisibilityOfFilterFAB(isFilter);
+
+        // FILTER
+        this.mIsFilter = isFilter;
     }
 
     // CALLBACKS OF RECYCLER VIEW ******************************************************************
@@ -83,13 +90,25 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
 
     // ACTIONS *************************************************************************************
 
-    @OnClick(R.id.fragment_meeting_fab)
-    public void onFABClicked() {
-        this.mCallback.onClickFromFragment(null);
-
-        // TODO: 19/08/2019 after filter: return mode
-        // this.UpdateDataOfRecyclerView(this.mFragmentPresenter.getMeetings());
-        // this.setVisibilityOfFAB(true);
+    @OnClick({R.id.fragment_meeting_fab_add,
+              R.id.fragment_meeting_fab_filter})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            // PHONE MODE
+            case R.id.fragment_meeting_fab_add: {
+                if (this.mIsFilter) {
+                    this.updateDataOfRecyclerView(this.mFragmentPresenter.getMeetings(), false);
+                } else {
+                    this.mCallback.onClickFromFragment(null);
+                }
+                break;
+            }
+            // TABLET MODE
+            case R.id.fragment_meeting_fab_filter: {
+                this.updateDataOfRecyclerView(this.mFragmentPresenter.getMeetings(), false);
+                break;
+            }
+        }
     }
 
     // INSTANCES ***********************************************************************************
@@ -152,24 +171,26 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
     // FLOATING ACTION BUTTON **********************************************************************
 
     /**
-     * Sets the visibility of {@link FloatingActionButton} thanks to the boolean in argument
+     * Sets the visibility of the Add {@link FloatingActionButton} thanks to the boolean in argument
      * @param isVisible a boolean
      */
-    public void setVisibilityOfFAB(boolean isVisible) {
+    public void setVisibilityOfAddFAB(boolean isVisible) {
         if (isVisible) {
-            this.mFab.show();
+            this.mAddFab.show();
         } else {
-            this.mFab.hide();
+            this.mAddFab.hide();
         }
     }
 
     /**
-     * Changes the icon of the {@link FloatingActionButton} thanks to the boolean in argument
-     * @param isFilter a boolean
+     * Sets the visibility of the Filter {@link FloatingActionButton} thanks to the boolean in argument
+     * @param isVisible a boolean
      */
-    private void changeIconOfFAB(boolean isFilter) {
-        this.mFab.setImageDrawable(isFilter ? getResources().getDrawable(R.drawable.ic_reply_white_24dp, getContext().getTheme()) :
-                                              getResources().getDrawable(R.drawable.ic_add_white_24dp, getContext().getTheme()));
+    public void setVisibilityOfFilterFAB(boolean isVisible) {
+        if (isVisible) {
+            this.mFilterFab.show();
+        } else {
+            this.mFilterFab.hide();
+        }
     }
 }
-
