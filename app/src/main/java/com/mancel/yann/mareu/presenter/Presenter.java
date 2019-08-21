@@ -17,6 +17,8 @@ public interface Presenter {
 
     public interface FragmentPresenterInterface {
 
+        // MEETINGS ********************************************************************************
+
         /**
          * Returns a {@link List} of {@link Meeting}
          * @return a {@link List} of {@link Meeting}
@@ -45,11 +47,15 @@ public interface Presenter {
          */
         String createNewMeetingToString(String topic, String hour, String room, String member);
 
+        // ROOMS ***********************************************************************************
+
         /**
          * Returns a {@link List} of {@link String}
          * @return a {@link List} of {@link String}
          */
         List<String> getRoomsName();
+
+        // MEMBERS *********************************************************************************
 
         /**
          * Returns a {@link List} of {@link Member}
@@ -60,8 +66,9 @@ public interface Presenter {
         /**
          * Adds or deletes the {@link Member} according to the boolean in argument
          * @param member a {@link Member} to analyse
+         * @return a boolean [True: Add] en [False: Delete]
          */
-        void AddOrDeleteMember(Member member);
+        boolean AddOrDeleteMember(Member member);
 
         /**
          * Returns a {@link String} that contains all the selected {@link Member}
@@ -90,7 +97,8 @@ public interface Presenter {
          * @param minDate a {@link String} that contains the minimal hour
          * @param maxDate a {@link String} that contains the maximal hour
          * @return a {@link List} of {@link Meeting}
+         * @exception Exception throws when the dates are not correct
          */
-        List<Meeting> filterPerHours(String minDate, String maxDate);
+        List<Meeting> filterPerHours(String minDate, String maxDate) throws Exception;
     }
 }

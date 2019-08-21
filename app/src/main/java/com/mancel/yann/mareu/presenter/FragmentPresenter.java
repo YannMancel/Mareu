@@ -1,5 +1,7 @@
 package com.mancel.yann.mareu.presenter;
 
+import android.support.annotation.VisibleForTesting;
+
 import com.mancel.yann.mareu.di.DI;
 import com.mancel.yann.mareu.model.Meeting;
 import com.mancel.yann.mareu.model.Member;
@@ -34,7 +36,7 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
     // CONSTRUCTORS --------------------------------------------------------------------------------
 
     /**
-     * Constructor with an argument {@link View.FragmentView}
+     * Constructor
      * @param view a {@link View.FragmentView} interface that contains the View
      */
     public FragmentPresenter(View.FragmentView view) {
@@ -43,12 +45,27 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
         this.mSelectedMembers = new ArrayList<>();
     }
 
+    /**
+     * Constructor
+     * Useful for tests, so we ensure the context is clean.
+     * @param view a {@link View.FragmentView} interface that contains the View
+     * @param apiService  a {@link ApiService}
+     */
+    @VisibleForTesting
+    public FragmentPresenter(View.FragmentView view, ApiService apiService) {
+        this.mService = apiService;
+        this.mView = view;
+        this.mSelectedMembers = new ArrayList<>();
+    }
+
     // METHODS -------------------------------------------------------------------------------------
+
+    // MEETINGS ************************************************************************************
 
     @Override
     public List<Meeting> getMeetings() {
         return this.mService.getMeetings();
-    }
+    };
 
     @Override
     public void deleteMeeting(Meeting meeting) {
@@ -79,6 +96,8 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
         return JsonTools.convertJavaToJson(meeting);
     }
 
+    // ROOMS ***************************************************************************************
+
     @Override
     public List<String> getRoomsName() {
         List<String> nameOfRooms = new ArrayList<>();
@@ -90,18 +109,22 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
         return nameOfRooms;
     }
 
+    // MEMBERS *************************************************************************************
+
     @Override
     public List<Member> getMembers() {
         return this.mService.getMembers();
     }
 
     @Override
-    public void AddOrDeleteMember(Member member) {
+    public boolean AddOrDeleteMember(Member member) {
         if (this.mSelectedMembers.contains(member)) {
             this.mSelectedMembers.remove(member);
+            return false;
         }
         else {
             this.mSelectedMembers.add(member);
+            return true;
         }
     }
 
@@ -149,7 +172,7 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
     }
 
     @Override
-    public List<Meeting> filterPerHours(String minDateInString, String maxDateInString) {
+    public List<Meeting> filterPerHours(String minDateInString, String maxDateInString) throws Exception {
         List<Meeting> filteredMeetings = new ArrayList<>();
 
         DateFormat dateFormat = new SimpleDateFormat(TimeTools.PATTERN_FORMAT);
@@ -161,13 +184,15 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
             maxDate = dateFormat.parse(maxDateInString);
 
             // Error between the dates (inverse order)
-            if (minDate.after(maxDate)) return null;
+            if (minDate.after(maxDate)) throw new Exception("Error: Bad order in the arguments");
 
             for (Meeting meeting : this.mService.getMeetings()) {
                 // Retrieves the hour of meeting
                 meetingDate = dateFormat.parse(meeting.getHour());
 
-                if (meetingDate.after(minDate) && meetingDate.before(maxDate)) {
+                if (meetingDate.equals(minDate) ||
+                    meetingDate.equals(maxDate) ||
+                    (meetingDate.after(minDate) && meetingDate.before(maxDate))) {
                     filteredMeetings.add(meeting);
                 }
             }

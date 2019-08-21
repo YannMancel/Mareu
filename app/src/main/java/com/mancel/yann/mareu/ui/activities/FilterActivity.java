@@ -128,8 +128,13 @@ public class FilterActivity extends BaseActivity implements BaseFragment.Fragmen
 
     @Override
     public void onTimeSet(int id, TimePicker view, int hourOfDay, int minute) {
-        final String time = TimeTools.convertHourAndMinuteToString(hourOfDay, minute);
-        this.mHoursFilterFragment.setTextViewById(id, time);
+        final String time;
+        try {
+            time = TimeTools.convertHourAndMinuteToString(hourOfDay, minute);
+            this.mHoursFilterFragment.setTextViewById(id, time);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // INTENT **************************************************************************************

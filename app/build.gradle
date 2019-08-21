@@ -29,15 +29,17 @@ dependencies {
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.android.support:support-v4:28.0.0'
 
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.hamcrest:java-hamcrest:2.0.0.0'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
     // BUTTER KNIFE
     implementation 'com.jakewharton:butterknife:9.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0'
 
     // GSON
     implementation 'com.google.code.gson:gson:2.8.5'
+
+    // HAMCREST
+    testImplementation 'org.hamcrest:java-hamcrest:2.0.0.0'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }

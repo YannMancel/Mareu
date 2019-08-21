@@ -145,7 +145,11 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
      * @param maxHour a {@link String} that contains the maximal hour
      */
     public void filterPerHours(String minHour, String maxHour) {
-        this.mFragmentPresenter.filterPerHours(minHour, maxHour);
+        try {
+            this.mFragmentPresenter.filterPerHours(minHour, maxHour);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

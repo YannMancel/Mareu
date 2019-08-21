@@ -98,8 +98,13 @@ public class CreationActivity extends BaseActivity implements BaseFragment.Fragm
 
     @Override
     public void onTimeSet(int id, TimePicker view, int hourOfDay, int minute) {
-        final String time = TimeTools.convertHourAndMinuteToString(hourOfDay, minute);
-        this.mCreatorOfMeetingFragment.setTextViewById(id, time);
+        final String time;
+        try {
+            time = TimeTools.convertHourAndMinuteToString(hourOfDay, minute);
+            this.mCreatorOfMeetingFragment.setTextViewById(id, time);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // FRAGMENTS ***********************************************************************************
