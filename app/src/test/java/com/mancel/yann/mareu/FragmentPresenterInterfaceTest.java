@@ -71,7 +71,7 @@ public class FragmentPresenterInterfaceTest {
     // MEETINGS ************************************************************************************
 
     @Test
-    public void FragmentPresenterInterface_getMeetings() {
+    public void fragmentPresenterInterface_getMeetings() {
         List<Meeting> actualList = this.mFragmentPresenter.getMeetings();
         List<Meeting> expectedList = DummyGenerator.generatorOfDummyMeetings();
 
@@ -79,7 +79,7 @@ public class FragmentPresenterInterfaceTest {
     }
 
     @Test
-    public void FragmentPresenterInterface_deleteMeeting() {
+    public void fragmentPresenterInterface_deleteMeeting() {
         Meeting meeting = this.mFragmentPresenter.getMeetings().get(0);
         this.mFragmentPresenter.deleteMeeting(meeting);
 
@@ -87,7 +87,7 @@ public class FragmentPresenterInterfaceTest {
     }
 
     @Test
-    public void FragmentPresenterInterface_addMeeting() {
+    public void fragmentPresenterInterface_addMeeting() {
         assertFalse(this.mFragmentPresenter.getMeetings().contains(this.mMeeting));
 
         this.mFragmentPresenter.addMeeting(this.mJsonFormat);
@@ -96,7 +96,7 @@ public class FragmentPresenterInterfaceTest {
     }
 
     @Test
-    public void FragmentPresenterInterface_createNewMeetingToString() {
+    public void fragmentPresenterInterface_createNewMeetingToString() {
         assertFalse(this.mFragmentPresenter.getMeetings().contains(this.mMeeting));
 
         final String actualString = this.mFragmentPresenter.createNewMeetingToString("Meeting E", "14:00", "Peach", "yann@lamzone.com");
@@ -107,7 +107,7 @@ public class FragmentPresenterInterfaceTest {
     // ROOMS ***************************************************************************************
 
     @Test
-    public void FragmentPresenterInterface_getRoomsName() {
+    public void fragmentPresenterInterface_getRoomsName() {
         List<String> expectedList = Arrays.asList("Peach","Mario","Luigi");
 
         List<String> actualList = this.mFragmentPresenter.getRoomsName();
@@ -118,7 +118,7 @@ public class FragmentPresenterInterfaceTest {
     // MEMBERS *************************************************************************************
 
     @Test
-    public void FragmentPresenterInterface_getMembers() {
+    public void fragmentPresenterInterface_getMembers() {
         List<Member> actualList = this.mFragmentPresenter.getMembers();
         List<Member> expectedList = DummyGenerator.generatorOfDummyMembers();
 
@@ -126,7 +126,7 @@ public class FragmentPresenterInterfaceTest {
     }
 
     @Test
-    public void FragmentPresenterInterface_AddOrDeleteMember() {
+    public void fragmentPresenterInterface_AddOrDeleteMember() {
         // ADD
         assertTrue(this.mFragmentPresenter.AddOrDeleteMember(this.mMembers.get(0)));
 
@@ -135,7 +135,7 @@ public class FragmentPresenterInterfaceTest {
     }
 
     @Test
-    public void FragmentPresenterInterface_getSelectedMembers() {
+    public void fragmentPresenterInterface_getSelectedMembers() {
         // maxime@lamzone.com, paul@lamzone.com
         final String expectedString = this.mMembers.get(0).getEmail() + ", " + this.mMembers.get(1).getEmail();
 
@@ -153,7 +153,7 @@ public class FragmentPresenterInterfaceTest {
     // FILTERS *************************************************************************************
 
     @Test
-    public void FragmentPresenterInterface_filterPerRoom() {
+    public void fragmentPresenterInterface_filterPerRoom() {
         final String roomFilter = "Peach";
         final int expectedPositionOfList = 0;
 
@@ -176,7 +176,7 @@ public class FragmentPresenterInterfaceTest {
     }
 
     @Test
-    public void FragmentPresenterInterface_filterPerRoom_No_Data() {
+    public void fragmentPresenterInterface_filterPerRoom_No_Data() {
         final String roomFilter = "Frodon";
 
         // None of position good
@@ -190,7 +190,7 @@ public class FragmentPresenterInterfaceTest {
     }
 
     @Test
-    public void FragmentPresenterInterface_filterPerHours() throws Exception {
+    public void fragmentPresenterInterface_filterPerHours() throws Exception {
         final String minHourFilter = "08:00";
         final String maxHourFilter = "19:30";
 
@@ -207,7 +207,7 @@ public class FragmentPresenterInterfaceTest {
     }
 
     @Test
-    public void FragmentPresenterInterface_filterPerHours_No_Data() throws Exception {
+    public void fragmentPresenterInterface_filterPerHours_No_Data() throws Exception {
         final String minHourFilter = "08:00";
         final String maxHourFilter = "10:00";
 
@@ -217,7 +217,7 @@ public class FragmentPresenterInterfaceTest {
     }
 
     @Test(expected = Exception.class)
-    public void FragmentPresenterInterface_filterPerHours_Error_Inverse_Order() throws Exception {
+    public void fragmentPresenterInterface_filterPerHours_Error_Inverse_Order() throws Exception {
         final String minHourFilter = "16:00";
         final String maxHourFilter = "08:00";
 

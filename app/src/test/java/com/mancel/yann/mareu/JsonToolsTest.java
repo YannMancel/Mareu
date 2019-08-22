@@ -37,14 +37,14 @@ public class JsonToolsTest {
     // METHODS -------------------------------------------------------------------------------------
 
     @Test
-    public void JsonTools_convertObjectToJson() {
+    public void jsonTools_convertObjectToJson() {
         final String actualJson = JsonTools.convertJavaToJson(this.mMeeting);
 
         assertEquals("Object to Json", this.mJsonFormat, actualJson);
     }
 
     @Test
-    public void JsonTools_convertListToJson() {
+    public void jsonTools_convertListToJson() {
         final String expectedJson = "[" + this.mJsonFormat + "]";
 
         final List<Meeting> list = Collections.singletonList(this.mMeeting);
@@ -54,7 +54,7 @@ public class JsonToolsTest {
     }
 
     @Test
-    public void JsonTools_convertObjectToJsonToObject() {
+    public void jsonTools_convertObjectToJsonToObject() {
         String json = JsonTools.convertJavaToJson(this.mMeeting);
         Meeting actualMeeting = JsonTools.convertJsonToJava(json, Meeting.class);
 
@@ -62,7 +62,7 @@ public class JsonToolsTest {
     }
 
     @Test
-    public void JsonTools_convertListToJsonToList() {
+    public void jsonTools_convertListToJsonToList() {
         List<Meeting> expectedList = Collections.singletonList(this.mMeeting);
 
         String json = JsonTools.convertJavaToJson(expectedList);

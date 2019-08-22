@@ -41,7 +41,7 @@ public class ApiServiceTest {
     }
 
     @Test
-    public void ApiService_getMeetings() {
+    public void apiService_getMeetings() {
         List<Meeting> actualMeetings = this.mService.getMeetings();
         List<Meeting> expectedMeetings = DummyGenerator.generatorOfDummyMeetings();
 
@@ -49,7 +49,7 @@ public class ApiServiceTest {
     }
 
     @Test
-    public void ApiService_deleteMeeting() {
+    public void apiService_deleteMeeting() {
         Meeting meeting = this.mService.getMeetings().get(0);
         this.mService.deleteMeeting(meeting);
 
@@ -57,7 +57,7 @@ public class ApiServiceTest {
     }
 
     @Test
-    public void ApiService_addMeeting() {
+    public void apiService_addMeeting() {
         Meeting meeting = new Meeting(5, "Meeting E", "09:30", "Mario", "yann@lamzone.com");
 
         assertFalse(this.mService.getMeetings().contains(meeting));
@@ -68,7 +68,7 @@ public class ApiServiceTest {
     }
 
     @Test
-    public void ApiService_getRooms() {
+    public void apiService_getRooms() {
         List<Room> actualRooms = this.mService.getRooms();
         List<Room> expectedRooms = DummyGenerator.generatorOfDummyRooms();
 
@@ -76,7 +76,7 @@ public class ApiServiceTest {
     }
 
     @Test
-    public void ApiService_getMembers() {
+    public void apiService_getMembers() {
         List<Member> actualMembers = this.mService.getMembers();
         List<Member> expectedMembers = DummyGenerator.generatorOfDummyMembers();
 

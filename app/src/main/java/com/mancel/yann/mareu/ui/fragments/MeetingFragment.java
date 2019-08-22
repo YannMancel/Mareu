@@ -64,7 +64,7 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
     @Override
     public void updateDataOfRecyclerView(List<Meeting> meetings, boolean isFilter) {
         // RECYCLER VIEW
-        this.mAdapter.updateData(meetings);
+        this.mAdapter.updateData(meetings, !isFilter);
 
         // FILTER FAB
         this.setVisibilityOfFilterFAB(isFilter);

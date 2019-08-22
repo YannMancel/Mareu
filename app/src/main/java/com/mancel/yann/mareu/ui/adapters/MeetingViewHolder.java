@@ -94,8 +94,9 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
      * Updates the {@link android.support.v7.widget.RecyclerView.ViewHolder}
      * @param meeting a {@link Meeting} that contains all of data to the update
      * @param callback a {@link MeetingAdapter.MeetingAdapterListener} for the callback methods
+     * @param isNormalMode a boolean [True: Normal mode] and [False: Filter mode]
      */
-    public void updateMeeting(Meeting meeting, MeetingAdapter.MeetingAdapterListener callback) {
+    public void updateMeeting(Meeting meeting, MeetingAdapter.MeetingAdapterListener callback, boolean isNormalMode) {
         // IMAGE
         switch (meeting.getRoom()) {
             case "Peach": {
@@ -120,6 +121,9 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
         this.mTopicHourRoom.setText(topicHourRoom);
 
         this.mParticipants.setText(meeting.getMember());
+
+        // BUTTON
+        this.mDeleteButton.setVisibility(isNormalMode ? View.VISIBLE : View.GONE);
 
         // LISTENER
         this.mListenerWeakReference = new WeakReference<>(callback);
