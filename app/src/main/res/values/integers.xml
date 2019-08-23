@@ -7,8 +7,8 @@
     <integer name="value_2_percentage_horizontal_activity_main">50</integer>
 
     <!-- fragment_creator_of_meeting.xml -->
-    <integer name="value_1_percentage_horizontal_creator_of_meeting">30</integer>
-    <integer name="value_2_percentage_horizontal_creator_of_meeting">70</integer>
+    <integer name="value_1_percentage_horizontal_creator_of_meeting">20</integer>
+    <integer name="value_2_percentage_horizontal_creator_of_meeting">80</integer>
 
     <!-- separator.xml -->
     <integer name="angle_orientation_separator">90</integer>

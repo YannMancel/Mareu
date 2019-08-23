@@ -93,7 +93,7 @@ public class FilterActivity extends BaseActivity implements BaseFragment.Fragmen
                             setResult(RESULT_OK, intent);
                             finish();})
                 .setNegativeButton(getString(R.string.no),
-                        (dialog, which) -> {finish();});
+                        (dialog, which) -> {});
 
         // Creates and shows the AlertDialog widget
         builder.create().show();
@@ -118,7 +118,7 @@ public class FilterActivity extends BaseActivity implements BaseFragment.Fragmen
                             setResult(RESULT_OK, intent);
                             finish();})
                .setNegativeButton(getString(R.string.no),
-                        (dialog, which) -> {finish();});
+                        (dialog, which) -> {});
 
         // Creates and shows the AlertDialog widget
         builder.create().show();
@@ -131,7 +131,7 @@ public class FilterActivity extends BaseActivity implements BaseFragment.Fragmen
         final String time;
         try {
             time = TimeTools.convertHourAndMinuteToString(hourOfDay, minute);
-            this.mHoursFilterFragment.setTextViewById(id, time);
+            this.mHoursFilterFragment.setTextById(id, time);
         } catch (Exception e) {
             e.printStackTrace();
         }

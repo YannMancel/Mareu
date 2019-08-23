@@ -13,6 +13,7 @@ import java.util.List;
  * @param <T> a class
  */
 public class ListOfJson<T> implements ParameterizedType {
+
     // FIELDS --------------------------------------------------------------------------------------
 
     private Class<?> wrapped;

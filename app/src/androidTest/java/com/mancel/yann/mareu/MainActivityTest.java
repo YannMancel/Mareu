@@ -24,6 +24,7 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
+import static android.support.test.espresso.matcher.ViewMatchers.hasChildCount;
 import static android.support.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
@@ -57,28 +58,8 @@ public class MainActivityTest {
     private List<Room> mRooms = DummyGenerator.generatorOfDummyRooms();
     private List<Member> mMembers = DummyGenerator.generatorOfDummyMembers();
 
-    // toolbar
-    private final int mIdToolBar = R.id.toolbar;
-    private final int mIdFilterToolBar = R.string.filter;
-    private final int mIdRoomFilterToolBar = R.string.filter_room;
-    private final int mIdHoursFilterToolBar = R.string.filter_hour;
-
-    // fragment_meeting
-    private final int mIdMeetingRecyclerView = R.id.fragment_meeting_recycler_view;
-    private final int mIdAddFabOfMeetingFragment = R.id.fragment_meeting_fab_add;
-    private final int idOfFilterFab = R.id.fragment_meeting_fab_filter;
-    private final int mIdNoData = R.id.fragment_meeting_tv_no_data;
-
-    // item_meeting
-    private final int mIdDeleteButton = R.id.item_meeting_iv_delete;
-
-    // fragment_creator_of_meeting
-    private final int mIdSpinnerOfCreation = R.id.fragment_creator_of_meeting_spinner_room;
-    private final int mIdMemberRecyclerView = R.id.fragment_creator_recycler_view;
-    private final int mIdFabOfMemberFragment = R.id.fragment_creator_of_meeting_fab;
-
-    // item_member
-    private final int mIdMemberCheckBox = R.id.item_member_cb_check;
+    private final int SIZE_MEETINGS = DummyGenerator.generatorOfDummyMeetings().size();
+    private final int SIZE_MEMBERS = DummyGenerator.generatorOfDummyMembers().size();
 
     // RULES ---------------------------------------------------------------------------------------
 
@@ -98,75 +79,77 @@ public class MainActivityTest {
     @Test
     public void mainActivity_recyclerView_shouldNotBeEmpty() {
         // RECYCLER VIEW: Checks if at least one item is present
-        onView(withId(this.mIdMeetingRecyclerView)).check(matches(hasMinimumChildCount(1)));
+        onView(withId(R.id.fragment_meeting_recycler_view)).check(matches(hasMinimumChildCount(1)));
     }
 
     @Test
     public void mainActivity_deleteAction_shouldRemoveItem() {
-        final int INITIAL_SIZE = this.mMeetings.size();
-
         // RECYCLER VIEW:
         //  - Checks the size
         //  - Deletes the item at position 0
         //  - Checks the size
-        onView(withId(this.mIdMeetingRecyclerView)).check(withItemCount(INITIAL_SIZE))
-                                                   .perform(actionOnItemAtPosition(0, new ButtonViewAction(this.mIdDeleteButton)))
-                                                   .check(withItemCount(INITIAL_SIZE - 1));
+        onView(withId(R.id.fragment_meeting_recycler_view)).check(matches(hasChildCount(SIZE_MEETINGS)))
+                                                           .perform(actionOnItemAtPosition(0, new ButtonViewAction(R.id.item_meeting_iv_delete)))
+                                                           .check(matches(hasChildCount(SIZE_MEETINGS - 1)));
     }
 
     @Test
     public void mainActivity_deleteAction_shouldRemoveAllItems() {
         // TEXT VIEW: Checks if displayed
-        onView(withId(this.mIdNoData)).check(matches(not((isDisplayed()))));
+        onView(withId(R.id.fragment_meeting_tv_no_data)).check(matches(not((isDisplayed()))));
 
         // RECYCLER VIEW: Deletes all items
         for (Meeting meeting : this.mMeetings) {
-            onView(withId(this.mIdMeetingRecyclerView))
-                    .perform(actionOnItemAtPosition(0, new ButtonViewAction(this.mIdDeleteButton)));
+            onView(withId(R.id.fragment_meeting_recycler_view))
+                    .perform(actionOnItemAtPosition(0, new ButtonViewAction(R.id.item_meeting_iv_delete)));
         }
 
         // RECYCLER VIEW: Checks if the size is zero
-        onView(withId(this.mIdMeetingRecyclerView)).check(withItemCount(0));
+        onView(withId(R.id.fragment_meeting_recycler_view)).check(withItemCount(0));
 
         // TEXT VIEW: Checks if displayed
-        onView(withId(this.mIdNoData)).check(matches(isDisplayed()));
+        onView(withId(R.id.fragment_meeting_tv_no_data)).check(matches(isDisplayed()));
     }
 
     @Test
     public void mainActivity_selectAction_shouldAddItem() {
-        final int INITIAL_SIZE_OF_MEMBER = this.mMembers.size();
-        final int INITIAL_SIZE_OF_MEETING = this.mMeetings.size();
-        
         // FAB: Clicks
-        onView(withId(this.mIdAddFabOfMeetingFragment)).perform(click());
+        onView(withId(R.id.fragment_meeting_fab_add)).perform(click());
 
         for (Room room : this.mRooms) {
             // SPINNER: Clicks on the spinner
-            onView(withId(this.mIdSpinnerOfCreation)).perform(click());
+            onView(withId(R.id.fragment_creator_of_meeting_spinner_room)).perform(click());
 
             // DATA: Clicks on all the things that matcher with a String class and have the good string
             onData(allOf(is(instanceOf(String.class)), is(room.getName()))).perform(click());
 
             // SPINNER: Checks if the selected item is correct
-            onView(withId(this.mIdSpinnerOfCreation)).check(matches(withSpinnerText(containsString(room.getName()))));
+            onView(withId(R.id.fragment_creator_of_meeting_spinner_room)).check(matches(withSpinnerText(containsString(room.getName()))));
         }
+
+        // BUTTON: Clicks
+        onView(withId(R.id.fragment_creator_of_meeting_b_hour)).perform(click());
+
+        // ALERT DIALOG: Clicks on the Yes button
+        onView(withText(R.string.cancel)).perform(click());
 
         // RECYCLER VIEW:
         //  - Checks if it is displayed
         //  - Checks the size
         //  - clicks on the item at position 0
-        onView(withId(this.mIdMemberRecyclerView)).check(matches(isDisplayed()))
-                                                  .check(withItemCount(INITIAL_SIZE_OF_MEMBER))
-                                                  .perform(actionOnItemAtPosition(0, new ButtonViewAction(this.mIdMemberCheckBox)));
+        onView(withId(R.id.fragment_creator_recycler_view)).check(matches(isDisplayed()))
+                                                           .check(withItemCount(SIZE_MEMBERS))
+                                                           .perform(actionOnItemAtPosition(0,
+                                                                                            new ButtonViewAction(R.id.item_member_cb_check)));
 
         // FAB: Clicks
-        onView(withId(this.mIdFabOfMemberFragment)).perform(click());
+        onView(withId(R.id.fragment_creator_of_meeting_fab)).perform(click());
 
         // ALERT DIALOG: Clicks on the Yes button
         onView(withText(R.string.yes)).perform(click());
 
         // RECYCLER VIEW: Checks the size
-        onView(withId(this.mIdMeetingRecyclerView)).check(withItemCount(INITIAL_SIZE_OF_MEETING + 1));
+        onView(withId(R.id.fragment_meeting_recycler_view)).check(withItemCount(SIZE_MEETINGS + 1));
     }
 
     // FILTER **************************************************************************************
@@ -176,8 +159,8 @@ public class MainActivityTest {
         ViewInteraction actionMenu;
 
         // TOOL BAR: Clicks on the filter icon
-        actionMenu = onView(allOf(withContentDescription(this.mIdFilterToolBar),
-                                  childAtPosition(childAtPosition(withId(this.mIdToolBar),
+        actionMenu = onView(allOf(withContentDescription(R.string.filter),
+                                  childAtPosition(childAtPosition(withId(R.id.toolbar),
                                                                  1),
                                                  0),
                                   isDisplayed()));
@@ -185,12 +168,38 @@ public class MainActivityTest {
 
         // TOOL BAR: Clicks on the room filter
         actionMenu = onView(allOf(withId(R.id.title),
-                                  withText(this.mIdRoomFilterToolBar),
+                                  withText(R.string.filter_room),
                                   childAtPosition(childAtPosition(withId(R.id.content),
                                                                  1),
                                                  0),
                                   isDisplayed()));
         actionMenu.perform(click());
+
+        for (Room room : this.mRooms) {
+            // SPINNER: Clicks on the spinner
+            onView(withId(R.id.fragment_filter_room_spinner)).perform(click());
+
+            // DATA: Clicks on all the things that matcher with a String class and have the good string
+            onData(allOf(is(instanceOf(String.class)), is(room.getName()))).perform(click());
+
+            // SPINNER: Checks if the selected item is correct
+            onView(withId(R.id.fragment_filter_room_spinner)).check(matches(withSpinnerText(containsString(room.getName()))));
+        }
+
+        // BUTTON: Clicks
+        onView(withId(R.id.fragment_filter_room_button)).perform(click());
+
+        // ALERT DIALOG: Clicks on the Yes button
+        onView(withText(R.string.yes)).perform(click());
+
+        // RECYCLER VIEW: Checks the size
+        onView(withId(R.id.fragment_meeting_recycler_view)).check(matches(not(hasChildCount(SIZE_MEETINGS))));
+
+        // BUTTON: Clicks
+        onView(withId(R.id.fragment_meeting_fab_filter)).perform(click());
+
+        // RECYCLER VIEW: Checks the size
+        onView(withId(R.id.fragment_meeting_recycler_view)).check(matches(hasChildCount(SIZE_MEETINGS)));
     }
 
     @Test
@@ -198,8 +207,8 @@ public class MainActivityTest {
         ViewInteraction actionMenu;
 
         // TOOL BAR: Clicks on the filter icon
-        actionMenu = onView(allOf(withContentDescription(this.mIdFilterToolBar),
-                                  childAtPosition(childAtPosition(withId(this.mIdToolBar),
+        actionMenu = onView(allOf(withContentDescription(R.string.filter),
+                                  childAtPosition(childAtPosition(withId(R.id.toolbar),
                                                                  1),
                                                  0),
                                   isDisplayed()));
@@ -207,11 +216,38 @@ public class MainActivityTest {
 
         // TOOL BAR: Clicks on the hours filter
         actionMenu = onView(allOf(withId(R.id.title),
-                                  withText(this.mIdHoursFilterToolBar),
+                                  withText(R.string.filter_hour),
                                   childAtPosition(childAtPosition(withId(R.id.content),
                                                                  1),
                                                  0),
                                   isDisplayed()));
         actionMenu.perform(click());
+
+        // BUTTON: Clicks
+        onView(withId(R.id.fragment_filter_hours_b_minimal_hour)).perform(click());
+
+        // ALERT DIALOG: Clicks on the Yes button
+        onView(withText(R.string.cancel)).perform(click());
+
+        // BUTTON: Clicks
+        onView(withId(R.id.fragment_filter_hours_b_maximal_hour)).perform(click());
+
+        // ALERT DIALOG: Clicks on the Yes button
+        onView(withText(R.string.cancel)).perform(click());
+
+        // BUTTON: Clicks
+        onView(withId(R.id.fragment_filter_hours_b_filter)).perform(click());
+
+        // ALERT DIALOG: Clicks on the Yes button
+        onView(withText(R.string.yes)).perform(click());
+
+        // RECYCLER VIEW: Checks the size
+        onView(withId(R.id.fragment_meeting_recycler_view)).check(matches(not(hasChildCount(SIZE_MEETINGS))));
+
+        // BUTTON: Clicks
+        onView(withId(R.id.fragment_meeting_fab_filter)).perform(click());
+
+        // RECYCLER VIEW: Checks the size
+        onView(withId(R.id.fragment_meeting_recycler_view)).check(matches(hasChildCount(SIZE_MEETINGS)));
     }
 }

@@ -4,6 +4,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="horizontal_margin">16dp</dimen>
     <dimen name="horizontal_little_margin">8dp</dimen>
+    <dimen name="spinner_margin">12dp</dimen>
     <dimen name="vertical_big_margin">16dp</dimen>
     <dimen name="vertical_margin_to_avoid_toolbar">56dp</dimen>
 
@@ -17,5 +18,9 @@
     <dimen name="size_image_view">50dp</dimen>
 
     <dimen name="width_separator">2dp</dimen>
+
+    <dimen name="radius_custom_button">20dp</dimen>
+    <dimen name="width_stroke_custom_button">1dp</dimen>
+    <dimen name="space_cursor_spinner">5dp</dimen>
 
 </resources>

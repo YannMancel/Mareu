@@ -184,7 +184,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
         final String time;
         try {
             time = TimeTools.convertHourAndMinuteToString(hourOfDay, minute);
-            this.mCreatorOfMeetingFragment.setTextViewById(id, time);
+            this.mCreatorOfMeetingFragment.setTextById(id, time);
         } catch (Exception e) {
             e.printStackTrace();
         }

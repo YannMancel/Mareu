@@ -24,7 +24,7 @@ public class RoomFilterFragment extends BaseFragment {
 
     @BindView(R.id.fragment_filter_room_spinner)
     Spinner mRoomSpinner;
-    @BindView(R.id.fragment_filter_date_button)
+    @BindView(R.id.fragment_filter_room_button)
     Button mFilterButton;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
@@ -43,13 +43,12 @@ public class RoomFilterFragment extends BaseFragment {
 
     @Override
     protected void configureDesign() {
-        // Configures the room spinner
         this.configureRoomSpinner();
     }
 
     // ACTIONS *************************************************************************************
 
-    @OnClick(R.id.fragment_filter_date_button)
+    @OnClick(R.id.fragment_filter_room_button)
     public void onViewClicked(View view) {
         this.mCallback.onClickFromFragment(this.getCurrentRoomOfSpinner());
     }

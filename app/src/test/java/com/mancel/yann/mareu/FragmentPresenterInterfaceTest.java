@@ -62,7 +62,7 @@ public class FragmentPresenterInterfaceTest {
             public void updateDataOfRecyclerView(List<Meeting> meetings, boolean isFilter) {}
 
             @Override
-            public void setTextViewById(int id, String time) {}
+            public void setTextById(int id, String time) {}
         };
 
         this.mFragmentPresenter = new FragmentPresenter(fragmentViewMock, DI.getNewInstanceApiService());

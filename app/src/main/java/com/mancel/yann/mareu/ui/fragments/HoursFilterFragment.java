@@ -2,8 +2,6 @@ package com.mancel.yann.mareu.ui.fragments;
 
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.ui.base.BaseFragment;
@@ -23,15 +21,11 @@ public class HoursFilterFragment extends BaseFragment {
 
     // FIELDS --------------------------------------------------------------------------------------
 
-    @BindView(R.id.dialog_filter_date_tv_hour_minimal)
-    TextView mMinHour;
-    @BindView(R.id.dialog_filter_date_button_search_hour_minimal)
-    ImageButton mSearchMinHour;
-    @BindView(R.id.dialog_filter_date_tv_hour_maximal)
-    TextView mMaxHour;
-    @BindView(R.id.dialog_filter_date_button_search_hour_maximal)
-    ImageButton mSearchMaxHour;
-    @BindView(R.id.dialog_filter_date_button_filter_by_hour)
+    @BindView(R.id.fragment_filter_hours_b_minimal_hour)
+    Button mMinHourButton;
+    @BindView(R.id.fragment_filter_hours_b_maximal_hour)
+    Button mMaxHourButton;
+    @BindView(R.id.fragment_filter_hours_b_filter)
     Button mFilterButton;
 
     public final int ID_MINIMAL_HOUR = 1;
@@ -57,16 +51,16 @@ public class HoursFilterFragment extends BaseFragment {
     // INTERFACE FRAGMENT VIEW *********************************************************************
 
     @Override
-    public void setTextViewById(int id, String time) {
+    public void setTextById(int id, String time) {
         switch (id) {
             // TIME PICKER: MINIMAL HOURS
             case ID_MINIMAL_HOUR: {
-                this.mMinHour.setText(time);
+                this.mMinHourButton.setText(time);
                 break;
             }
             // TIME PICKER: MAXIMAL HOURS
             case ID_MAXIMAL_HOUR: {
-                this.mMaxHour.setText(time);
+                this.mMaxHourButton.setText(time);
                 break;
             }
         }
@@ -74,27 +68,27 @@ public class HoursFilterFragment extends BaseFragment {
 
     // ACTIONS *************************************************************************************
 
-    @OnClick({R.id.dialog_filter_date_button_search_hour_minimal,
-              R.id.dialog_filter_date_button_search_hour_maximal,
-              R.id.dialog_filter_date_button_filter_by_hour})
+    @OnClick({R.id.fragment_filter_hours_b_minimal_hour,
+              R.id.fragment_filter_hours_b_maximal_hour,
+              R.id.fragment_filter_hours_b_filter})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             // SEARCH BUTTON: MINIMAL HOURS
-            case R.id.dialog_filter_date_button_search_hour_minimal: {
+            case R.id.fragment_filter_hours_b_minimal_hour: {
                 TimePickerFragment.newInstance(ID_MINIMAL_HOUR)
                                   .show(getActivity().getSupportFragmentManager(), "TIME PICKER");
                 break;
             }
             // SEARCH BUTTON: MAXIMAL HOURS
-            case R.id.dialog_filter_date_button_search_hour_maximal: {
+            case R.id.fragment_filter_hours_b_maximal_hour: {
                 TimePickerFragment.newInstance(ID_MAXIMAL_HOUR)
                                   .show(getActivity().getSupportFragmentManager(), "TIME PICKER");
                 break;
             }
             // FILTER BUTTON
-            case R.id.dialog_filter_date_button_filter_by_hour: {
-                this.mCallback.onClickFromFragment(this.mMinHour.getText().toString(),
-                                                   this.mMaxHour.getText().toString());
+            case R.id.fragment_filter_hours_b_filter: {
+                this.mCallback.onClickFromFragment(this.mMinHourButton.getText().toString(),
+                                                   this.mMaxHourButton.getText().toString());
                 break;
             }
         }

@@ -85,7 +85,7 @@ public class CreationActivity extends BaseActivity implements BaseFragment.Fragm
                                                       setResult(RESULT_OK, intent);
                                                       finish();})
                .setNegativeButton(getString(R.string.no),
-                                  (dialog, which) -> {finish();});
+                                  (dialog, which) -> {});
 
         // Creates and shows the AlertDialog widget
         builder.create().show();
@@ -101,7 +101,7 @@ public class CreationActivity extends BaseActivity implements BaseFragment.Fragm
         final String time;
         try {
             time = TimeTools.convertHourAndMinuteToString(hourOfDay, minute);
-            this.mCreatorOfMeetingFragment.setTextViewById(id, time);
+            this.mCreatorOfMeetingFragment.setTextById(id, time);
         } catch (Exception e) {
             e.printStackTrace();
         }

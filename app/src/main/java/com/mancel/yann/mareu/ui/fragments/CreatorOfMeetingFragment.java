@@ -5,9 +5,8 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.ui.adapters.MemberAdapter;
@@ -30,10 +29,8 @@ public class CreatorOfMeetingFragment extends BaseFragment implements MemberAdap
 
     @BindView(R.id.fragment_creator_of_meeting_tiet_topic)
     TextInputEditText mTopic;
-    @BindView(R.id.fragment_creator_of_meeting_tv_hour)
-    TextView mHour;
-    @BindView(R.id.fragment_creator_of_meeting_button_search_hour)
-    ImageButton mSearchHour;
+    @BindView(R.id.fragment_creator_of_meeting_b_hour)
+    Button mHours;
     @BindView(R.id.fragment_creator_of_meeting_spinner_room)
     Spinner mRoomSpinner;
     @BindView(R.id.fragment_creator_recycler_view)
@@ -68,9 +65,9 @@ public class CreatorOfMeetingFragment extends BaseFragment implements MemberAdap
     // INTERFACE FRAGMENT VIEW *********************************************************************
 
     @Override
-    public void setTextViewById(int id, String time) {
+    public void setTextById(int id, String time) {
         if (id == ID_SEARCH_HOUR) {
-            this.mHour.setText(time);
+            this.mHours.setText(time);
         }
     }
 
@@ -83,7 +80,7 @@ public class CreatorOfMeetingFragment extends BaseFragment implements MemberAdap
 
     // ACTIONS *************************************************************************************
 
-    @OnClick(R.id.fragment_creator_of_meeting_button_search_hour)
+    @OnClick(R.id.fragment_creator_of_meeting_b_hour)
     public void onHourButtonClicked() {
         TimePickerFragment.newInstance(ID_SEARCH_HOUR)
                 .show(getActivity().getSupportFragmentManager(), "TIME PICKER");
@@ -92,7 +89,7 @@ public class CreatorOfMeetingFragment extends BaseFragment implements MemberAdap
     @OnClick(R.id.fragment_creator_of_meeting_fab)
     public void onFABClicked() {
         final String json = this.mFragmentPresenter.createNewMeetingToString(this.mTopic.getText().toString(),
-                                                                             this.mHour.getText().toString(),
+                                                                             this.mHours.getText().toString(),
                                                                              (String) this.mRoomSpinner.getSelectedItem(),
                                                                              this.mFragmentPresenter.getSelectedMembers());
 

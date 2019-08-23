@@ -104,7 +104,7 @@ public abstract class BaseFragment extends Fragment implements FragmentView {
     public void updateDataOfRecyclerView(List<Meeting> meetings, boolean isFilter) {}
 
     @Override
-    public void setTextViewById(int id, String time) {}
+    public void setTextById(int id, String time) {}
 
     // CALLBACK OF ACTIVITY ************************************************************************
 
