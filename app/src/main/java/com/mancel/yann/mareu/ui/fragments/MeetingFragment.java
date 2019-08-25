@@ -8,10 +8,7 @@ import android.widget.TextView;
 
 import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.ui.base.BaseFragment;
-import com.mancel.yann.mareu.model.Meeting;
 import com.mancel.yann.mareu.ui.adapters.MeetingAdapter;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -21,7 +18,8 @@ import butterknife.OnClick;
  * Name of the project: Mareu
  * Name of the package: com.mancel.yann.mareu.ui.fragments
  *
- * A simple {@link BaseFragment} subclass which implements {@link MeetingAdapter.MeetingAdapterListener}.
+ * A simple {@link BaseFragment} subclass which implements
+ * {@link MeetingAdapter.MeetingAdapterListener}.
  */
 public class MeetingFragment extends BaseFragment implements MeetingAdapter.MeetingAdapterListener {
 
@@ -56,15 +54,16 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
         this.configureRecyclerView();
 
         // Updates the list of the RecyclerView
-        this.updateDataOfRecyclerView(this.mFragmentPresenter.getMeetings(), false);
+        this.updateRecyclerView(false);
     }
 
     // INTERFACE FRAGMENT VIEW *********************************************************************
 
     @Override
-    public void updateDataOfRecyclerView(List<Meeting> meetings, boolean isFilter) {
+    public void updateRecyclerView(boolean isFilter) {
         // RECYCLER VIEW
-        this.mAdapter.updateData(meetings, !isFilter);
+        this.mAdapter.updateData(isFilter ? this.mFragmentPresenter.getFilteredMeetings() :
+                                            this.mFragmentPresenter.getMeetings());
 
         // FILTER FAB
         this.setVisibilityOfFilterFAB(isFilter);
@@ -78,9 +77,10 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
     @Override
     public void onClickDeleteButton(int position) {
         // Displays message
-        this.mCallback.showMessageFromFragment("Delete " + this.mAdapter.getMeeting(position).getTopic());
+        this.mCallback.showMessageFromFragment(getString(R.string.information_delete_meeting,
+                                                         this.mAdapter.getMeeting(position).getTopic()));
 
-        this.mFragmentPresenter.deleteMeeting(this.mAdapter.getMeeting(position));
+        this.mFragmentPresenter.deleteMeeting(this.mAdapter.getMeeting(position), this.mIsFilter);
     }
 
     @Override
@@ -97,15 +97,18 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
             // PHONE MODE
             case R.id.fragment_meeting_fab_add: {
                 if (this.mIsFilter) {
-                    this.updateDataOfRecyclerView(this.mFragmentPresenter.getMeetings(), false);
-                } else {
+                    // FILTER MODE
+                    this.updateRecyclerView(false);
+                }
+                else {
+                    // NORMAL MODE
                     this.mCallback.onClickFromFragment(null);
                 }
                 break;
             }
             // TABLET MODE
             case R.id.fragment_meeting_fab_filter: {
-                this.updateDataOfRecyclerView(this.mFragmentPresenter.getMeetings(), false);
+                this.updateRecyclerView(false);
                 break;
             }
         }
@@ -134,42 +137,6 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
         // RecyclerView
         this.mRecyclerView.setAdapter(this.mAdapter);
         this.mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-    }
-
-    // FILTERS *************************************************************************************
-
-    /**
-     * Filter per hours
-     *
-     * @param minHour a {@link String} that contains the minimal hour
-     * @param maxHour a {@link String} that contains the maximal hour
-     */
-    public void filterPerHours(String minHour, String maxHour) {
-        try {
-            this.mFragmentPresenter.filterPerHours(minHour, maxHour);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Filter per room
-     *
-     * @param roomName a {@link String} tht corresponds to the room filter
-     */
-    public void filterPerRoom(String roomName) {
-        this.mFragmentPresenter.filterPerRoom(roomName);
-    }
-
-    // NEW MEETINGS ********************************************************************************
-
-    /**
-     * Adds a new {@link Meeting}
-     *
-     * @param meetingFromString a {@link String} that contains the {@link Meeting}
-     */
-    public void addMeeting(String meetingFromString) {
-        this.mFragmentPresenter.addMeeting(meetingFromString);
     }
 
     // FLOATING ACTION BUTTON **********************************************************************

@@ -1,9 +1,12 @@
 package com.mancel.yann.mareu.ui.fragments;
 
+import android.app.AlertDialog;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -27,8 +30,8 @@ public class CreatorOfMeetingFragment extends BaseFragment implements MemberAdap
 
     // FIELDS --------------------------------------------------------------------------------------
 
-    @BindView(R.id.fragment_creator_of_meeting_tiet_topic)
-    TextInputEditText mTopic;
+    @BindView(R.id.fragment_creator_of_meeting_text_input_layout)
+    TextInputLayout mTextInputTopic;
     @BindView(R.id.fragment_creator_of_meeting_b_hour)
     Button mHours;
     @BindView(R.id.fragment_creator_of_meeting_spinner_room)
@@ -55,10 +58,8 @@ public class CreatorOfMeetingFragment extends BaseFragment implements MemberAdap
 
     @Override
     protected void configureDesign() {
-        // Configures the room spinner
+        this.configureEditTextFromTextInputLayout();
         this.configureRoomSpinner();
-
-        // Configures the RecyclerView
         this.configureRecyclerView();
     }
 
@@ -75,7 +76,7 @@ public class CreatorOfMeetingFragment extends BaseFragment implements MemberAdap
 
     @Override
     public void onClickCheckBox(int position) {
-        this.mFragmentPresenter.AddOrDeleteMember(this.mAdapter.getMember(position));
+        this.mFragmentPresenter.AddOrDeleteSelectedMember(this.mAdapter.getMember(position));
     }
 
     // ACTIONS *************************************************************************************
@@ -88,12 +89,18 @@ public class CreatorOfMeetingFragment extends BaseFragment implements MemberAdap
 
     @OnClick(R.id.fragment_creator_of_meeting_fab)
     public void onFABClicked() {
-        final String json = this.mFragmentPresenter.createNewMeetingToString(this.mTopic.getText().toString(),
-                                                                             this.mHours.getText().toString(),
-                                                                             (String) this.mRoomSpinner.getSelectedItem(),
-                                                                             this.mFragmentPresenter.getSelectedMembers());
+        // TEXT INPUT EDIT TEXT: Empty
+        if (this.mTextInputTopic.getEditText().getText().toString().equals("")) {
+            this.mTextInputTopic.setError(getString(R.string.error_text_input_layout));
 
-        this.mCallback.onClickFromFragment(json);
+            this.mCallback.showMessageFromFragment(getString(R.string.error_topic_meeting_creation));
+        }
+        else if (this.mFragmentPresenter.getSelectedMembers().size() == 0) {
+            this.mCallback.showMessageFromFragment(getString(R.string.error_member_meeting_creation));
+        }
+        else {
+            this.configureAndShowAlertDialog();
+        }
     }
 
     // INSTANCES ***********************************************************************************
@@ -109,7 +116,7 @@ public class CreatorOfMeetingFragment extends BaseFragment implements MemberAdap
     // SPINNERS ************************************************************************************
 
     /**
-     * Configures the room spinner
+     * Configures the room {@link Spinner}
      */
     private void configureRoomSpinner() {
         // Adapter
@@ -125,7 +132,7 @@ public class CreatorOfMeetingFragment extends BaseFragment implements MemberAdap
     // RECYCLER VIEW *******************************************************************************
 
     /**
-     * Configures {@link RecyclerView} with its {@link MemberAdapter}
+     * Configures the {@link RecyclerView} with its {@link MemberAdapter}
      */
     private void configureRecyclerView() {
         // Adapter
@@ -137,5 +144,54 @@ public class CreatorOfMeetingFragment extends BaseFragment implements MemberAdap
 
         // Initializes the RecyclerView
         this.mAdapter.updateData(this.mFragmentPresenter.getMembers());
+    }
+
+    // TEXT INPUT EDIT TEXT ************************************************************************
+
+    /**
+     * Configures the {@link android.widget.EditText} from the {@link TextInputLayout}
+     */
+    private void configureEditTextFromTextInputLayout() {
+        this.mTextInputTopic.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mTextInputTopic.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+    }
+
+    // ALERT DIALOG ********************************************************************************
+
+    /**
+     * Configures and show the {@link AlertDialog}
+     */
+    private void configureAndShowAlertDialog() {
+        // Creates Alert Dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        // Update Alert Dialog
+        builder.setTitle(getString(R.string.creation_of_meeting))
+               .setMessage(getString(R.string.question_for_creation_of_meeting,
+                                     this.mTextInputTopic.getEditText().getText().toString()))
+               .setPositiveButton(getString(R.string.yes),
+                        (dialog, which) -> {
+                            final String topic = this.mFragmentPresenter.addMeeting(this.mTextInputTopic.getEditText().getText().toString(),
+                                                                                    this.mHours.getText().toString(),
+                                                                                    (String) this.mRoomSpinner.getSelectedItem(),
+                                                                                    this.mFragmentPresenter.getSelectedMembersToString());
+
+                            this.mCallback.onClickFromFragment(topic);
+                        })
+                .setNegativeButton(getString(R.string.no),
+                        (dialog, which) -> {});
+
+        // Creates and shows the AlertDialog widget
+        builder.create().show();
     }
 }

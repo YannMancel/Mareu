@@ -38,13 +38,6 @@ public abstract class BaseFragment extends Fragment implements FragmentView {
          * @param message a {@link String} that contains the message
          */
         void onClickFromFragment(String message);
-
-        /**
-         * Retrieve several messages in argument
-         * @param messageA a {@link String} that contains the message A
-         * @param messageB a {@link String} that contains the message B
-         */
-        void onClickFromFragment(String messageA, String messageB);
     }
 
     // FIELDS --------------------------------------------------------------------------------------
@@ -101,7 +94,7 @@ public abstract class BaseFragment extends Fragment implements FragmentView {
     // INTERFACE FRAGMENT VIEW *********************************************************************
 
     @Override
-    public void updateDataOfRecyclerView(List<Meeting> meetings, boolean isFilter) {}
+    public void updateRecyclerView(boolean isFilter) {}
 
     @Override
     public void setTextById(int id, String time) {}

@@ -1,9 +1,5 @@
 package com.mancel.yann.mareu.ui;
 
-import com.mancel.yann.mareu.model.Meeting;
-
-import java.util.List;
-
 /**
  * Created by Yann MANCEL on 12/08/2019.
  * Name of the project: Mareu
@@ -14,12 +10,12 @@ public interface View {
     // INTERFACES ----------------------------------------------------------------------------------
 
     public interface FragmentView {
+
         /**
-         * Updates the data
-         * @param meetings a {@link List} of {@link Meeting}
+         * Updates the {@link android.support.v7.widget.RecyclerView}
          * @param isFilter a boolean
          */
-        void updateDataOfRecyclerView(List<Meeting> meetings, boolean isFilter);
+        void updateRecyclerView(boolean isFilter);
 
         /**
          * Updates the hour in hh:mm format by id

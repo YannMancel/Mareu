@@ -28,24 +28,25 @@ public interface Presenter {
         /**
          * Deletes the {@link Meeting} in argument
          * @param meeting a {@link Meeting}
+         * @param isFilter a boolean [True: Filter mode] and [False: Normal mode]
          */
-        void deleteMeeting(Meeting meeting);
+        void deleteMeeting(Meeting meeting, boolean isFilter);
 
         /**
          * Adds a {@link Meeting} in argument
-         * @param meetingFromString a {@link String}
-         */
-        void addMeeting(String meetingFromString);
-
-        /**
-         * Creates a new {@link Meeting} and convert to {@link String}
          * @param topic a{@link String} that contains the topic
          * @param hour a{@link String} that contains the hour
          * @param room a{@link String} that contains the room
          * @param member a{@link String} that contains the members
-         * @return a {@link String} that contains the new {@link Meeting}
+         * @return a {@link String} that contains the topic of the {@link Meeting}
          */
-        String createNewMeetingToString(String topic, String hour, String room, String member);
+        String addMeeting(String topic, String hour, String room, String member);
+
+        /**
+         * Returns a {@link List} of filtered {@link Meeting}
+         * @return a {@link List} of filtered {@link Meeting}
+         */
+        List<Meeting> getFilteredMeetings();
 
         // ROOMS ***********************************************************************************
 
@@ -64,17 +65,23 @@ public interface Presenter {
         List<Member> getMembers();
 
         /**
-         * Adds or deletes the {@link Member} according to the boolean in argument
-         * @param member a {@link Member} to analyse
-         * @return a boolean [True: Add] en [False: Delete]
+         * Returns a {@link List} of selected {@link Member}
+         * @return a {@link List} of selected {@link Member}
          */
-        boolean AddOrDeleteMember(Member member);
+        List<Member> getSelectedMembers();
 
         /**
          * Returns a {@link String} that contains all the selected {@link Member}
          * @return a {@link String} that contains all the selected {@link Member}
          */
-        String getSelectedMembers();
+        String getSelectedMembersToString();
+
+        /**
+         * Adds or deletes the {@link Member} according to the boolean in argument
+         * @param member a {@link Member} to analyse
+         * @return a boolean [True: Add] en [False: Delete]
+         */
+        boolean AddOrDeleteSelectedMember(Member member);
 
         // MEMORY LEAKS ****************************************************************************
 

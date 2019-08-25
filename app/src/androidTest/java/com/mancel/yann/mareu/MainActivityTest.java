@@ -20,7 +20,10 @@ import java.util.List;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
@@ -115,6 +118,10 @@ public class MainActivityTest {
     public void mainActivity_selectAction_shouldAddItem() {
         // FAB: Clicks
         onView(withId(R.id.fragment_meeting_fab_add)).perform(click());
+
+        // TEXT INPUT EDIT TEXT: Writes something
+        onView(withId(R.id.fragment_creator_of_meeting_tiet_topic)).perform(replaceText("test"),
+                                                                            closeSoftKeyboard());
 
         for (Room room : this.mRooms) {
             // SPINNER: Clicks on the spinner

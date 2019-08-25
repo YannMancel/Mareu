@@ -29,14 +29,15 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/fragment_creator_of_meeting_tiet_topic"
+            app:layout_constraintEnd_toStartOf="@id/fragment_creator_of_meeting_text_input_layout"
             app:layout_constraintHorizontal_weight="@integer/value_1_percentage_horizontal_creator_of_meeting"
+            android:layout_marginBottom="@dimen/vertical_big_margin"
             android:text="@string/topic_of_meeting" />
 
-        <!-- TEXT INPUT EDIT TEXT -->
+        <!-- TEXT INPUT LAYOUT -->
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/fragment_creator_of_meeting_tiet_topic"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/fragment_creator_of_meeting_text_input_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -44,7 +45,21 @@
             app:layout_constraintStart_toEndOf="@id/fragment_creator_of_meeting_tv_topic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="@integer/value_2_percentage_horizontal_creator_of_meeting"
-            android:hint="@string/app_name"/>
+            app:hintEnabled="false"
+            app:errorEnabled="true">
+
+            <!-- TEXT INPUT EDIT TEXT -->
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/fragment_creator_of_meeting_tiet_topic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name_text_input_edit_text"
+                android:inputType="text"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+<!--        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"-->
 
     </android.support.constraint.ConstraintLayout>
 

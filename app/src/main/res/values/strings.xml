@@ -18,6 +18,8 @@
         <string name="room_of_meeting">Room:</string>
         <string name="topic_of_meeting">Topic:</string>
         <string name="member">Member:</string>
+        <string name="name_text_input_edit_text">Name</string>
+        <string name="error_text_input_layout">Field cannot be empty</string>
 
         <!-- fragment_meeting.xml -->
         <string name="no_data">No data</string>
@@ -40,12 +42,18 @@
         <string name="yes">Yes</string>
         <string name="cancel">Cancel</string>
 
+        <!-- MeetingFragment.java -->
+        <string name="information_delete_meeting">Delete of meeting: %s</string>
+
         <!-- MainActivity.java -->
         <string name="none_of_choice_validated">None of choice validated</string>
+        <string name="information_creation_of_meeting">Creation of meeting: %s</string>
 
         <!-- CreationActivity.java -->
         <string name="creation_of_meeting">Creation of meeting</string>
-        <string name="question_for_creation_of_meeting">Are you sure to create this meeting?</string>
+        <string name="question_for_creation_of_meeting">Are you sure to create this meeting?\n(%s)</string>
+        <string name="error_topic_meeting_creation">Error: No topic</string>
+        <string name="error_member_meeting_creation">Error: No member</string>
 
         <!-- FilterActivity.java -->
         <string name="creation_of_hours_filter">Creation of hours filter</string>

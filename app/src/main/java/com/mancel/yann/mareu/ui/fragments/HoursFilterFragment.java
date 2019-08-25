@@ -1,5 +1,6 @@
 package com.mancel.yann.mareu.ui.fragments;
 
+import android.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 
@@ -87,8 +88,7 @@ public class HoursFilterFragment extends BaseFragment {
             }
             // FILTER BUTTON
             case R.id.fragment_filter_hours_b_filter: {
-                this.mCallback.onClickFromFragment(this.mMinHourButton.getText().toString(),
-                                                   this.mMaxHourButton.getText().toString());
+                this.configureAndShowAlertDialog();
                 break;
             }
         }
@@ -102,5 +102,36 @@ public class HoursFilterFragment extends BaseFragment {
      */
     public static HoursFilterFragment newInstance() {
         return new HoursFilterFragment();
+    }
+
+    // ALERT DIALOG ********************************************************************************
+
+    /**
+     * Configures and show the {@link AlertDialog}
+     */
+    private void configureAndShowAlertDialog() {
+        // Creates Alert Dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        // Modifies Alert Dialog
+        builder.setTitle(getString(R.string.creation_of_hours_filter))
+               .setMessage(getString(R.string.question_for_creation_of_hours_filter,
+                                     this.mMinHourButton.getText().toString(),
+                                     this.mMaxHourButton.getText().toString()))
+               .setPositiveButton(getString(R.string.yes),
+                        (dialog, which) -> {
+                            try {
+                                this.mFragmentPresenter.filterPerHours(this.mMinHourButton.getText().toString(),
+                                                                       this.mMaxHourButton.getText().toString());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                            this.mCallback.onClickFromFragment(null);})
+               .setNegativeButton(getString(R.string.no),
+                        (dialog, which) -> {});
+
+        // Creates and shows the AlertDialog widget
+        builder.create().show();
     }
 }

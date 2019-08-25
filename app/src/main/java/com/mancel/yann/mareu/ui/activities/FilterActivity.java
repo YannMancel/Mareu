@@ -1,7 +1,5 @@
 package com.mancel.yann.mareu.ui.activities;
 
-import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.widget.TimePicker;
 
@@ -39,9 +37,6 @@ public class FilterActivity extends BaseActivity implements BaseFragment.Fragmen
     public static final int ROOM_FILTER = 2;
 
     public static final String BUNDLE_EXTRA_FILTER_TYPE = "BUNDLE_EXTRA_FILTER_TYPE";
-    public static final String BUNDLE_EXTRA_ROOM = "BUNDLE_EXTRA_ROOM";
-    public static final String BUNDLE_EXTRA_MINIMAL_HOUR = "BUNDLE_EXTRA_MINIMAL_HOUR";
-    public static final String BUNDLE_EXTRA_MAXIMAL_HOUR = "BUNDLE_EXTRA_MAXIMAL_HOUR";
 
     // METHODS -------------------------------------------------------------------------------------
 
@@ -77,51 +72,9 @@ public class FilterActivity extends BaseActivity implements BaseFragment.Fragmen
 
     @Override
     public void onClickFromFragment(String message) {
-        // Creates Alert Dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        // Modifies the title
-        builder.setTitle(getString(R.string.creation_of_room_filter))
-                .setMessage(getString(R.string.question_for_creation_of_room_filter, message))
-                .setPositiveButton(getString(R.string.yes),
-                        (dialog, which) -> {
-                            Intent intent = new Intent();
-                            intent.putExtra(BUNDLE_EXTRA_FILTER_TYPE, ROOM_FILTER);
-                            intent.putExtra(BUNDLE_EXTRA_ROOM, message);
-
-                            // Good execution and closes the activity
-                            setResult(RESULT_OK, intent);
-                            finish();})
-                .setNegativeButton(getString(R.string.no),
-                        (dialog, which) -> {});
-
-        // Creates and shows the AlertDialog widget
-        builder.create().show();
-    }
-
-    @Override
-    public void onClickFromFragment(String messageA, String messageB) {
-        // Creates Alert Dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        // Modifies the title
-        builder.setTitle(getString(R.string.creation_of_hours_filter))
-               .setMessage(getString(R.string.question_for_creation_of_hours_filter, messageA, messageB))
-               .setPositiveButton(getString(R.string.yes),
-                        (dialog, which) -> {
-                            Intent intent = new Intent();
-                            intent.putExtra(BUNDLE_EXTRA_FILTER_TYPE, HOUR_FILTER);
-                            intent.putExtra(BUNDLE_EXTRA_MINIMAL_HOUR, messageA);
-                            intent.putExtra(BUNDLE_EXTRA_MAXIMAL_HOUR, messageB);
-
-                            // Good execution and closes the activity
-                            setResult(RESULT_OK, intent);
-                            finish();})
-               .setNegativeButton(getString(R.string.no),
-                        (dialog, which) -> {});
-
-        // Creates and shows the AlertDialog widget
-        builder.create().show();
+        // Good execution and closes the activity
+        setResult(RESULT_OK);
+        finish();
     }
 
     // INTERFACE OF ON TIME PICKER FRAGMENT LISTENER ***********************************************

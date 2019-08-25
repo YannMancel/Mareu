@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,7 +41,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
     private MeetingFragment mMeetingFragment;
     private CreatorOfMeetingFragment mCreatorOfMeetingFragment;
 
-    public static final int REQUEST_CODE_SECOND_ACTIVITY = 100;
+    public static final int REQUEST_CODE_CREATION_ACTIVITY = 100;
     public static final int REQUEST_CODE_FILTER_ACTIVITY = 200;
 
     // METHODS -------------------------------------------------------------------------------------
@@ -110,29 +109,13 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
         super.onActivityResult(requestCode, resultCode, data);
 
         // SECOND ACTIVITY
-        if (requestCode == REQUEST_CODE_SECOND_ACTIVITY && resultCode == RESULT_OK) {
-            final String meetingFromString = data.getStringExtra(CreationActivity.BUNDLE_EXTRA_MEETING);
-            this.mMeetingFragment.addMeeting(meetingFromString);
+        if (requestCode == REQUEST_CODE_CREATION_ACTIVITY && resultCode == RESULT_OK) {
+            this.mMeetingFragment.updateRecyclerView(false);
         }
 
         // FILTER ACTIVITY
         if (requestCode == REQUEST_CODE_FILTER_ACTIVITY && resultCode == RESULT_OK) {
-
-            final int filterType = data.getIntExtra(FilterActivity.BUNDLE_EXTRA_FILTER_TYPE, 0);
-
-            switch (filterType) {
-                case FilterActivity.HOUR_FILTER: {
-                    final String minHour = data.getStringExtra(FilterActivity.BUNDLE_EXTRA_MINIMAL_HOUR);
-                    final String maxHour = data.getStringExtra(FilterActivity.BUNDLE_EXTRA_MAXIMAL_HOUR);
-                    this.mMeetingFragment.filterPerHours(minHour, maxHour);
-                    break;
-                }
-                case FilterActivity.ROOM_FILTER: {
-                    final String room = data.getStringExtra(FilterActivity.BUNDLE_EXTRA_ROOM);
-                    this.mMeetingFragment.filterPerRoom(room);
-                    break;
-                }
-            }
+            this.mMeetingFragment.updateRecyclerView(true);
         }
     }
 
@@ -155,27 +138,13 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
     public void onClickFromFragment(String message) {
         // Only one fragment is displayed
         if (this.mCreatorOfMeetingFragment == null) {
-            this.startAnotherActivityForResult(this, CreationActivity.class, REQUEST_CODE_SECOND_ACTIVITY);
+            this.startAnotherActivityForResult(this, CreationActivity.class, REQUEST_CODE_CREATION_ACTIVITY);
         }
         else {
-            // Creates Alert Dialog
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-            // Modifies the title
-            builder.setTitle(getString(R.string.creation_of_meeting))
-                    .setMessage(getString(R.string.question_for_creation_of_meeting))
-                    .setPositiveButton(getString(R.string.yes),
-                                       (dialog, which) -> {this.mMeetingFragment.addMeeting(message);})
-                    .setNegativeButton(getString(R.string.no),
-                                       (dialog, which) -> {});
-
-            // Creates and shows the AlertDialog widget
-            builder.create().show();
+            this.mMeetingFragment.updateRecyclerView(false);
+            this.showMessageFromFragment(getString(R.string.information_creation_of_meeting, message));
         }
     }
-
-    @Override
-    public void onClickFromFragment(String messageA, String messageB) {}
 
     // INTERFACE OF ON TIME PICKER FRAGMENT LISTENER ***********************************************
 

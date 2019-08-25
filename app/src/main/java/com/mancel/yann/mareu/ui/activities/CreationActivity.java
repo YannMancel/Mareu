@@ -1,8 +1,6 @@
 package com.mancel.yann.mareu.ui.activities;
 
-import android.content.Intent;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.widget.TimePicker;
 
@@ -35,8 +33,6 @@ public class CreationActivity extends BaseActivity implements BaseFragment.Fragm
     CoordinatorLayout mCoordinatorLayout;
 
     private CreatorOfMeetingFragment mCreatorOfMeetingFragment;
-
-    public static final String BUNDLE_EXTRA_MEETING = "BUNDLE_EXTRA_MEETING";
 
     // METHODS -------------------------------------------------------------------------------------
 
@@ -71,28 +67,10 @@ public class CreationActivity extends BaseActivity implements BaseFragment.Fragm
 
     @Override
     public void onClickFromFragment(String message) {
-        // Creates Alert Dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        // Modifies the title
-        builder.setTitle(getString(R.string.creation_of_meeting))
-               .setMessage(getString(R.string.question_for_creation_of_meeting))
-               .setPositiveButton(getString(R.string.yes),
-                                  (dialog, which) -> {Intent intent = new Intent();
-                                                      intent.putExtra(BUNDLE_EXTRA_MEETING, message);
-
-                                                      // Good execution and closes the activity
-                                                      setResult(RESULT_OK, intent);
-                                                      finish();})
-               .setNegativeButton(getString(R.string.no),
-                                  (dialog, which) -> {});
-
-        // Creates and shows the AlertDialog widget
-        builder.create().show();
+        // Good execution and closes the activity
+        setResult(RESULT_OK);
+        finish();
     }
-
-    @Override
-    public void onClickFromFragment(String messageA, String messageB) {}
 
     // INTERFACE OF ON TIME PICKER FRAGMENT LISTENER ***********************************************
 

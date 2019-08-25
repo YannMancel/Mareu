@@ -1,5 +1,6 @@
 package com.mancel.yann.mareu.ui.fragments;
 
+import android.app.AlertDialog;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -50,7 +51,7 @@ public class RoomFilterFragment extends BaseFragment {
 
     @OnClick(R.id.fragment_filter_room_button)
     public void onViewClicked(View view) {
-        this.mCallback.onClickFromFragment(this.getCurrentRoomOfSpinner());
+        this.configureAndShowAlertDialog();
     }
 
     // SPINNERS ************************************************************************************
@@ -85,5 +86,30 @@ public class RoomFilterFragment extends BaseFragment {
      */
     public static RoomFilterFragment newInstance() {
         return new RoomFilterFragment();
+    }
+
+    // ALERT DIALOG ********************************************************************************
+
+    /**
+     * Configures and show the {@link AlertDialog}
+     */
+    private void configureAndShowAlertDialog() {
+        // Creates Alert Dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        // Modifies the title
+        builder.setTitle(getString(R.string.creation_of_room_filter))
+               .setMessage(getString(R.string.question_for_creation_of_room_filter,
+                                     this.getCurrentRoomOfSpinner()))
+               .setPositiveButton(getString(R.string.yes),
+                        (dialog, which) -> {
+                            this.mFragmentPresenter.filterPerRoom(this.getCurrentRoomOfSpinner());
+
+                            this.mCallback.onClickFromFragment(null);})
+               .setNegativeButton(getString(R.string.no),
+                        (dialog, which) -> {});
+
+        // Creates and shows the AlertDialog widget
+        builder.create().show();
     }
 }

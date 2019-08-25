@@ -39,14 +39,6 @@ public class FragmentPresenterInterfaceTest {
 
     private final Meeting mMeeting = new Meeting(5, "Meeting E", "14:00", "Peach", "yann@lamzone.com");
 
-    private final String mJsonFormat = "{"                                +
-                                       "\"identifier\":5,"                +
-                                       "\"topic\":\"Meeting E\","         +
-                                       "\"hour\":\"14:00\","              +
-                                       "\"room\":\"Peach\","              +
-                                       "\"member\":\"yann@lamzone.com\""  +
-                                       "}";
-
     private final List<Member> mMembers = Arrays.asList(
             new Member(1, "Maxime", "Dupond", "maxime@lamzone.com"),
             new Member(2, "Paul", "Patru", "paul@lamzone.com"),
@@ -58,8 +50,9 @@ public class FragmentPresenterInterfaceTest {
     @Before
     public void setUp() {
         View.FragmentView fragmentViewMock = new View.FragmentView() {
+
             @Override
-            public void updateDataOfRecyclerView(List<Meeting> meetings, boolean isFilter) {}
+            public void updateRecyclerView(boolean isFilter) {}
 
             @Override
             public void setTextById(int id, String time) {}
@@ -79,10 +72,27 @@ public class FragmentPresenterInterfaceTest {
     }
 
     @Test
-    public void fragmentPresenterInterface_deleteMeeting() {
+    public void fragmentPresenterInterface_deleteMeeting_meeting() {
         Meeting meeting = this.mFragmentPresenter.getMeetings().get(0);
-        this.mFragmentPresenter.deleteMeeting(meeting);
+        this.mFragmentPresenter.deleteMeeting(meeting, false);
 
+        assertFalse(this.mFragmentPresenter.getMeetings().contains(meeting));
+    }
+
+    @Test
+    public void fragmentPresenterInterface_deleteMeeting_meetingAndFilteredMeeting() {
+        // ROOM FILTER: Should have only 1 meeting
+        this.mFragmentPresenter.filterPerRoom("Peach");
+
+        assertEquals(1, this.mFragmentPresenter.getFilteredMeetings().size());
+
+        // MEETING: Room equal to "Peach"
+        Meeting meeting = this.mFragmentPresenter.getMeetings().get(0);
+
+        // DELETE MEETING AND ALSO FILTERED MEETING
+        this.mFragmentPresenter.deleteMeeting(meeting, true);
+
+        assertFalse(this.mFragmentPresenter.getFilteredMeetings().contains(meeting));
         assertFalse(this.mFragmentPresenter.getMeetings().contains(meeting));
     }
 
@@ -90,18 +100,31 @@ public class FragmentPresenterInterfaceTest {
     public void fragmentPresenterInterface_addMeeting() {
         assertFalse(this.mFragmentPresenter.getMeetings().contains(this.mMeeting));
 
-        this.mFragmentPresenter.addMeeting(this.mJsonFormat);
+        final String topic = this.mFragmentPresenter.addMeeting(this.mMeeting.getTopic(),
+                                                                this.mMeeting.getHour(),
+                                                                this.mMeeting.getRoom(),
+                                                                this.mMeeting.getMember());
 
         assertTrue(this.mFragmentPresenter.getMeetings().contains(this.mMeeting));
+        assertEquals(this.mMeeting.getTopic(), topic);
     }
 
     @Test
-    public void fragmentPresenterInterface_createNewMeetingToString() {
-        assertFalse(this.mFragmentPresenter.getMeetings().contains(this.mMeeting));
+    public void fragmentPresenterInterface_getFilteredMeeting() throws Exception {
+        // ROOM FILTER: Should have NONE of meeting
+        this.mFragmentPresenter.filterPerRoom("Frodon");
 
-        final String actualString = this.mFragmentPresenter.createNewMeetingToString("Meeting E", "14:00", "Peach", "yann@lamzone.com");
+        assertEquals(0, this.mFragmentPresenter.getFilteredMeetings().size());
 
-        assertEquals(actualString, this.mJsonFormat);
+        // ROOM FILTER: Should have only 1 meeting
+        this.mFragmentPresenter.filterPerRoom("Peach");
+
+        assertEquals(1, this.mFragmentPresenter.getFilteredMeetings().size());
+
+        // HOURS FILTER: Should have only 2 meetings
+        this.mFragmentPresenter.filterPerHours("08:00", "17:00");
+
+        assertEquals(2, this.mFragmentPresenter.getFilteredMeetings().size());
     }
 
     // ROOMS ***************************************************************************************
@@ -126,28 +149,34 @@ public class FragmentPresenterInterfaceTest {
     }
 
     @Test
-    public void fragmentPresenterInterface_AddOrDeleteMember() {
-        // ADD
-        assertTrue(this.mFragmentPresenter.AddOrDeleteMember(this.mMembers.get(0)));
-
-        // DELETE
-        assertFalse(this.mFragmentPresenter.AddOrDeleteMember(this.mMembers.get(0)));
+    public void fragmentPresenterInterface_getSelectedMembers() {
+        List<Member> actualList = this.mFragmentPresenter.getSelectedMembers();
+        assertEquals(0, actualList.size());
     }
 
     @Test
-    public void fragmentPresenterInterface_getSelectedMembers() {
+    public void fragmentPresenterInterface_getSelectedMembersToString() {
         // maxime@lamzone.com, paul@lamzone.com
         final String expectedString = this.mMembers.get(0).getEmail() + ", " + this.mMembers.get(1).getEmail();
 
         // ADD
-        this.mFragmentPresenter.AddOrDeleteMember(this.mMembers.get(0));
-        this.mFragmentPresenter.AddOrDeleteMember(this.mMembers.get(1));
-        this.mFragmentPresenter.AddOrDeleteMember(this.mMembers.get(2));
+        this.mFragmentPresenter.AddOrDeleteSelectedMember(this.mMembers.get(0));
+        this.mFragmentPresenter.AddOrDeleteSelectedMember(this.mMembers.get(1));
+        this.mFragmentPresenter.AddOrDeleteSelectedMember(this.mMembers.get(2));
 
         // DELETE
-        this.mFragmentPresenter.AddOrDeleteMember(this.mMembers.get(2));
+        this.mFragmentPresenter.AddOrDeleteSelectedMember(this.mMembers.get(2));
 
-        assertEquals(this.mFragmentPresenter.getSelectedMembers(), expectedString);
+        assertEquals(this.mFragmentPresenter.getSelectedMembersToString(), expectedString);
+    }
+
+    @Test
+    public void fragmentPresenterInterface_AddOrDeleteSelectedMember() {
+        // ADD
+        assertTrue(this.mFragmentPresenter.AddOrDeleteSelectedMember(this.mMembers.get(0)));
+
+        // DELETE
+        assertFalse(this.mFragmentPresenter.AddOrDeleteSelectedMember(this.mMembers.get(0)));
     }
 
     // FILTERS *************************************************************************************

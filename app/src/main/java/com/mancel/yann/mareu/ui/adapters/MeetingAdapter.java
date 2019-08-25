@@ -41,7 +41,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
 
     private MeetingAdapterListener mCallback;
     private List<Meeting> mMeetings;
-    private boolean mIsNormalMode;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
 
@@ -71,7 +70,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MeetingViewHolder meetingViewHolder, int i) {
-        meetingViewHolder.updateMeeting(this.mMeetings.get(i), this.mCallback, this.mIsNormalMode);
+        meetingViewHolder.updateMeeting(this.mMeetings.get(i), this.mCallback);
     }
 
     @Override
@@ -96,11 +95,9 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
     /**
      * Updates the {@link List} of {@link Meeting} and displays it
      * @param newMeetings a {@link List} of {@link Meeting} that corresponds to the new data
-     * @param isNormalMode a boolean [True: Normal mode] and [False: Filter mode]
      */
-    public void updateData(final List<Meeting> newMeetings, boolean isNormalMode) {
+    public void updateData(final List<Meeting> newMeetings) {
         this.mMeetings = newMeetings;
-        this.mIsNormalMode = isNormalMode;
 
         // Refreshes the RecyclerView
         notifyDataSetChanged();

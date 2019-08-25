@@ -8,7 +8,6 @@ import com.mancel.yann.mareu.model.Member;
 import com.mancel.yann.mareu.model.Room;
 import com.mancel.yann.mareu.service.ApiService;
 import com.mancel.yann.mareu.ui.View;
-import com.mancel.yann.mareu.utils.JsonTools;
 import com.mancel.yann.mareu.utils.TimeTools;
 
 import java.text.DateFormat;
@@ -32,6 +31,8 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
     private ApiService mService;
     private View.FragmentView mView;
     private List<Member> mSelectedMembers;
+
+    private static List<Meeting> mFilteredMeetings = new ArrayList<>();
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
 
@@ -65,35 +66,36 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
     @Override
     public List<Meeting> getMeetings() {
         return this.mService.getMeetings();
-    };
+    }
 
     @Override
-    public void deleteMeeting(Meeting meeting) {
+    public void deleteMeeting(Meeting meeting, boolean isFilter) {
+        if (isFilter) {
+            mFilteredMeetings.remove(meeting);
+        }
+
         this.mService.deleteMeeting(meeting);
 
-        // Callback to the View
-        this.mView.updateDataOfRecyclerView(this.getMeetings(), false);
+        // Callback to the View (Normal Mode)
+        this.mView.updateRecyclerView(isFilter);
     }
 
     @Override
-    public void addMeeting(String meetingFromString) {
-        Meeting meeting = JsonTools.convertJsonToJava(meetingFromString, Meeting.class);
-
-        this.mService.addMeeting(meeting);
-
-        // Callback to the View
-        this.mView.updateDataOfRecyclerView(this.getMeetings(), false);
-    }
-
-    @Override
-    public String createNewMeetingToString(String topic, String hour, String room, String member) {
+    public String addMeeting(String topic, String hour, String room, String member) {
         Meeting meeting = new Meeting(this.mService.getMeetings().size() + 1,
                                        topic,
                                        hour,
                                        room,
                                        member);
 
-        return JsonTools.convertJavaToJson(meeting);
+        this.mService.addMeeting(meeting);
+
+        return topic;
+    }
+
+    @Override
+    public List<Meeting> getFilteredMeetings() {
+        return mFilteredMeetings;
     }
 
     // ROOMS ***************************************************************************************
@@ -117,19 +119,12 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
     }
 
     @Override
-    public boolean AddOrDeleteMember(Member member) {
-        if (this.mSelectedMembers.contains(member)) {
-            this.mSelectedMembers.remove(member);
-            return false;
-        }
-        else {
-            this.mSelectedMembers.add(member);
-            return true;
-        }
+    public List<Member> getSelectedMembers() {
+        return this.mSelectedMembers;
     }
 
     @Override
-    public String getSelectedMembers() {
+    public String getSelectedMembersToString() {
         StringBuilder sb = new StringBuilder();
 
         int i = 0;
@@ -143,6 +138,18 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
         }
 
         return sb.toString();
+    }
+
+    @Override
+    public boolean AddOrDeleteSelectedMember(Member member) {
+        if (this.mSelectedMembers.contains(member)) {
+            this.mSelectedMembers.remove(member);
+            return false;
+        }
+        else {
+            this.mSelectedMembers.add(member);
+            return true;
+        }
     }
 
     // MEMORY LEAKS ********************************************************************************
@@ -165,8 +172,7 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
             }
         }
 
-        // Callback to the View
-        this.mView.updateDataOfRecyclerView(filteredMeetings, true);
+        mFilteredMeetings = filteredMeetings;
 
         return filteredMeetings;
     }
@@ -200,8 +206,7 @@ public class FragmentPresenter implements Presenter.FragmentPresenterInterface {
             e.printStackTrace();
         }
 
-        // Callback to the View
-        this.mView.updateDataOfRecyclerView(filteredMeetings, true);
+        mFilteredMeetings = filteredMeetings;
 
         return filteredMeetings;
     }
