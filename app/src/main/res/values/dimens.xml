@@ -26,6 +26,7 @@
     <!-- XML DATA -->
     <dimen name="width_separator">2dp</dimen>
     <dimen name="radius_custom_button">20dp</dimen>
+    <dimen name="width_stroke_custom_button">1dp</dimen>
     <dimen name="space_cursor_spinner">5dp</dimen>
 
 </resources>

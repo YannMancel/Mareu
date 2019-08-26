@@ -4,23 +4,22 @@ import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.mancel.yann.mareu.model.Meeting;
-import com.mancel.yann.mareu.model.Member;
 import com.mancel.yann.mareu.model.Room;
 import com.mancel.yann.mareu.service.DummyGenerator;
 import com.mancel.yann.mareu.ui.activities.MainActivity;
 import com.mancel.yann.mareu.utils.ButtonViewAction;
 
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import java.util.List;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.replaceText;
@@ -28,8 +27,8 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.hasChildCount;
-import static android.support.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withSpinnerText;
@@ -50,6 +49,7 @@ import static org.hamcrest.core.IsNull.notNullValue;
  *
  * Instrumented test on {@link MainActivity}
  */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
 
@@ -57,9 +57,7 @@ public class MainActivityTest {
 
     private MainActivity mMainActivity;
 
-    private List<Meeting> mMeetings = DummyGenerator.generatorOfDummyMeetings();
     private List<Room> mRooms = DummyGenerator.generatorOfDummyRooms();
-    private List<Member> mMembers = DummyGenerator.generatorOfDummyMembers();
 
     private final int SIZE_MEETINGS = DummyGenerator.generatorOfDummyMeetings().size();
     private final int SIZE_MEMBERS = DummyGenerator.generatorOfDummyMembers().size();
@@ -80,29 +78,12 @@ public class MainActivityTest {
     // MEETING *************************************************************************************
     
     @Test
-    public void mainActivity_recyclerView_shouldNotBeEmpty() {
-        // RECYCLER VIEW: Checks if at least one item is present
-        onView(withId(R.id.fragment_meeting_recycler_view)).check(matches(hasMinimumChildCount(1)));
-    }
-
-    @Test
-    public void mainActivity_deleteAction_shouldRemoveItem() {
-        // RECYCLER VIEW:
-        //  - Checks the size
-        //  - Deletes the item at position 0
-        //  - Checks the size
-        onView(withId(R.id.fragment_meeting_recycler_view)).check(matches(hasChildCount(SIZE_MEETINGS)))
-                                                           .perform(actionOnItemAtPosition(0, new ButtonViewAction(R.id.item_meeting_iv_delete)))
-                                                           .check(matches(hasChildCount(SIZE_MEETINGS - 1)));
-    }
-
-    @Test
-    public void mainActivity_deleteAction_shouldRemoveAllItems() {
+    public void mainActivity_D_deleteAction_shouldRemoveAllItems() {
         // TEXT VIEW: Checks if displayed
         onView(withId(R.id.fragment_meeting_tv_no_data)).check(matches(not((isDisplayed()))));
 
         // RECYCLER VIEW: Deletes all items
-        for (Meeting meeting : this.mMeetings) {
+        for (int i = 0 ; i < SIZE_MEETINGS ; i++) {
             onView(withId(R.id.fragment_meeting_recycler_view))
                     .perform(actionOnItemAtPosition(0, new ButtonViewAction(R.id.item_meeting_iv_delete)));
         }
@@ -115,9 +96,12 @@ public class MainActivityTest {
     }
 
     @Test
-    public void mainActivity_selectAction_shouldAddItem() {
-        // FAB: Clicks
-        onView(withId(R.id.fragment_meeting_fab_add)).perform(click());
+    public void mainActivity_C_selectAction_shouldAddItem_thenShouldDeleteThisItem() {
+        // IDENTIFIER NOT W600dp
+        if (this.mMainActivity.getResources().getConfiguration().screenWidthDp < this.mMainActivity.getResources().getInteger(R.integer.identifier_w600dp)) {
+            // FAB: Clicks
+            onView(withId(R.id.fragment_meeting_fab_add)).perform(click());
+        }
 
         // TEXT INPUT EDIT TEXT: Writes something
         onView(withId(R.id.fragment_creator_of_meeting_tiet_topic)).perform(replaceText("test"),
@@ -155,14 +139,19 @@ public class MainActivityTest {
         // ALERT DIALOG: Clicks on the Yes button
         onView(withText(R.string.yes)).perform(click());
 
-        // RECYCLER VIEW: Checks the size
-        onView(withId(R.id.fragment_meeting_recycler_view)).check(withItemCount(SIZE_MEETINGS + 1));
+        // RECYCLER VIEW:
+        //  - Checks the size
+        //  - Deletes the last item
+        //  - Checks the size
+        onView(withId(R.id.fragment_meeting_recycler_view)).check(matches(hasChildCount(SIZE_MEETINGS + 1)))
+                                                           .perform(actionOnItemAtPosition(SIZE_MEETINGS - 1, new ButtonViewAction(R.id.item_meeting_iv_delete)))
+                                                           .check(matches(hasChildCount(SIZE_MEETINGS)));
     }
 
     // FILTER **************************************************************************************
 
     @Test
-    public void mainActivity_selectAction_shouldFilterPerRoom() {
+    public void mainActivity_A_selectAction_shouldFilterPerRoom() {
         ViewInteraction actionMenu;
 
         // TOOL BAR: Clicks on the filter icon
@@ -173,14 +162,28 @@ public class MainActivityTest {
                                   isDisplayed()));
         actionMenu.perform(click());
 
-        // TOOL BAR: Clicks on the room filter
-        actionMenu = onView(allOf(withId(R.id.title),
-                                  withText(R.string.filter_room),
-                                  childAtPosition(childAtPosition(withId(R.id.content),
-                                                                 1),
-                                                 0),
-                                  isDisplayed()));
-        actionMenu.perform(click());
+        // IDENTIFIER NOT W600dp
+        if (this.mMainActivity.getResources().getConfiguration().screenWidthDp < this.mMainActivity.getResources().getInteger(R.integer.identifier_w600dp)) {
+            // TOOL BAR: Clicks on the room filter
+            actionMenu = onView(allOf(withId(R.id.title),
+                                      withText(R.string.filter_room),
+                                      childAtPosition(childAtPosition(withId(R.id.content),
+                                                                     1),
+                                                     0),
+                                      isDisplayed()));
+            actionMenu.perform(click());
+        }
+        else {
+            // TOOL BAR: Clicks on the room filter
+            actionMenu = onView(allOf(withId(R.id.title),
+                                      withText(R.string.filter_room),
+                                      childAtPosition(allOf(withId(R.id.content),
+                                                            childAtPosition(withClassName(is("android.support.v7.view.menu.ListMenuItemView")),
+                                                                           1)),
+                                                            1),
+                                      isDisplayed()));
+            actionMenu.perform(click());
+        }
 
         for (Room room : this.mRooms) {
             // SPINNER: Clicks on the spinner
@@ -210,7 +213,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void mainActivity_selectAction_shouldFilterPerHours() {
+    public void mainActivity_B_selectAction_shouldFilterPerHours() {
         ViewInteraction actionMenu;
 
         // TOOL BAR: Clicks on the filter icon
@@ -221,14 +224,28 @@ public class MainActivityTest {
                                   isDisplayed()));
         actionMenu.perform(click());
 
-        // TOOL BAR: Clicks on the hours filter
-        actionMenu = onView(allOf(withId(R.id.title),
-                                  withText(R.string.filter_hour),
-                                  childAtPosition(childAtPosition(withId(R.id.content),
-                                                                 1),
-                                                 0),
-                                  isDisplayed()));
-        actionMenu.perform(click());
+        // IDENTIFIER NOT W600dp
+        if (this.mMainActivity.getResources().getConfiguration().screenWidthDp < this.mMainActivity.getResources().getInteger(R.integer.identifier_w600dp)) {
+            // TOOL BAR: Clicks on the hours filter
+            actionMenu = onView(allOf(withId(R.id.title),
+                                      withText(R.string.filter_hour),
+                                      childAtPosition(childAtPosition(withId(R.id.content),
+                                                                     1),
+                                                     0),
+                                      isDisplayed()));
+            actionMenu.perform(click());
+        }
+        else {
+            // TOOL BAR: Clicks on the hours filter
+            actionMenu = onView(allOf(withId(R.id.title),
+                                      withText(R.string.filter_hour),
+                                      childAtPosition(allOf(withId(R.id.content),
+                                                            childAtPosition(withClassName(is("android.support.v7.view.menu.ListMenuItemView")),
+                                                                           1)),
+                                                     1),
+                                      isDisplayed()));
+            actionMenu.perform(click());
+        }
 
         // BUTTON: Clicks
         onView(withId(R.id.fragment_filter_hours_b_minimal_hour)).perform(click());
