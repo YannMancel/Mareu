@@ -1,6 +1,7 @@
 package com.mancel.yann.mareu.ui.fragments;
 
 import android.app.AlertDialog;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.ui.adapters.MemberAdapter;
 import com.mancel.yann.mareu.ui.base.BaseFragment;
 import com.mancel.yann.mareu.ui.dialogFragments.TimePickerFragment;
+import com.mancel.yann.mareu.utils.ShowMessage;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -30,6 +32,8 @@ public class CreatorOfMeetingFragment extends BaseFragment implements MemberAdap
 
     // FIELDS --------------------------------------------------------------------------------------
 
+    @BindView(R.id.fragment_creator_of_meeting_coordinator_layout)
+    CoordinatorLayout mCoordinatorLayout;
     @BindView(R.id.fragment_creator_of_meeting_text_input_layout)
     TextInputLayout mTextInputTopic;
     @BindView(R.id.fragment_creator_of_meeting_b_hour)
@@ -92,11 +96,11 @@ public class CreatorOfMeetingFragment extends BaseFragment implements MemberAdap
         // TEXT INPUT EDIT TEXT: Empty
         if (this.mTextInputTopic.getEditText().getText().toString().equals("")) {
             this.mTextInputTopic.setError(getString(R.string.error_text_input_layout));
-
-            this.mCallback.showMessageFromFragment(getString(R.string.error_topic_meeting_creation));
+            this.configureAndShowErrorMessage(getString(R.string.error_topic_meeting_creation));
         }
+        // RECYCLER VIEW: No selected member
         else if (this.mFragmentPresenter.getSelectedMembers().size() == 0) {
-            this.mCallback.showMessageFromFragment(getString(R.string.error_member_meeting_creation));
+            this.configureAndShowErrorMessage(getString(R.string.error_member_meeting_creation));
         }
         else {
             this.configureAndShowAlertDialog();
@@ -193,5 +197,21 @@ public class CreatorOfMeetingFragment extends BaseFragment implements MemberAdap
 
         // Creates and shows the AlertDialog widget
         builder.create().show();
+    }
+
+    // ERROR MESSAGES ******************************************************************************
+
+    /**
+     * Configures and show the error message
+     */
+    private void configureAndShowErrorMessage(final String message) {
+        // IDENTIFIER W600dp
+        if (getResources().getConfiguration().screenWidthDp >= getResources().getInteger(R.integer.identifier_w600dp)) {
+            this.mCallback.showMessageFromFragment(message);
+        }
+        else {
+            ShowMessage.showMessageWithSnackbar(this.mCoordinatorLayout,
+                                                message);
+        }
     }
 }

@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="horizontal_margin">16dp</dimen>
-    <dimen name="horizontal_little_margin">8dp</dimen>
-    <dimen name="spinner_margin">12dp</dimen>
-    <dimen name="vertical_big_margin">16dp</dimen>
-    <dimen name="vertical_margin_to_avoid_toolbar">56dp</dimen>
 
+    <!-- MARGIN -->
+    <dimen name="margin_huge">88dp</dimen>
+    <dimen name="margin_normal">16dp</dimen>
+
+    <!-- PADDING -->
+    <dimen name="padding_normal">16dp</dimen>
+    <dimen name="padding_little">12dp</dimen>
+
+    <!-- ELEVATION -->
     <dimen name="elevation_tool_bar">4dp</dimen>
     <dimen name="elevation_fab">9dp</dimen>
 
-    <dimen name="text_size_dialog_filter">20sp</dimen>
+    <!-- TEXT SIZE -->
+    <dimen name="text_size_title">20sp</dimen>
+    <dimen name="text_size_basic_text">18sp</dimen>
     <dimen name="text_size_item">18sp</dimen>
-    <dimen name="sub_text_size_item">14sp</dimen>
+    <dimen name="text_size_sub_item">14sp</dimen>
 
+    <!-- IMAGE SIZE -->
     <dimen name="size_image_view">50dp</dimen>
 
+    <!-- XML DATA -->
     <dimen name="width_separator">2dp</dimen>
-
     <dimen name="radius_custom_button">20dp</dimen>
-    <dimen name="width_stroke_custom_button">1dp</dimen>
     <dimen name="space_cursor_spinner">5dp</dimen>
 
 </resources>

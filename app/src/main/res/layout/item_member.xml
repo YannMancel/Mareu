@@ -13,21 +13,21 @@
         android:id="@+id/item_member_iv_image"
         android:layout_width="@dimen/size_image_view"
         android:layout_height="@dimen/size_image_view"
+        android:layout_margin="@dimen/margin_normal"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/circle"
-        android:layout_margin="@dimen/horizontal_margin"/>
+        android:background="@drawable/circle" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/item_member_cl_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_normal"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/item_member_iv_image"
-        app:layout_constraintEnd_toStartOf="@id/item_member_cb_check"
-        android:layout_marginStart="@dimen/horizontal_margin">
+        app:layout_constraintEnd_toStartOf="@id/item_member_cb_check" >
 
         <!-- TEXT VIEW: First and Last names -->
 
@@ -39,9 +39,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/first_and_last_names"
-            android:textStyle="bold"
-            android:textSize="@dimen/text_size_item"
-            android:singleLine="true" />
+            style="@style/TitleItem" />
 
         <!-- TEXT VIEW: Email -->
 
@@ -54,8 +52,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/text_participant_mail"
-            android:textSize="@dimen/sub_text_size_item"
-            android:singleLine="true" />
+            style="@style/SubTitleItem" />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -65,10 +62,10 @@
         android:id="@+id/item_member_cb_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_normal"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/item_member_cl_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="@dimen/horizontal_margin" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

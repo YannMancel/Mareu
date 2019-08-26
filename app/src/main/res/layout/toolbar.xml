@@ -9,8 +9,8 @@
     android:layout_height="wrap_content"
     android:minHeight="?attr/actionBarSize"
     android:background="@color/colorPrimary"
+    android:elevation="@dimen/elevation_tool_bar"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    app:popupTheme="@style/ToolBar"
-    android:elevation="@dimen/elevation_tool_bar">
+    app:popupTheme="@style/PopupToolBar">
 
 </android.support.v7.widget.Toolbar>

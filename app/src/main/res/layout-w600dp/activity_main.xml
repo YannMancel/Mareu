@@ -47,7 +47,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="parent"
                 app:layout_constraintEnd_toStartOf="parent"
-                android:background="@drawable/separator"/>
+                style="@style/SeparatorView"/>
 
             <!-- SECOND FRAGMENT -->
 

@@ -39,7 +39,6 @@ public class TimePickerFragment extends BaseDialogFragment implements TimePicker
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        // Retrieves the argument
         this.retrieveArgument();
 
         Calendar calendar = Calendar.getInstance();

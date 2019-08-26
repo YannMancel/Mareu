@@ -1,5 +1,6 @@
 package com.mancel.yann.mareu.ui.fragments;
 
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import com.mancel.yann.mareu.R;
 import com.mancel.yann.mareu.ui.base.BaseFragment;
 import com.mancel.yann.mareu.ui.adapters.MeetingAdapter;
+import com.mancel.yann.mareu.utils.ShowMessage;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -25,6 +27,8 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
 
     // FIELDS --------------------------------------------------------------------------------------
 
+    @BindView(R.id.fragment_meeting_coordinator_layout)
+    CoordinatorLayout mCoordinatorLayout;
     @BindView(R.id.fragment_meeting_recycler_view)
     RecyclerView mRecyclerView;
     @BindView(R.id.fragment_meeting_fab_add)
@@ -76,9 +80,9 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
 
     @Override
     public void onClickDeleteButton(int position) {
-        // Displays message
-        this.mCallback.showMessageFromFragment(getString(R.string.information_delete_meeting,
-                                                         this.mAdapter.getMeeting(position).getTopic()));
+        final String message = getString(R.string.information_delete_meeting,
+                                         this.mAdapter.getMeeting(position).getTopic());
+        this.configureAndShowErrorMessage(message);
 
         this.mFragmentPresenter.deleteMeeting(this.mAdapter.getMeeting(position), this.mIsFilter);
     }
@@ -162,6 +166,21 @@ public class MeetingFragment extends BaseFragment implements MeetingAdapter.Meet
             this.mFilterFab.show();
         } else {
             this.mFilterFab.hide();
+        }
+    }
+
+    // ERROR MESSAGES ******************************************************************************
+
+    /**
+     * Configures and show the error message
+     */
+    private void configureAndShowErrorMessage(final String message) {
+        // IDENTIFIER W600dp
+        if (getResources().getConfiguration().screenWidthDp >= getResources().getInteger(R.integer.identifier_w600dp)) {
+            this.mCallback.showMessageFromFragment(message);
+        } else {
+            ShowMessage.showMessageWithSnackbar(this.mCoordinatorLayout,
+                    message);
         }
     }
 }

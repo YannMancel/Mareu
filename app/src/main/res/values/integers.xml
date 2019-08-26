@@ -13,4 +13,7 @@
     <!-- separator.xml -->
     <integer name="angle_orientation_separator">90</integer>
 
+    <!-- identifier for show error message in CreatorOfMeeting.java -->
+    <integer name="identifier_w600dp">600</integer>
+
 </resources>

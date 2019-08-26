@@ -1,6 +1,5 @@
 package com.mancel.yann.mareu.ui.activities;
 
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
 import android.widget.TimePicker;
 
@@ -9,10 +8,7 @@ import com.mancel.yann.mareu.ui.base.BaseActivity;
 import com.mancel.yann.mareu.ui.base.BaseFragment;
 import com.mancel.yann.mareu.ui.dialogFragments.TimePickerFragmentListener;
 import com.mancel.yann.mareu.ui.fragments.CreatorOfMeetingFragment;
-import com.mancel.yann.mareu.utils.ShowMessage;
 import com.mancel.yann.mareu.utils.TimeTools;
-
-import butterknife.BindView;
 
 /**
  * Created by Yann MANCEL on 16/07/2019.
@@ -27,11 +23,6 @@ public class CreationActivity extends BaseActivity implements BaseFragment.Fragm
 
     // FIELDS --------------------------------------------------------------------------------------
 
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
-    @BindView(R.id.activity_second_coordinator_layout)
-    CoordinatorLayout mCoordinatorLayout;
-
     private CreatorOfMeetingFragment mCreatorOfMeetingFragment;
 
     // METHODS -------------------------------------------------------------------------------------
@@ -43,27 +34,18 @@ public class CreationActivity extends BaseActivity implements BaseFragment.Fragm
 
     @Override
     protected Toolbar getToolBar() {
-        return this.mToolbar;
+        return null;
     }
 
     @Override
     protected void configureDesign() {
-        // Configures the ToolBar
-        this.configureToolBar();
-
-        // Add Up button of ToolBar
-        this.addUpButtonOfToolBar();
-
-        // Configures and shows the main fragment
         this.configureAndShowMainFragment(R.id.activity_creation_frame_layout);
     }
 
     // INTERFACE OF FRAGMENT LISTENER **************************************************************
 
     @Override
-    public void showMessageFromFragment(String message) {
-        ShowMessage.showMessageWithSnackbar(this.mCoordinatorLayout, message);
-    }
+    public void showMessageFromFragment(String message) {}
 
     @Override
     public void onClickFromFragment(String message) {

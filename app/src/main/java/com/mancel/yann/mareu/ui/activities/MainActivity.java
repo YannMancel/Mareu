@@ -142,7 +142,6 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentL
         }
         else {
             this.mMeetingFragment.updateRecyclerView(false);
-            this.showMessageFromFragment(getString(R.string.information_creation_of_meeting, message));
         }
     }
 

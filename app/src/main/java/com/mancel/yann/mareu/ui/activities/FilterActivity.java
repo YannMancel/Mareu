@@ -11,8 +11,6 @@ import com.mancel.yann.mareu.ui.fragments.HoursFilterFragment;
 import com.mancel.yann.mareu.ui.fragments.RoomFilterFragment;
 import com.mancel.yann.mareu.utils.TimeTools;
 
-import butterknife.BindView;
-
 /**
  * Created by Yann MANCEL on 16/08/2019.
  * Name of the project: Mareu
@@ -25,9 +23,6 @@ public class FilterActivity extends BaseActivity implements BaseFragment.Fragmen
                                                             TimePickerFragmentListener {
 
     // FIELDS --------------------------------------------------------------------------------------
-
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
 
     private int mFilterType;
     private HoursFilterFragment mHoursFilterFragment;
@@ -47,17 +42,11 @@ public class FilterActivity extends BaseActivity implements BaseFragment.Fragmen
 
     @Override
     protected Toolbar getToolBar() {
-        return this.mToolbar;
+        return null;
     }
 
     @Override
     protected void configureDesign() {
-        // Configures the ToolBar
-        this.configureToolBar();
-
-        // Add Up button of ToolBar
-        this.addUpButtonOfToolBar();
-
         // Retrieves the filter type sent by another
         this.retrieveValueFromIntent();
 

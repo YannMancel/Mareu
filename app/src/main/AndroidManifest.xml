@@ -15,20 +15,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.activities.MainActivity">
+        <activity
+            android:name=".ui.activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
             android:name=".ui.activities.CreationActivity"
+            android:label="@string/CreationActivityName"
             android:parentActivityName=".ui.activities.MainActivity"></activity>
 
         <activity
             android:name=".ui.activities.FilterActivity"
+            android:label="@string/FilterActivityName"
             android:parentActivityName=".ui.activities.MainActivity"></activity>
 
     </application>
