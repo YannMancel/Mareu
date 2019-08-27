@@ -18,14 +18,15 @@
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/fragment_creator_of_meeting_cl_topic"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_little"
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginEnd="@dimen/margin_normal"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toStartOf="@id/fragment_creator_of_meeting_cl_member"
+            app:layout_constraintHorizontal_weight="@integer/value_1_percentage_horizontal_landscape">
 
             <!-- TEXT VIEW -->
 
@@ -72,14 +73,14 @@
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/fragment_creator_of_meeting_cl_hour"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_little"
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginEnd="@dimen/margin_normal"
             app:layout_constraintTop_toBottomOf="@id/fragment_creator_of_meeting_cl_topic"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toStartOf="@id/fragment_creator_of_meeting_cl_member">
 
             <!-- TEXT VIEW -->
 
@@ -114,14 +115,14 @@
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/fragment_creator_of_meeting_cl_room"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_big"
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginEnd="@dimen/margin_normal"
             app:layout_constraintTop_toBottomOf="@id/fragment_creator_of_meeting_cl_hour"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toStartOf="@id/fragment_creator_of_meeting_cl_member">
 
             <!-- TEXT VIEW -->
 
@@ -157,14 +158,14 @@
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/fragment_creator_of_meeting_cl_member"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/fragment_creator_of_meeting_cl_room"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_normal"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fragment_creator_of_meeting_cl_topic"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/margin_large"
-            android:layout_marginStart="@dimen/margin_normal">
+            app:layout_constraintHorizontal_weight="@integer/value_2_percentage_horizontal_landscape">
 
             <!-- TEXT VIEW -->
 
