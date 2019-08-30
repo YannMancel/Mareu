@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/padding_normal">
 
     <!-- IMAGE VIEW -->
 
@@ -13,11 +14,12 @@
         android:id="@+id/item_member_iv_image"
         android:layout_width="@dimen/size_image_view"
         android:layout_height="@dimen/size_image_view"
-        android:layout_margin="@dimen/margin_normal"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/circle" />
+
+    <!-- BLOC: TEXT VIEW -->
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/item_member_cl_text"
@@ -62,7 +64,7 @@
         android:id="@+id/item_member_cb_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_normal"
+        android:layout_marginStart="@dimen/margin_normal"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/item_member_cl_text"

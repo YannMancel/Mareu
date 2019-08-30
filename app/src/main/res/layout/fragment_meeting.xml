@@ -12,7 +12,8 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin_normal">
 
         <!-- RECYCLER VIEW -->
 
@@ -20,12 +21,13 @@
             android:id="@+id/fragment_meeting_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="@dimen/margin_huge"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:listitem="@layout/item_meeting"/>
+            tools:listitem="@layout/item_meeting"
+            android:paddingBottom="@dimen/padding_huge"
+            android:clipToPadding="false" />
 
         <!-- TEXT VIEW -->
 

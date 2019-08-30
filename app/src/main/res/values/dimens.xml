@@ -3,7 +3,6 @@
 <resources>
 
     <!-- MARGIN -->
-    <dimen name="margin_huge">88dp</dimen>
     <dimen name="margin_large">40dp</dimen>
     <dimen name="margin_big">32dp</dimen>
     <dimen name="margin_normal">16dp</dimen>
@@ -11,6 +10,7 @@
     <dimen name="margin_tiny">4dp</dimen>
 
     <!-- PADDING -->
+    <dimen name="padding_huge">56dp</dimen>
     <dimen name="padding_normal">16dp</dimen>
     <dimen name="padding_little">8dp</dimen>
 
