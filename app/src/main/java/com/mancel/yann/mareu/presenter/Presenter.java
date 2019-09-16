@@ -15,7 +15,7 @@ public interface Presenter {
 
     // INTERFACES ----------------------------------------------------------------------------------
 
-    public interface FragmentPresenterInterface {
+    interface FragmentPresenterInterface {
 
         // MEETINGS ********************************************************************************
 

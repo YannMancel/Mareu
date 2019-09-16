@@ -7,11 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mancel.yann.mareu.model.Meeting;
 import com.mancel.yann.mareu.presenter.FragmentPresenter;
+import com.mancel.yann.mareu.presenter.Presenter;
 import com.mancel.yann.mareu.ui.View.FragmentView;
-
-import java.util.List;
 
 import butterknife.ButterKnife;
 
@@ -43,7 +41,7 @@ public abstract class BaseFragment extends Fragment implements FragmentView {
     // FIELDS --------------------------------------------------------------------------------------
 
     protected FragmentListener mCallback;
-    protected FragmentPresenter mFragmentPresenter;
+    protected Presenter.FragmentPresenterInterface mFragmentPresenter;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
 

@@ -9,7 +9,7 @@ public interface View {
 
     // INTERFACES ----------------------------------------------------------------------------------
 
-    public interface FragmentView {
+    interface FragmentView {
 
         /**
          * Updates the {@link android.support.v7.widget.RecyclerView}
